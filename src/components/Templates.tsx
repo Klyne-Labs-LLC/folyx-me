@@ -49,26 +49,26 @@ const templates = [
 
 const Templates = () => {
   return (
-    <section id="templates" className="py-24 px-6 lg:px-8 bg-gradient-to-b from-transparent to-accent/30">
+    <section id="templates" className="py-24 px-6 lg:px-8 bg-gradient-to-b from-transparent to-gray-50/50">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 tracking-tight">
+          <h2 className="text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-gray-900">
             Templates for every profession
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Start with a professionally designed template and customize it to match your unique style.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {templates.map((template, index) => (
             <div 
               key={template.name}
-              className={`group glass-subtle rounded-3xl overflow-hidden hover:scale-105 transition-all duration-300 fade-in-up stagger-${(index % 3) + 1}`}
+              className="group backdrop-blur-xl bg-white/80 border border-gray-200/50 rounded-3xl overflow-hidden hover:scale-105 transition-all duration-500 shadow-lg hover:shadow-2xl relative"
             >
               {template.featured && (
                 <div className="absolute top-4 right-4 z-10">
-                  <div className="bg-foreground text-background px-3 py-1 rounded-full text-xs font-medium">
+                  <div className="bg-gray-900 text-white px-3 py-1 rounded-full text-xs font-medium">
                     Featured
                   </div>
                 </div>
@@ -78,33 +78,33 @@ const Templates = () => {
                 <img 
                   src={`https://images.unsplash.com/${template.image}?auto=format&fit=crop&w=800&q=80`}
                   alt={template.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
               </div>
               
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-foreground">
+                  <h3 className="text-lg font-semibold text-gray-900">
                     {template.name}
                   </h3>
-                  <span className="text-xs text-muted-foreground bg-accent px-2 py-1 rounded-md">
+                  <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-md">
                     {template.category}
                   </span>
                 </div>
                 
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-gray-600 text-sm leading-relaxed">
                   {template.preview}
                 </p>
                 
                 <div className="flex gap-2 pt-2">
-                  <Button size="sm" className="flex-1 premium-shadow">
+                  <Button size="sm" className="flex-1 bg-gray-900 text-white hover:bg-gray-800 shadow-sm">
                     Use Template
                   </Button>
-                  <Button size="sm" variant="outline" className="glass-subtle border-border/50">
+                  <Button size="sm" variant="outline" className="backdrop-blur-xl bg-white/80 border-gray-200/50 text-gray-600 hover:bg-white/90">
                     <ExternalLink className="w-4 h-4" />
                   </Button>
-                  <Button size="sm" variant="outline" className="glass-subtle border-border/50">
+                  <Button size="sm" variant="outline" className="backdrop-blur-xl bg-white/80 border-gray-200/50 text-gray-600 hover:bg-white/90">
                     <Heart className="w-4 h-4" />
                   </Button>
                 </div>
@@ -114,7 +114,7 @@ const Templates = () => {
         </div>
 
         <div className="text-center mt-16">
-          <Button size="lg" variant="outline" className="glass-subtle border-border/50 hover:bg-accent/50 px-8">
+          <Button size="lg" variant="outline" className="backdrop-blur-xl bg-white/80 border-gray-200/50 text-gray-700 hover:bg-white/90 px-8">
             View All Templates
           </Button>
         </div>
