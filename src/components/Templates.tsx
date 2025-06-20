@@ -49,13 +49,13 @@ const templates = [
 
 const Templates = () => {
   return (
-    <section id="templates" className="py-24 px-6 lg:px-8 bg-gradient-to-b from-transparent to-gray-50/50">
+    <section id="templates" className="py-24 px-6 lg:px-8 bg-gradient-to-b from-transparent to-zinc-900/20">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-gray-900">
+          <h2 className="text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-white">
             Templates for every profession
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
             Start with a professionally designed template and customize it to match your unique style.
           </p>
         </div>
@@ -64,11 +64,11 @@ const Templates = () => {
           {templates.map((template, index) => (
             <div 
               key={template.name}
-              className="group backdrop-blur-xl bg-white/80 border border-gray-200/50 rounded-3xl overflow-hidden hover:scale-105 transition-all duration-500 shadow-lg hover:shadow-2xl relative"
+              className="group backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:scale-105 transition-all duration-500 shadow-lg hover:shadow-2xl relative"
             >
               {template.featured && (
                 <div className="absolute top-4 right-4 z-10">
-                  <div className="bg-gray-900 text-white px-3 py-1 rounded-full text-xs font-medium">
+                  <div className="bg-white text-black px-3 py-1 rounded-full text-xs font-medium">
                     Featured
                   </div>
                 </div>
@@ -80,31 +80,31 @@ const Templates = () => {
                   alt={template.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
               </div>
               
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-semibold text-white">
                     {template.name}
                   </h3>
-                  <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded-md">
+                  <span className="text-xs text-zinc-400 bg-white/10 px-2 py-1 rounded-md">
                     {template.category}
                   </span>
                 </div>
                 
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-zinc-400 text-sm leading-relaxed">
                   {template.preview}
                 </p>
                 
                 <div className="flex gap-2 pt-2">
-                  <Button size="sm" className="flex-1 bg-gray-900 text-white hover:bg-gray-800 shadow-sm">
+                  <Button size="sm" className="flex-1 bg-white text-black hover:bg-zinc-200 shadow-sm">
                     Use Template
                   </Button>
-                  <Button size="sm" variant="outline" className="backdrop-blur-xl bg-white/80 border-gray-200/50 text-gray-600 hover:bg-white/90">
+                  <Button size="sm" variant="outline" className="backdrop-blur-xl bg-white/5 border-white/20 text-zinc-400 hover:bg-white/10">
                     <ExternalLink className="w-4 h-4" />
                   </Button>
-                  <Button size="sm" variant="outline" className="backdrop-blur-xl bg-white/80 border-gray-200/50 text-gray-600 hover:bg-white/90">
+                  <Button size="sm" variant="outline" className="backdrop-blur-xl bg-white/5 border-white/20 text-zinc-400 hover:bg-white/10">
                     <Heart className="w-4 h-4" />
                   </Button>
                 </div>
@@ -114,7 +114,7 @@ const Templates = () => {
         </div>
 
         <div className="text-center mt-16">
-          <Button size="lg" variant="outline" className="backdrop-blur-xl bg-white/80 border-gray-200/50 text-gray-700 hover:bg-white/90 px-8">
+          <Button size="lg" variant="outline" className="backdrop-blur-xl bg-white/5 border-white/20 text-zinc-300 hover:bg-white/10 px-8">
             View All Templates
           </Button>
         </div>
