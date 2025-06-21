@@ -39,10 +39,10 @@ const Features = () => {
     <section id="features" className="py-24 px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 tracking-tight text-slate-100">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 tracking-tight text-white">
             Everything you need to stand out
           </h2>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
             Professional tools and premium templates to create portfolios that make lasting impressions.
           </p>
         </div>
@@ -51,15 +51,15 @@ const Features = () => {
           {features.map((feature, index) => (
             <div 
               key={feature.title}
-              className={`group p-8 card-floating rounded-3xl hover:scale-105 transition-all duration-300 fade-in-up stagger-${(index % 3) + 1}`}
+              className={`group p-8 glass-subtle rounded-3xl hover:scale-105 transition-all duration-300 fade-in-up stagger-${(index % 3) + 1}`}
             >
-              <div className="w-14 h-14 bg-slate-700/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <feature.icon className="w-7 h-7 text-slate-200" />
+              <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <feature.icon className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-slate-100">
+              <h3 className="text-xl font-semibold mb-4 text-white">
                 {feature.title}
               </h3>
-              <p className="text-slate-300 leading-relaxed">
+              <p className="text-zinc-400 leading-relaxed">
                 {feature.description}
               </p>
             </div>
