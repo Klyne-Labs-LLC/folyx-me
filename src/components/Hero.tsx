@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Laptop } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -13,15 +13,17 @@ const Hero = () => {
 
       <div className="max-w-5xl mx-auto text-center">
         <div className="inline-flex items-center px-4 py-2 mb-8 backdrop-blur-xl bg-white/5 border border-white/10 rounded-full text-sm text-zinc-400 shadow-sm">
-          <Sparkles className="w-4 h-4 mr-2 text-zinc-500" />
-          Professional portfolios made simple
+          <Laptop className="w-4 h-4 mr-2 text-zinc-500" />
+          Nice templates
         </div>
 
         <h1 className="text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 tracking-tight text-white leading-none">
-          Build stunning
+          Smart people are done
+          <br />
+          with <span className="text-zinc-500">outdated portfolios</span>,
           <br />
           <span className="bg-gradient-to-r from-white via-zinc-200 to-white bg-clip-text text-transparent">
-            portfolios
+            they're on folyx
           </span>
         </h1>
 
@@ -55,7 +57,7 @@ const Hero = () => {
                 {/* Content preview */}
                 <div className="text-center space-y-6 p-12">
                   <div className="w-20 h-20 mx-auto bg-zinc-800 rounded-2xl flex items-center justify-center">
-                    <div className="w-8 h-8 bg-zinc-600 rounded-lg"></div>
+                    <Laptop className="w-8 h-8 text-zinc-600" />
                   </div>
                   <div className="space-y-3">
                     <div className="h-6 w-48 mx-auto bg-zinc-700 rounded-lg"></div>
