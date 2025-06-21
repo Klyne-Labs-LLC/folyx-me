@@ -14,7 +14,7 @@ const Hero = () => {
       <div className="max-w-5xl mx-auto text-center">
         <div className="inline-flex items-center px-4 py-2 mb-8 backdrop-blur-xl bg-white/5 border border-white/10 rounded-full text-sm text-zinc-400 shadow-sm">
           <Laptop className="w-4 h-4 mr-2 text-zinc-500" />
-          Nice templates
+          Portfolio on Autopilot
         </div>
 
         <h1 className="text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 tracking-tight text-white leading-none">
@@ -28,17 +28,18 @@ const Hero = () => {
         </h1>
 
         <p className="text-xl lg:text-2xl text-zinc-400 mb-12 max-w-3xl mx-auto leading-relaxed">
-          Create professional portfolio websites in minutes with our AI-powered platform. 
-          No design skills required.
+          Automatically pulls data from your LinkedIn, Twitter, and more to create a stunning, 
+          always-current portfolio. Login, connect your socials, and get a live, personalized 
+          website without any design or coding work.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
           <Button size="lg" className="px-8 py-4 text-lg bg-white text-black hover:bg-zinc-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            Start Building Free
+            Get Your Free Portfolio Now
             <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
           <Button variant="outline" size="lg" className="px-8 py-4 text-lg backdrop-blur-xl bg-white/5 border-white/20 text-zinc-300 hover:bg-white/10">
-            View Examples
+            See Examples
           </Button>
         </div>
 
