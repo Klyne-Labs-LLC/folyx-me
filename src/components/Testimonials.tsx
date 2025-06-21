@@ -1,22 +1,22 @@
 
 const testimonials = [
   {
-    quote: "folyx.me is a game-changer! My portfolio is always current, and I haven't touched it since I set it up.",
-    name: "Sarah Chen",
-    profession: "UX Designer",
+    quote: "folyx.me is a game-changer! My portfolio syncs automatically with my GitHub and LinkedIn. I ship features, it ships updates. Perfect.",
+    name: "Alex Chen",
+    profession: "Full-Stack Developer",
+    image: "photo-1507003211169-0a1dd7228f2d"
+  },
+  {
+    quote: "Finally, a portfolio that gets the dev workflow. Push to main, portfolio updates. No more manual labor on personal branding.",
+    name: "Jordan Rivera",
+    profession: "DevOps Engineer", 
     image: "photo-1494790108755-2616b612b1c3"
   },
   {
-    quote: "Finally, a portfolio solution that understands how busy professionals are. The automation is incredible.",
-    name: "Marcus Rodriguez",
-    profession: "Software Engineer",
+    quote: "As a remote dev, my online presence is everything. folyx.me keeps my portfolio fresh while I focus on what I do best - building products.",
+    name: "Taylor Kim",
+    profession: "React Developer",
     image: "photo-1472099645785-5658abf4ff4e"
-  },
-  {
-    quote: "My clients are impressed with how up-to-date my portfolio always is. It's like having a personal assistant.",
-    name: "Emily Johnson",
-    profession: "Freelance Photographer",
-    image: "photo-1438761681033-6461ffad8d80"
   }
 ];
 
@@ -26,10 +26,10 @@ const Testimonials = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 tracking-tight text-white">
-            What Our Users Are Saying
+            What Devs Are Saying
           </h2>
           <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-            Join thousands of professionals who have put their portfolios on autopilot.
+            Join thousands of developers who've automated their personal brand.
           </p>
         </div>
 
