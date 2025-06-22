@@ -3,66 +3,77 @@ import { AlertTriangle, CheckCircle } from "lucide-react";
 
 const ProblemSolution = () => {
   return (
-    <section className="py-24 px-6 lg:px-8 bg-gradient-to-b from-transparent to-zinc-900/20">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-32 px-6 lg:px-8 relative">
+      {/* Background effects */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-gradient-to-r from-red-500/8 to-orange-500/8 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-gradient-to-r from-green-500/8 to-blue-500/8 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Problem */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 mb-4">
-              <AlertTriangle className="w-8 h-8 text-red-400" />
-              <h3 className="text-2xl font-bold text-white">The Problem</h3>
+          {/* Problem Section */}
+          <div className="glass-card rounded-3xl p-12 border border-red-500/20 relative group">
+            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-red-500/5 to-orange-500/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div className="flex items-center mb-8">
+              <div className="w-16 h-16 glass-subtle rounded-2xl flex items-center justify-center mr-6">
+                <AlertTriangle className="w-8 h-8 text-red-400" />
+              </div>
+              <h3 className="text-3xl font-bold text-white">The Problem</h3>
             </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-zinc-300 leading-tight">
-              Tired of manually updating your portfolio?
-            </h2>
-            <p className="text-xl text-zinc-400 leading-relaxed">
-              It's time consuming, often neglected, and leaves your professional story outdated. 
-              While you're busy advancing your career, your online presence falls behind.
+            
+            <p className="text-xl text-zinc-400 leading-relaxed mb-8 font-light">
+              Tired of manually updating your portfolio? It's time consuming, often neglected, 
+              and leaves your professional story outdated.
             </p>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-zinc-400">
-                <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                <span>Hours spent on manual updates</span>
-              </div>
-              <div className="flex items-center gap-3 text-zinc-400">
-                <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                <span>Outdated achievements and projects</span>
-              </div>
-              <div className="flex items-center gap-3 text-zinc-400">
-                <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                <span>Missed opportunities from stale portfolios</span>
-              </div>
-            </div>
+            
+            <ul className="space-y-4 text-zinc-400">
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-red-400 rounded-full mr-4"></div>
+                Hours spent on manual updates
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-red-400 rounded-full mr-4"></div>
+                Outdated information hurts opportunities
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-red-400 rounded-full mr-4"></div>
+                Design and coding complexity
+              </li>
+            </ul>
           </div>
 
-          {/* Solution */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 mb-4">
-              <CheckCircle className="w-8 h-8 text-green-400" />
-              <h3 className="text-2xl font-bold text-white">The Solution</h3>
+          {/* Solution Section */}
+          <div className="glass-card rounded-3xl p-12 border border-green-500/20 relative group">
+            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-green-500/5 to-blue-500/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div className="flex items-center mb-8">
+              <div className="w-16 h-16 glass-subtle rounded-2xl flex items-center justify-center mr-6">
+                <CheckCircle className="w-8 h-8 text-green-400" />
+              </div>
+              <h3 className="text-3xl font-bold text-white">The Solution</h3>
             </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-white leading-tight">
-              folyx.me solves this.
-            </h2>
-            <p className="text-xl text-zinc-400 leading-relaxed">
-              Our intelligent platform connects directly to your professional profiles, pulling in new data 
-              and updating your portfolio automatically. Your online presence stays fresh, relevant, and 
-              impressive, without you lifting a finger.
+            
+            <p className="text-xl text-zinc-400 leading-relaxed mb-8 font-light">
+              folyx.me solves this. Our intelligent platform connects directly to your professional 
+              profiles, pulling in new data and updating your portfolio automatically.
             </p>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-zinc-400">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span>Automatic updates from LinkedIn & social media</span>
-              </div>
-              <div className="flex items-center gap-3 text-zinc-400">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span>AI-powered portfolio generation</span>
-              </div>
-              <div className="flex items-center gap-3 text-zinc-400">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span>Always current, always professional</span>
-              </div>
-            </div>
+            
+            <ul className="space-y-4 text-zinc-400">
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-4"></div>
+                Automatic updates from LinkedIn & social media
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-4"></div>
+                Always current and impressive
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-4"></div>
+                Zero manual maintenance required
+              </li>
+            </ul>
           </div>
         </div>
       </div>
