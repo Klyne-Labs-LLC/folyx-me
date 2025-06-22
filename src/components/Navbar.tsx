@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -52,13 +51,11 @@ const Navbar = () => {
             e.preventDefault();
             scrollToTop();
           }}
-          aria-label="Pulse Robot"
+          aria-label="Folyx"
         >
-          <img 
-            src="/logo.svg" 
-            alt="Pulse Robot Logo" 
-            className="h-7 sm:h-8" 
-          />
+          <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent tracking-tight font-display italic">
+            folyx
+          </span>
         </a>
 
         {/* Desktop Navigation */}
@@ -73,8 +70,9 @@ const Navbar = () => {
           >
             Home
           </a>
-          <a href="#features" className="nav-link">About</a>
-          <a href="#details" className="nav-link">Contact</a>
+          <a href="#features" className="nav-link">Features</a>
+          <a href="#how-it-works" className="nav-link">How it Works</a>
+          <a href="#testimonials" className="nav-link">Pricing</a>
         </nav>
 
         {/* Mobile menu button - increased touch target */}
@@ -113,17 +111,27 @@ const Navbar = () => {
               document.body.style.overflow = '';
             }}
           >
-            About
+            Features
           </a>
           <a 
-            href="#details" 
+            href="#how-it-works" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
             }}
           >
-            Contact
+            How it Works
+          </a>
+          <a 
+            href="#testimonials" 
+            className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
+            onClick={() => {
+              setIsMenuOpen(false);
+              document.body.style.overflow = '';
+            }}
+          >
+            Pricing
           </a>
         </nav>
       </div>

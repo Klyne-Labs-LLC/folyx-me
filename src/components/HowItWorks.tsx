@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +15,7 @@ const StepCard = ({ number, title, description, isActive, onClick }: StepCardPro
       className={cn(
         "rounded-xl p-6 cursor-pointer transition-all duration-500 border",
         isActive 
-          ? "bg-white shadow-elegant border-pulse-200" 
+          ? "bg-white shadow-elegant border-blue-200" 
           : "bg-white/50 hover:bg-white/80 border-transparent"
       )}
       onClick={onClick}
@@ -24,14 +23,14 @@ const StepCard = ({ number, title, description, isActive, onClick }: StepCardPro
       <div className="flex items-start">
         <div className={cn(
           "flex items-center justify-center rounded-full w-10 h-10 mr-4 flex-shrink-0 transition-colors duration-300",
-          isActive ? "bg-pulse-500 text-white" : "bg-gray-100 text-gray-500"
+          isActive ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-500"
         )}>
           {number}
         </div>
         <div>
           <h3 className={cn(
             "text-lg font-semibold mb-2 transition-colors duration-300",
-            isActive ? "text-pulse-600" : "text-gray-800"
+            isActive ? "text-blue-600" : "text-gray-800"
           )}>
             {title}
           </h3>
@@ -48,27 +47,54 @@ const HowItWorks = () => {
   const stepsData = [
     {
       number: "01",
-      title: "Request Access",
-      description: "Fill out the application form to join our early access program and secure your spot in line.",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80"
+      title: "Connect Your Profiles",
+      description: "Link your LinkedIn, Twitter, GitHub, and other professional accounts. Our secure OAuth integration takes just seconds.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16">
+          <path d="M16 4h4v4m-4-4L4 16m0-4v4h4"/>
+          <circle cx="18" cy="6" r="2"/>
+          <circle cx="6" cy="18" r="2"/>
+          <path d="M9 15l6-6"/>
+        </svg>
+      )
     },
     {
-      number: "02",
-      title: "Personalization",
-      description: "We'll work with you to customize Atlas to your specific needs and preferences.",
-      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
+      number: "02", 
+      title: "AI Analysis & Design",
+      description: "Our AI analyzes your content, achievements, and industry to create a personalized portfolio design that reflects your brand.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      )
     },
     {
       number: "03",
-      title: "Integration",
-      description: "Atlas arrives at your location and is integrated into your living or working environment.",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80"
+      title: "Instant Website Generation",
+      description: "Your professional portfolio website is generated and deployed live within minutes, complete with your custom domain.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16">
+          <rect width="18" height="18" x="3" y="3" rx="2"/>
+          <path d="M9 9h6v6H9z"/>
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7,10 12,15 17,10"/>
+        </svg>
+      )
     },
     {
       number: "04",
-      title: "Adaptation",
-      description: "Through daily interaction, Atlas learns and adapts to your routines, preferences, and needs.",
-      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
+      title: "Automatic Updates",
+      description: "As you post new content and achievements, your portfolio automatically stays current without any manual work required.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16">
+          <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.35 0 4.48.9 6.07 2.38"/>
+          <path d="M21 4v4h-4"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+      )
     }
   ];
 
@@ -110,17 +136,17 @@ const HowItWorks = () => {
   return (
     <section className="py-20 bg-white relative" id="how-it-works" ref={sectionRef}>
       {/* Background decorative elements */}
-      <div className="absolute -top-20 right-0 w-72 h-72 bg-pulse-50 rounded-full opacity-60 blur-3xl -z-10"></div>
+      <div className="absolute -top-20 right-0 w-72 h-72 bg-blue-50 rounded-full opacity-60 blur-3xl -z-10"></div>
       <div className="absolute bottom-0 left-10 w-64 h-64 bg-gray-50 rounded-full opacity-70 blur-3xl -z-10"></div>
       
       <div className="section-container">
         <div className="text-center mb-16 opacity-0 fade-in-stagger">
-          <div className="pulse-chip mx-auto mb-4">
+          <div className="tech-chip mx-auto mb-4">
             <span>Process</span>
           </div>
-          <h2 className="section-title mb-4">How Atlas Integrates Into Your Life</h2>
+          <h2 className="section-title mb-4">From Social Profiles to Professional Portfolio</h2>
           <p className="section-subtitle mx-auto">
-            A seamless four-step process from request to full integration.
+            Four simple steps to get your personalized portfolio website live and automatically maintained.
           </p>
         </div>
         
@@ -143,20 +169,27 @@ const HowItWorks = () => {
               <div
                 key={index}
                 className={cn(
-                  "absolute inset-0 transition-opacity duration-1000",
+                  "absolute inset-0 transition-opacity duration-1000 flex items-center justify-center",
                   activeStep === index ? "opacity-100" : "opacity-0 pointer-events-none"
                 )}
               >
-                <img
-                  src={step.image}
-                  alt={step.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900/70 to-transparent">
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <span className="text-pulse-400 font-medium mb-2 block">{step.number}</span>
-                    <h3 className="text-2xl font-semibold mb-2">{step.title}</h3>
-                    <p className="text-white/80">{step.description}</p>
+                {/* Icon container with gradient background */}
+                <div className="w-full h-full bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700 flex flex-col items-center justify-center text-white relative">
+                  {/* Decorative background pattern */}
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-white/20"></div>
+                    <div className="absolute bottom-20 right-16 w-16 h-16 rounded-full bg-white/15"></div>
+                    <div className="absolute top-1/2 right-8 w-12 h-12 rounded-full bg-white/10"></div>
+                  </div>
+                  
+                  {/* Icon and content */}
+                  <div className="relative z-10 text-center">
+                    <div className="mb-6 text-white/90">
+                      {step.icon}
+                    </div>
+                    <span className="text-blue-200 font-medium mb-2 block text-lg">{step.number}</span>
+                    <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
+                    <p className="text-white/80 max-w-xs px-4 leading-relaxed">{step.description}</p>
                   </div>
                 </div>
               </div>

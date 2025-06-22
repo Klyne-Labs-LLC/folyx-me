@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from "react";
 
 const HumanoidSection = () => {
@@ -88,20 +87,20 @@ const HumanoidSection = () => {
       className="relative" 
       style={{ height: '300vh' }}
     >
-      <section className="w-full h-screen py-10 md:py-16 sticky top-0 overflow-hidden bg-white" id="why-humanoid">
+      <section className="w-full h-screen py-10 md:py-16 sticky top-0 overflow-hidden bg-white" id="why-ai">
         <div className="container px-6 lg:px-8 mx-auto h-full flex flex-col">
           <div className="mb-2 md:mb-3">
             <div className="flex items-center gap-4 mb-2 md:mb-2 pt-8 sm:pt-6 md:pt-4">
-              <div className="pulse-chip opacity-0 animate-fade-in" style={{
+              <div className="tech-chip opacity-0 animate-fade-in" style={{
                 animationDelay: "0.1s"
               }}>
-                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">02</span>
-                <span>Humanoid</span>
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-500 text-white mr-2">💡</span>
+                <span>AI Portfolio Builder</span>
               </div>
             </div>
             
             <h2 className="section-title text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-1 md:mb-2">
-              Why Humanoid
+              Why AI-Powered Portfolios
             </h2>
           </div>
           
@@ -117,7 +116,7 @@ const HumanoidSection = () => {
               }}
             >
               <div
-                className="absolute inset-0 z-0 bg-gradient-to-b from-pulse-900/40 to-dark-900/80"
+                className="absolute inset-0 z-0 bg-gradient-to-b from-blue-900/40 to-purple-900/80"
                 style={{
                   backgroundImage: "url('/background-section1.png')",
                   backgroundSize: "cover",
@@ -128,14 +127,14 @@ const HumanoidSection = () => {
               
               <div className="absolute top-4 right-4 z-20">
                 <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white">
-                  <span className="text-sm font-medium">The vision</span>
+                  <span className="text-sm font-medium">Always Current</span>
                 </div>
               </div>
               
               <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                    We're giving AI a way to navigate the physical world
+                    Your achievements update automatically across all platforms
                   </h3>
                 </div>
               </div>
@@ -153,7 +152,7 @@ const HumanoidSection = () => {
               }}
             >
               <div
-                className="absolute inset-0 z-0 bg-gradient-to-b from-pulse-900/40 to-dark-900/80"
+                className="absolute inset-0 z-0 bg-gradient-to-b from-blue-900/40 to-purple-900/80"
                 style={{
                   backgroundImage: "url('/background-section2.png')",
                   backgroundSize: "cover",
@@ -164,14 +163,14 @@ const HumanoidSection = () => {
               
               <div className="absolute top-4 right-4 z-20">
                 <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white">
-                  <span className="text-sm font-medium">The vision</span>
+                  <span className="text-sm font-medium">Smart Design</span>
                 </div>
               </div>
               
               <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                    We're bringing adaptive intelligence to where humans work
+                    AI creates personalized designs that match your industry and style
                   </h3>
                 </div>
               </div>
@@ -189,7 +188,7 @@ const HumanoidSection = () => {
               }}
             >
               <div
-                className="absolute inset-0 z-0 bg-gradient-to-b from-pulse-900/40 to-dark-900/80"
+                className="absolute inset-0 z-0 bg-gradient-to-b from-blue-900/40 to-purple-900/80"
                 style={{
                   backgroundImage: "url('/background-section3.png')",
                   backgroundSize: "cover",
@@ -200,14 +199,14 @@ const HumanoidSection = () => {
               
               <div className="absolute top-4 right-4 z-20">
                 <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white">
-                  <span className="text-sm font-medium">The vision</span>
+                  <span className="text-sm font-medium">Zero Maintenance</span>
                 </div>
               </div>
               
               <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                    We're creating companions, <span className="text-[#FC4D0A]">not replacements</span>
+                    Focus on your career while your portfolio stays perfectly updated
                   </h3>
                 </div>
               </div>

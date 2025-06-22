@@ -1,5 +1,6 @@
-
 import type { Config } from "tailwindcss";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const tailwindcssAnimate = require("tailwindcss-animate");
 
 export default {
 	darkMode: ["class"],
@@ -26,8 +27,8 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: 'hsl(217 89% 61%)',
+					foreground: 'hsl(210 40% 98%)'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -63,19 +64,46 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for Pulse Robot
+				// Custom colors for Portfolio Builder
 				pulse: {
 					"50": "#fff7ed",
 					"100": "#ffedd5",
 					"200": "#fed7aa",
 					"300": "#fdba74",
 					"400": "#fb923c",
-					"500": "#f97316", // Primary orange
+					"500": "#f97316", // Keep original orange for legacy compatibility
 					"600": "#ea580c",
 					"700": "#c2410c",
 					"800": "#9a3412",
 					"900": "#7c2d12",
 					"950": "#431407",
+				},
+				// New blue color scheme for portfolio platform
+				blue: {
+					"50": "#eff6ff",
+					"100": "#dbeafe", 
+					"200": "#bfdbfe",
+					"300": "#93c5fd",
+					"400": "#60a5fa",
+					"500": "#3b82f6", // Primary blue
+					"600": "#2563eb",
+					"700": "#1d4ed8",
+					"800": "#1e40af",
+					"900": "#1e3a8a",
+					"950": "#172554",
+				},
+				purple: {
+					"50": "#faf5ff",
+					"100": "#f3e8ff",
+					"200": "#e9d5ff", 
+					"300": "#d8b4fe",
+					"400": "#c084fc",
+					"500": "#a855f7",
+					"600": "#9333ea", // Secondary purple
+					"700": "#7c3aed",
+					"800": "#6b21a8",
+					"900": "#581c87",
+					"950": "#3b0764",
 				},
 				dark: {
 					"900": "#121212", // Almost black
@@ -137,9 +165,9 @@ export default {
 				'float': 'float 6s ease-in-out infinite'
 			},
 			backgroundImage: {
-				'hero-gradient': 'linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%)',
-				'hero-gradient-2': 'linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)',
-				'pulse-gradient': 'linear-gradient(180deg, rgba(249,115,22,0.8) 0%, rgba(249,115,22,0) 100%)',
+				'hero-gradient': 'linear-gradient(90deg, hsla(217, 89%, 61%, 1) 0%, hsla(271, 91%, 68%, 1) 100%)',
+				'hero-gradient-2': 'linear-gradient(90deg, hsla(217, 89%, 61%, 1) 0%, hsla(271, 78%, 57%, 1) 100%)',
+				'pulse-gradient': 'linear-gradient(180deg, rgba(59,130,246,0.8) 0%, rgba(59,130,246,0) 100%)',
 			},
 			fontFamily: {
 				'sans': ['Inter', 'sans-serif'],
@@ -153,5 +181,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate],
 } satisfies Config;
