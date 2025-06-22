@@ -55,7 +55,7 @@ const Navbar = () => {
           style={{ minWidth: '120px' }}
         >
           <div 
-            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent font-display italic"
+            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 bg-clip-text text-transparent font-display italic"
             style={{ 
               fontFamily: 'Brockmann, "Playfair Display", Georgia, serif',
               paddingRight: '8px',
@@ -82,9 +82,9 @@ const Navbar = () => {
           >
             Home
           </a>
-          <a href="#features" className="nav-link">Features</a>
-          <a href="#how-it-works" className="nav-link">How it Works</a>
-          <a href="#testimonials" className="nav-link">Pricing</a>
+          <a href="#why-ai" className="nav-link">Why Us</a>
+          <a href="#integrations" className="nav-link">Integrations</a>
+          <a href="#details" className="nav-link">Get Started</a>
         </nav>
 
         {/* Mobile menu button - increased touch target */}
@@ -116,34 +116,34 @@ const Navbar = () => {
             Home
           </a>
           <a 
-            href="#features" 
+            href="#why-ai" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
             }}
           >
-            Features
+            Why AI
           </a>
           <a 
-            href="#how-it-works" 
+            href="#integrations" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
             }}
           >
-            How it Works
+            Integrations
           </a>
           <a 
-            href="#testimonials" 
+            href="#details" 
             className="text-xl font-medium py-3 px-6 w-full text-center rounded-lg hover:bg-gray-100" 
             onClick={() => {
               setIsMenuOpen(false);
               document.body.style.overflow = '';
             }}
           >
-            Pricing
+            Get Started
           </a>
         </nav>
       </div>
