@@ -116,15 +116,15 @@ const Hero = () => {
               className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.3s" }}
             >
-              Your Professional Portfolio, <br className="hidden sm:inline" />
-              <span className="text-purple-600">Built Automatically</span>
+              The Last Portfolio <br className="hidden sm:inline" />
+              <span className="text-purple-600">You'll Ever Need to Build</span>
             </h1>
             
             <p 
               style={{ animationDelay: "0.5s" }} 
               className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-700 font-normal text-base sm:text-lg text-left"
             >
-              Join our waitlist to get your free AI-powered portfolio website. We'll transform your LinkedIn, Twitter, and social profiles into a stunning professional presence that updates automatically as you grow.
+              Our AI builds and maintains your portfolio from your social profiles, so you never have to rebuild it again. Join thousands of professionals getting their free portfolio when we launch.
             </p>
             
             <div 
