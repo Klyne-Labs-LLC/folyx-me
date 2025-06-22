@@ -46,20 +46,32 @@ const Navbar = () => {
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <a 
           href="#" 
-          className="flex items-center space-x-2"
+          className="flex items-center flex-shrink-0"
           onClick={(e) => {
             e.preventDefault();
             scrollToTop();
           }}
           aria-label="Folyx"
+          style={{ minWidth: '120px' }}
         >
-          <span className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent tracking-tight font-display italic">
+          <div 
+            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent font-display italic"
+            style={{ 
+              fontFamily: 'Brockmann, "Playfair Display", Georgia, serif',
+              paddingRight: '8px',
+              paddingLeft: '4px',
+              width: 'fit-content',
+              minWidth: '100px',
+              display: 'block',
+              overflow: 'visible'
+            }}
+          >
             folyx
-          </span>
+          </div>
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex space-x-8 flex-shrink-0">
           <a 
             href="#" 
             className="nav-link"
@@ -77,7 +89,7 @@ const Navbar = () => {
 
         {/* Mobile menu button - increased touch target */}
         <button 
-          className="md:hidden text-gray-700 p-3 focus:outline-none" 
+          className="md:hidden text-gray-700 p-3 focus:outline-none flex-shrink-0" 
           onClick={toggleMenu}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
