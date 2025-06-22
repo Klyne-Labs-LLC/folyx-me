@@ -25,8 +25,8 @@ const DetailsSection = () => {
       return;
     }
 
-    // Demo form submission
-    toast.success("Welcome! Your free trial is ready!");
+    // Waitlist form submission
+    toast.success("🎉 You're on the waitlist! We'll send you your free portfolio when it's ready!");
 
     // Reset form
     setFormData({
@@ -57,12 +57,12 @@ const DetailsSection = () => {
             border: "1px solid #ECECEC"
           }}>
               <h3 className="text-lg sm:text-xl font-display mb-6 sm:mb-8">
-                AI-powered portfolio building at your fingertips
+                Join the waitlist and get your professional portfolio for free when we launch
               </h3>
 
               <div className="space-y-4 sm:space-y-6">
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center mt-1 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center mt-1 flex-shrink-0">
                     <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 5L5 9L13 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -75,7 +75,7 @@ const DetailsSection = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center mt-1 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center mt-1 flex-shrink-0">
                     <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 5L5 9L13 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -88,7 +88,7 @@ const DetailsSection = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center mt-1 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center mt-1 flex-shrink-0">
                     <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 5L5 9L13 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -101,7 +101,7 @@ const DetailsSection = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center mt-1 flex-shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center mt-1 flex-shrink-0">
                     <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1 5L5 9L13 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -126,10 +126,10 @@ const DetailsSection = () => {
             backgroundPosition: "center"
           }}>
               <div className="inline-block px-4 sm:px-6 py-2 border border-white text-white rounded-full text-xs mb-4">
-                Start Free Trial
+                Join Waitlist
               </div>
               <h2 className="text-2xl sm:text-3xl font-display text-white font-bold mt-auto">
-                Build your portfolio now
+                Get your free portfolio when we launch
               </h2>
             </div>
             
@@ -146,7 +146,7 @@ const DetailsSection = () => {
                     value={formData.fullName} 
                     onChange={handleChange} 
                     placeholder="Full name" 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
                     required 
                   />
                 </div>
@@ -158,7 +158,7 @@ const DetailsSection = () => {
                     value={formData.email} 
                     onChange={handleChange} 
                     placeholder="Email address" 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
                     required 
                   />
                 </div>
@@ -170,16 +170,16 @@ const DetailsSection = () => {
                     value={formData.company} 
                     onChange={handleChange} 
                     placeholder="Current role/company (optional)" 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
                   />
                 </div>
                 
                 <div>
                   <button 
                     type="submit" 
-                    className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-full transition-colors duration-300"
+                    className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-medium rounded-full transition-colors duration-300"
                   >
-                    Start Free Trial
+                    Join Waitlist
                   </button>
                 </div>
               </form>

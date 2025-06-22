@@ -86,7 +86,11 @@ const SpecsSection = () => {
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="text-center mb-8 sm:mb-12">
           <div className="tech-chip mx-auto mb-3 sm:mb-4">
-            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-600 text-white mr-2">🔗</span>
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-500 text-white mr-2">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+              </svg>
+            </span>
             <span>Integrations</span>
           </div>
           <h2 className="section-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-3 sm:mb-4">

@@ -123,7 +123,7 @@ const Navbar = () => {
               document.body.style.overflow = '';
             }}
           >
-            Why AI
+            Why Us
           </a>
           <a 
             href="#integrations" 

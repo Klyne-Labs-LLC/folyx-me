@@ -104,7 +104,11 @@ const Hero = () => {
               className="tech-chip mb-3 sm:mb-6 opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.1s" }}
             >
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-500 text-white mr-2">🚀</span>
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-500 text-white mr-2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </span>
               <span>Portfolio on Autopilot</span>
             </div>
             
@@ -120,7 +124,7 @@ const Hero = () => {
               style={{ animationDelay: "0.5s" }} 
               className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-700 font-normal text-base sm:text-lg text-left"
             >
-              Folyx transforms your LinkedIn, Twitter, and social profiles into a stunning portfolio website. Our AI creates and maintains your professional presence automatically as you grow.
+              Join our waitlist to get your free AI-powered portfolio website. We'll transform your LinkedIn, Twitter, and social profiles into a stunning professional presence that updates automatically as you grow.
             </p>
             
             <div 
@@ -142,7 +146,7 @@ const Hero = () => {
                   border: '1px solid white',
                 }}
               >
-                Start Building for Free
+                Join Waitlist - Get Free Portfolio
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
