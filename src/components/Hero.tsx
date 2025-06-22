@@ -95,7 +95,7 @@ const Hero = () => {
         padding: isMobile ? '100px 12px 40px' : '120px 20px 60px'
       }}
     >
-      <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-gradient-to-br from-purple-500/20 to-pink-500/20 opacity-30 blur-3xl rounded-full"></div>
+      <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-gradient-to-br from-orange-500/20 to-red-500/20 opacity-30 blur-3xl rounded-full"></div>
       
       <div className="container px-4 sm:px-6 lg:px-8" ref={containerRef}>
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
@@ -104,7 +104,7 @@ const Hero = () => {
               className="tech-chip mb-3 sm:mb-6 opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.1s" }}
             >
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-500 text-white mr-2">
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-orange-500 text-white mr-2">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
@@ -116,8 +116,16 @@ const Hero = () => {
               className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.3s" }}
             >
-              The Last Portfolio <br className="hidden sm:inline" />
-              <span className="text-purple-600">You'll Ever Need to Build</span>
+              <span className="text-gray-900">The Last Portfolio</span> <br className="hidden sm:inline" />
+              <span 
+                className="font-semibold" 
+                style={{ 
+                  color: '#b82db1',
+                  textShadow: '1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 2px 2px 4px rgba(0,0,0,0.1)' 
+                }}
+              >
+                You'll Ever Need to Build
+              </span>
             </h1>
             
             <p 
@@ -135,7 +143,7 @@ const Hero = () => {
                 href="#get-started" 
                 className="flex items-center justify-center group w-full sm:w-auto text-center" 
                 style={{
-                  background: 'linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)',
+                  background: 'linear-gradient(135deg, #EA580C 0%, #DC2626 100%)',
                   borderRadius: '1440px',
                   boxSizing: 'border-box',
                   color: '#FFFFFF',
@@ -143,7 +151,7 @@ const Hero = () => {
                   fontSize: '14px',
                   lineHeight: '20px',
                   padding: '16px 24px',
-                  border: '1px solid white',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
                 }}
               >
                 Join Waitlist - Get Free Portfolio
@@ -164,7 +172,7 @@ const Hero = () => {
               </div>
             ) : (
               <>
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-purple-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-orange-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
               <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
                 <img 
                   ref={imageRef} 
@@ -181,7 +189,7 @@ const Hero = () => {
         </div>
       </div>
       
-      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-purple-100/30 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
+      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
     </section>
   );
 };
