@@ -105,7 +105,7 @@ const Hero = () => {
               style={{ animationDelay: "0.1s" }}
             >
               <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-500 text-white mr-2">🚀</span>
-              <span>Introducing Folyx</span>
+              <span>Portfolio on Autopilot</span>
             </div>
             
             <h1 
