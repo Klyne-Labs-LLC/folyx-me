@@ -102,53 +102,53 @@ const SpecsSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
           {/* LinkedIn */}
-          <div className="bg-white border border-gray-200 hover:border-blue-300 rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col items-center justify-center h-20 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#0077B5] group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white border border-gray-200 hover:border-blue-300 rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col items-center justify-center h-16 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
+            <div className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#0077B5] group-hover:scale-110 transition-transform duration-300">
               <LinkedInIcon />
             </div>
-            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2">LinkedIn</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2 hidden sm:block">LinkedIn</span>
           </div>
           
           {/* Twitter */}
-          <div className="bg-white border border-gray-200 hover:border-blue-300 rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col items-center justify-center h-20 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#1DA1F2] group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white border border-gray-200 hover:border-blue-300 rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col items-center justify-center h-16 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
+            <div className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#1DA1F2] group-hover:scale-110 transition-transform duration-300">
               <TwitterIcon />
             </div>
-            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2">Twitter</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2 hidden sm:block">Twitter</span>
           </div>
           
           {/* GitHub */}
-          <div className="bg-white border border-gray-200 hover:border-gray-400 rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col items-center justify-center h-20 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#333] group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white border border-gray-200 hover:border-gray-400 rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col items-center justify-center h-16 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
+            <div className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#333] group-hover:scale-110 transition-transform duration-300">
               <GitHubIcon />
             </div>
-            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2">GitHub</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2 hidden sm:block">GitHub</span>
           </div>
           
           {/* Medium */}
-          <div className="bg-white border border-gray-200 hover:border-green-300 rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col items-center justify-center h-20 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#00AB6C] group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white border border-gray-200 hover:border-green-300 rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col items-center justify-center h-16 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
+            <div className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#00AB6C] group-hover:scale-110 transition-transform duration-300">
               <MediumIcon />
             </div>
-            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2">Medium</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2 hidden sm:block">Medium</span>
           </div>
           
           {/* Instagram */}
-          <div className="bg-white border border-gray-200 hover:border-pink-300 rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col items-center justify-center h-20 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#E4405F] group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white border border-gray-200 hover:border-pink-300 rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col items-center justify-center h-16 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group">
+            <div className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#E4405F] group-hover:scale-110 transition-transform duration-300">
               <InstagramIcon />
             </div>
-            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2">Instagram</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2 hidden sm:block">Instagram</span>
           </div>
           
           {/* More */}
-          <div className="bg-white border border-gray-200 hover:border-gray-300 rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col items-center justify-center h-20 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group cursor-pointer">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gray-500 group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white border border-gray-200 hover:border-gray-300 rounded-xl sm:rounded-2xl p-2 sm:p-4 md:p-6 flex flex-col items-center justify-center h-16 sm:h-24 md:h-28 lg:h-32 transition-all duration-300 hover:shadow-md group cursor-pointer">
+            <div className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gray-500 group-hover:scale-110 transition-transform duration-300">
               <MoreIcon />
             </div>
-            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2">More</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-600 mt-1 sm:mt-2 hidden sm:block">More</span>
           </div>
         </div>
       </div>
