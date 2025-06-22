@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Plus, Minus } from "lucide-react";
 
 const faqs = [
   {
@@ -37,46 +37,74 @@ const FAQ = () => {
   };
 
   return (
-    <section className="py-24 px-6 lg:px-8">
+    <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 relative">
+      {/* Background decoration */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/4 left-1/3 w-48 md:w-72 h-48 md:h-72 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
+      </div>
+
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 tracking-tight text-white">
-            Frequently Asked Questions
+        <div className="text-center mb-12 md:mb-20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 tracking-tight text-white">
+            Frequently Asked{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Questions
+            </span>
           </h2>
-          <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto">
             Everything you need to know about putting your portfolio on autopilot.
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 md:space-y-6">
           {faqs.map((faq, index) => (
             <div 
               key={index}
-              className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl overflow-hidden"
+              className="group"
             >
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors duration-200"
-              >
-                <h3 className="text-lg font-semibold text-white pr-4">
-                  {faq.question}
-                </h3>
-                {openIndex === index ? (
-                  <ChevronUp className="w-5 h-5 text-zinc-400 flex-shrink-0" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-zinc-400 flex-shrink-0" />
-                )}
-              </button>
-              
-              {openIndex === index && (
-                <div className="px-8 pb-6">
-                  <p className="text-zinc-400 leading-relaxed">
-                    {faq.answer}
-                  </p>
+              <div className="glass-card border border-white/10 rounded-xl md:rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-300">
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full px-4 sm:px-6 md:px-8 py-4 md:py-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors duration-200 group"
+                >
+                  <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white pr-4 leading-relaxed">
+                    {faq.question}
+                  </h3>
+                  <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full glass-subtle flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+                    {openIndex === index ? (
+                      <Minus className="w-4 h-4 md:w-5 md:h-5 text-zinc-400" />
+                    ) : (
+                      <Plus className="w-4 h-4 md:w-5 md:h-5 text-zinc-400" />
+                    )}
+                  </div>
+                </button>
+                
+                <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  openIndex === index 
+                    ? 'max-h-96 opacity-100' 
+                    : 'max-h-0 opacity-0'
+                }`}>
+                  <div className="px-4 sm:px-6 md:px-8 pb-4 md:pb-6">
+                    <div className="pt-2 border-t border-white/5">
+                      <p className="text-zinc-400 leading-relaxed text-sm md:text-base mt-4">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="text-center mt-12 md:mt-16">
+          <p className="text-zinc-400 mb-4 text-sm md:text-base">
+            Still have questions?
+          </p>
+          <button className="text-blue-400 hover:text-blue-300 font-medium text-sm md:text-base transition-colors duration-200 hover:underline">
+            Contact our support team
+          </button>
         </div>
       </div>
     </section>
