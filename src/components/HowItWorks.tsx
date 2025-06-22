@@ -1,90 +1,166 @@
 
-import { Link, Wand2, Zap } from "lucide-react";
+import React, { useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
 
-const steps = [
-  {
-    icon: Link,
-    title: "Connect",
-    description: "Securely link your LinkedIn, Twitter, and other professional profiles with one-click integration."
-  },
-  {
-    icon: Wand2,
-    title: "Generate",
-    description: "Our AI instantly crafts a beautiful, personalized portfolio website from your data in under 60 seconds."
-  },
-  {
-    icon: Zap,
-    title: "Autopilot",
-    description: "folyx.me continuously monitors your profiles, automatically updating your portfolio with new achievements and projects."
-  }
-];
+interface StepCardProps {
+  number: string;
+  title: string;
+  description: string;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const StepCard = ({ number, title, description, isActive, onClick }: StepCardProps) => {
+  return (
+    <div 
+      className={cn(
+        "rounded-xl p-6 cursor-pointer transition-all duration-500 border",
+        isActive 
+          ? "bg-white shadow-elegant border-pulse-200" 
+          : "bg-white/50 hover:bg-white/80 border-transparent"
+      )}
+      onClick={onClick}
+    >
+      <div className="flex items-start">
+        <div className={cn(
+          "flex items-center justify-center rounded-full w-10 h-10 mr-4 flex-shrink-0 transition-colors duration-300",
+          isActive ? "bg-pulse-500 text-white" : "bg-gray-100 text-gray-500"
+        )}>
+          {number}
+        </div>
+        <div>
+          <h3 className={cn(
+            "text-lg font-semibold mb-2 transition-colors duration-300",
+            isActive ? "text-pulse-600" : "text-gray-800"
+          )}>
+            {title}
+          </h3>
+          <p className="text-gray-600 text-sm">{description}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const HowItWorks = () => {
-  return (
-    <section className="py-16 md:py-32 px-4 sm:px-6 lg:px-8 relative">
-      {/* Background effects */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/3 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-48 md:w-80 h-48 md:h-80 bg-gradient-to-r from-cyan-500/8 to-purple-500/8 rounded-full blur-3xl"></div>
-      </div>
+  const [activeStep, setActiveStep] = React.useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const stepsData = [
+    {
+      number: "01",
+      title: "Request Access",
+      description: "Fill out the application form to join our early access program and secure your spot in line.",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      number: "02",
+      title: "Personalization",
+      description: "We'll work with you to customize Atlas to your specific needs and preferences.",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      number: "03",
+      title: "Integration",
+      description: "Atlas arrives at your location and is integrated into your living or working environment.",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      number: "04",
+      title: "Adaptation",
+      description: "Through daily interaction, Atlas learns and adapts to your routines, preferences, and needs.",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80"
+    }
+  ];
 
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 md:mb-24">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 tracking-tight text-white">
-            How folyx.me Works in{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              3 Simple Steps
-            </span>
-          </h2>
-          <p className="text-lg md:text-2xl text-zinc-400 max-w-3xl mx-auto font-light">
-            From setup to live portfolio in minutes, not hours.
+  useEffect(() => {
+    // Auto-cycle through steps
+    const interval = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % stepsData.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [stepsData.length]);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    const elements = document.querySelectorAll(".fade-in-stagger");
+    elements.forEach((el, index) => {
+      (el as HTMLElement).style.animationDelay = `${0.1 * (index + 1)}s`;
+      observer.observe(el);
+    });
+    
+    return () => {
+      elements.forEach((el) => {
+        observer.unobserve(el);
+      });
+    };
+  }, []);
+  
+  return (
+    <section className="py-20 bg-white relative" id="how-it-works" ref={sectionRef}>
+      {/* Background decorative elements */}
+      <div className="absolute -top-20 right-0 w-72 h-72 bg-pulse-50 rounded-full opacity-60 blur-3xl -z-10"></div>
+      <div className="absolute bottom-0 left-10 w-64 h-64 bg-gray-50 rounded-full opacity-70 blur-3xl -z-10"></div>
+      
+      <div className="section-container">
+        <div className="text-center mb-16 opacity-0 fade-in-stagger">
+          <div className="pulse-chip mx-auto mb-4">
+            <span>Process</span>
+          </div>
+          <h2 className="section-title mb-4">How Atlas Integrates Into Your Life</h2>
+          <p className="section-subtitle mx-auto">
+            A seamless four-step process from request to full integration.
           </p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative">
-          {/* Enhanced connection lines for desktop */}
-          <div className="hidden md:block absolute top-16 md:top-24 left-1/3 right-1/3 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-4 order-2 lg:order-1 opacity-0 fade-in-stagger">
+            {stepsData.map((step, index) => (
+              <StepCard
+                key={step.number}
+                number={step.number}
+                title={step.title}
+                description={step.description}
+                isActive={activeStep === index}
+                onClick={() => setActiveStep(index)}
+              />
+            ))}
+          </div>
           
-          {steps.map((step, index) => (
-            <div 
-              key={step.title}
-              className="text-center relative group"
-            >
-              {/* Enhanced step number */}
-              <div className="absolute -top-4 md:-top-6 -left-4 md:-left-6 w-8 h-8 md:w-12 md:h-12 glass-card rounded-xl md:rounded-2xl flex items-center justify-center text-sm md:text-lg font-bold text-white border border-white/10 shadow-2xl z-10">
-                {index + 1}
-              </div>
-              
-              <div className="glass-card rounded-2xl md:rounded-3xl p-6 md:p-10 hover:scale-105 transition-all duration-500 border border-white/10 group-hover:border-white/20 premium-shadow h-full">
-                <div className="w-16 h-16 md:w-20 md:h-20 glass-subtle rounded-2xl md:rounded-3xl flex items-center justify-center mx-auto mb-6 md:mb-8 group-hover:scale-110 transition-transform duration-300">
-                  <step.icon className="w-8 h-8 md:w-10 md:h-10 text-blue-400" />
+          <div className="relative rounded-3xl overflow-hidden h-[400px] shadow-elegant order-1 lg:order-2 opacity-0 fade-in-stagger">
+            {stepsData.map((step, index) => (
+              <div
+                key={index}
+                className={cn(
+                  "absolute inset-0 transition-opacity duration-1000",
+                  activeStep === index ? "opacity-100" : "opacity-0 pointer-events-none"
+                )}
+              >
+                <img
+                  src={step.image}
+                  alt={step.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-900/70 to-transparent">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <span className="text-pulse-400 font-medium mb-2 block">{step.number}</span>
+                    <h3 className="text-2xl font-semibold mb-2">{step.title}</h3>
+                    <p className="text-white/80">{step.description}</p>
+                  </div>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-white">
-                  {step.title}
-                </h3>
-                <p className="text-zinc-400 leading-relaxed text-base md:text-lg">
-                  {step.description}
-                </p>
               </div>
-
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-2xl md:rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
-              {/* Mobile connection arrow */}
-              {index < steps.length - 1 && (
-                <div className="md:hidden flex justify-center mt-8 mb-4">
-                  <div className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent"></div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-
-        {/* Enhanced bottom section */}
-        <div className="text-center mt-12 md:mt-16">
-          <div className="inline-flex items-center px-4 md:px-6 py-2 md:py-3 glass-subtle rounded-full text-sm md:text-base text-zinc-300 border border-white/10">
-            <span className="w-2 h-2 bg-green-400 rounded-full mr-2 md:mr-3 animate-pulse"></span>
-            Live in 5 minutes
+            ))}
           </div>
         </div>
       </div>

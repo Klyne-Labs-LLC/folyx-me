@@ -1,90 +1,80 @@
 
-const testimonials = [
-  {
-    quote: "folyx.me is a game-changer! My portfolio syncs automatically with my GitHub and LinkedIn. I ship features, it ships updates. Perfect.",
-    name: "Alex Chen",
-    profession: "Full-Stack Developer",
-    image: "photo-1507003211169-0a1dd7228f2d"
-  },
-  {
-    quote: "Finally, a portfolio that gets the dev workflow. Push to main, portfolio updates. No more manual labor on personal branding.",
-    name: "Jordan Rivera",
-    profession: "DevOps Engineer", 
-    image: "photo-1494790108755-2616b612b1c3"
-  },
-  {
-    quote: "As a remote dev, my online presence is everything. folyx.me keeps my portfolio fresh while I focus on what I do best - building products.",
-    name: "Taylor Kim",
-    profession: "React Developer",
-    image: "photo-1472099645785-5658abf4ff4e"
-  }
-];
+import React, { useRef } from "react";
+
+interface TestimonialProps {
+  content: string;
+  author: string;
+  role: string;
+  gradient: string;
+  backgroundImage?: string;
+}
+
+const testimonials: TestimonialProps[] = [{
+  content: "Atlas transformed our production line, handling repetitive tasks while our team focuses on innovation. 30% increase in output within three months.",
+  author: "Sarah Chen",
+  role: "VP of Operations, Axion Manufacturing",
+  gradient: "from-blue-700 via-indigo-800 to-purple-900",
+  backgroundImage: "/background-section1.png"
+}, {
+  content: "Implementing Atlas in our fulfillment centers reduced workplace injuries by 40% while improving order accuracy. The learning capabilities are remarkable.",
+  author: "Michael Rodriguez",
+  role: "Director of Logistics, GlobalShip",
+  gradient: "from-indigo-900 via-purple-800 to-orange-500",
+  backgroundImage: "/background-section2.png"
+}, {
+  content: "Atlas adapted to our lab protocols faster than any system we've used. It's like having another researcher who never gets tired and maintains perfect precision.",
+  author: "Dr. Amara Patel",
+  role: "Lead Scientist, BioAdvance Research",
+  gradient: "from-purple-800 via-pink-700 to-red-500",
+  backgroundImage: "/background-section3.png"
+}, {
+  content: "As a mid-size business, we never thought advanced robotics would be accessible to us. Atlas changed that equation entirely with its versatility and ease of deployment.",
+  author: "Jason Lee",
+  role: "CEO, Innovative Solutions Inc.",
+  gradient: "from-orange-600 via-red-500 to-purple-600",
+  backgroundImage: "/background-section1.png"
+}];
+
+const TestimonialCard = ({
+  content,
+  author,
+  role,
+  backgroundImage = "/background-section1.png"
+}: TestimonialProps) => {
+  return <div className="bg-cover bg-center rounded-lg p-8 h-full flex flex-col justify-between text-white transform transition-transform duration-300 hover:-translate-y-2 relative overflow-hidden" style={{
+    backgroundImage: `url('${backgroundImage}')`
+  }}>
+      <div className="absolute top-0 right-0 w-24 h-24 bg-white z-10"></div>
+      
+      <div className="relative z-0">
+        <p className="text-xl mb-8 font-medium leading-relaxed pr-20">{`"${content}"`}</p>
+        <div>
+          <h4 className="font-semibold text-xl">{author}</h4>
+          <p className="text-white/80">{role}</p>
+        </div>
+      </div>
+    </div>;
+};
 
 const Testimonials = () => {
-  return (
-    <section className="py-32 px-6 lg:px-8 relative">
-      {/* Background effects */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/8 to-cyan-500/8 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-r from-purple-500/6 to-pink-500/6 rounded-full blur-3xl"></div>
-      </div>
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
-          <h2 className="text-5xl lg:text-6xl font-bold mb-8 tracking-tight text-white">
-            What{" "}
-            <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-              Devs
-            </span>{" "}
-            Are Saying
-          </h2>
-          <p className="text-2xl text-zinc-400 max-w-3xl mx-auto font-light">
-            Join thousands of developers who've automated their personal brand.
-          </p>
+  return <section className="py-12 bg-white relative" id="testimonials" ref={sectionRef}> {/* Reduced from py-20 */}
+      <div className="section-container opacity-0 animate-on-scroll">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="pulse-chip">
+            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">04</span>
+            <span>Testimonials</span>
+          </div>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div 
-              key={testimonial.name}
-              className="glass-card rounded-3xl p-10 hover:scale-105 transition-all duration-500 border border-white/10 hover:border-white/20 premium-shadow group"
-            >
-              <div className="mb-8">
-                <div className="flex text-yellow-400 mb-6">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-6 h-6 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-zinc-300 text-xl leading-relaxed italic font-light">
-                  "{testimonial.quote}"
-                </p>
-              </div>
-              
-              <div className="flex items-center gap-5">
-                <div className="relative">
-                  <img 
-                    src={`https://images.unsplash.com/${testimonial.image}?auto=format&fit=crop&w=150&q=80`}
-                    alt={testimonial.name}
-                    className="w-16 h-16 rounded-2xl object-cover border border-white/10"
-                  />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold text-lg">{testimonial.name}</h4>
-                  <p className="text-zinc-400 text-sm">{testimonial.profession}</p>
-                </div>
-              </div>
-
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </div>
-          ))}
+        
+        <h2 className="text-5xl font-display font-bold mb-12 text-left">What others say</h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {testimonials.map((testimonial, index) => <TestimonialCard key={index} content={testimonial.content} author={testimonial.author} role={testimonial.role} gradient={testimonial.gradient} backgroundImage={testimonial.backgroundImage} />)}
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
 
 export default Testimonials;
