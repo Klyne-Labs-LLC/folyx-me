@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useWaitlistCount } from "@/hooks/useWaitlistCount";
@@ -11,7 +11,15 @@ const DetailsSection = () => {
     company: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [localIncrement, setLocalIncrement] = useState(0);
   const { count, loading } = useWaitlistCount();
+
+  useEffect(() => {
+    // Clear any stored increment on page load/refresh since DB count will now include it
+    localStorage.removeItem('waitlistIncrement');
+    setLocalIncrement(0);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -64,6 +72,16 @@ const DetailsSection = () => {
 
       // Success
       toast.success("🎉 You're on the waitlist! We'll send you your free portfolio when it's ready!");
+      
+      // Mark as submitted and increment count
+      setIsSubmitted(true);
+      setLocalIncrement(1);
+      
+      // Save increment to localStorage for Hero component
+      localStorage.setItem('waitlistIncrement', '1');
+      
+      // Dispatch custom event to notify Hero component
+      window.dispatchEvent(new CustomEvent('waitlistSubmitted'));
       
       // Reset form
       setFormData({
@@ -200,9 +218,9 @@ const DetailsSection = () => {
                     value={formData.fullName} 
                     onChange={handleChange} 
                     placeholder="Full name" 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
                     required 
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isSubmitted}
                   />
                 </div>
                 
@@ -213,9 +231,9 @@ const DetailsSection = () => {
                     value={formData.email} 
                     onChange={handleChange} 
                     placeholder="Email address" 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
                     required 
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isSubmitted}
                   />
                 </div>
                 
@@ -226,24 +244,24 @@ const DetailsSection = () => {
                     value={formData.company} 
                     onChange={handleChange} 
                     placeholder="Current role/company (optional)" 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
-                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                    disabled={isSubmitting || isSubmitted}
                   />
                 </div>
                 
                 <div className="space-y-3">
                   <button 
                     type="submit" 
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isSubmitted}
                     className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-medium rounded-full transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isSubmitting ? "Joining..." : "Join Waitlist"}
+                    {isSubmitted ? "✓ You're on the waitlist!" : isSubmitting ? "Joining..." : "Join Waitlist"}
                   </button>
                   
                   {/* Waitlist count for FOMO */}
                   {!loading && (
                     <p className="text-center text-xs text-gray-500 mt-2">
-                      {(count + 50).toLocaleString()} people waiting • Launching in 2 weeks
+                      {(count + 50 + localIncrement).toLocaleString()} people waiting • Launching in 2 weeks
                     </p>
                   )}
                 </div>

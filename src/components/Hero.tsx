@@ -9,7 +9,25 @@ const Hero = () => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [lottieData, setLottieData] = useState<unknown>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [localIncrement, setLocalIncrement] = useState(0);
   const { count, loading } = useWaitlistCount();
+
+  useEffect(() => {
+    // Clear any stored increment on page load/refresh since DB count will now include it
+    localStorage.removeItem('waitlistIncrement');
+    setLocalIncrement(0);
+
+    // Listen for custom event when form is submitted on same page
+    const handleWaitlistSubmit = () => {
+      setLocalIncrement(1);
+    };
+
+    window.addEventListener('waitlistSubmitted', handleWaitlistSubmit);
+    
+    return () => {
+      window.removeEventListener('waitlistSubmitted', handleWaitlistSubmit);
+    };
+  }, []);
 
   useEffect(() => {
     // Check if mobile on mount and when window resizes
@@ -164,7 +182,7 @@ const Hero = () => {
                 {/* Waitlist count for FOMO */}
                 {!loading && (
                   <p className="text-sm text-gray-600 font-medium text-center w-full sm:w-auto">
-                      {(count + 50).toLocaleString()} people already joined
+                      {(count + 50 + localIncrement).toLocaleString()} people already joined
                   </p>
                 )}
               </div>
