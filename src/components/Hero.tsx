@@ -140,7 +140,7 @@ const Hero = () => {
               style={{ animationDelay: "0.7s" }}
             >
               <a 
-                href="#get-started" 
+                href="#waitlist-form" 
                 className="flex items-center justify-center group w-full sm:w-auto text-center" 
                 style={{
                   background: 'linear-gradient(135deg, #EA580C 0%, #DC2626 100%)',
