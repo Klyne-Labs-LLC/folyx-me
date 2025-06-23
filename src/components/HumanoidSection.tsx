@@ -87,7 +87,14 @@ const HumanoidSection = () => {
       className="relative" 
       style={{ height: '300vh' }}
     >
-      <section className="w-full h-screen py-10 md:py-16 sticky top-0 overflow-hidden bg-white" id="why-ai">
+      {/* Scroll target positioned where 2nd card starts appearing */}
+      <div 
+        id="why-us" 
+        className="absolute" 
+        style={{ top: '120vh' }}
+      ></div>
+      
+      <section className="w-full h-screen py-10 md:py-16 sticky top-0 overflow-hidden bg-white">
         <div className="container px-6 lg:px-8 mx-auto h-full flex flex-col">
           <div className="mb-2 md:mb-3">
             <div className="flex items-center gap-4 mb-2 md:mb-2 pt-8 sm:pt-6 md:pt-4">

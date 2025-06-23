@@ -7,7 +7,7 @@ import DetailsSection from "@/components/DetailsSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
-  // Initialize intersection observer to detect when elements enter viewport
+  // Initialize intersection observer for animations
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -21,6 +21,7 @@ const Index = () => {
       { threshold: 0.1 }
     );
     
+    // Observe elements with animation class
     const elements = document.querySelectorAll(".animate-on-scroll");
     elements.forEach((el) => observer.observe(el));
     
@@ -29,36 +30,20 @@ const Index = () => {
     };
   }, []);
 
-  useEffect(() => {
-    // This helps ensure smooth scrolling for the anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href')?.substring(1);
-        if (!targetId) return;
-        
-        const targetElement = document.getElementById(targetId);
-        if (!targetElement) return;
-        
-        // Increased offset to account for mobile nav
-        const offset = window.innerWidth < 768 ? 100 : 80;
-        
-        window.scrollTo({
-          top: targetElement.offsetTop - offset,
-          behavior: 'smooth'
-        });
-      });
-    });
-  }, []);
-
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="space-y-4 sm:space-y-8"> {/* Reduced space on mobile */}
+      <main className="space-y-4 sm:space-y-8">
+        {/* Hero Section - Main landing area */}
         <Hero />
+        
+        {/* Why AI Section - Benefits and features */}
         <HumanoidSection />
+        
+        {/* Integrations Section - Platform connections */}
         <SpecsSection />
+        
+        {/* Get Started Section - CTA and form */}
         <DetailsSection />
       </main>
       <Footer />

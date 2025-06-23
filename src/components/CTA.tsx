@@ -52,12 +52,9 @@ const CTA = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#signup" className="button-primary group flex items-center justify-center w-full sm:w-auto">
-              Start Building for Free
+            <a href="#get-started" className="button-primary group flex items-center justify-center w-full sm:w-auto">
+              Join Waitlist - Get Free Portfolio
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a href="#demo" className="button-secondary w-full sm:w-auto text-center">
-              Watch Demo
             </a>
           </div>
         </div>

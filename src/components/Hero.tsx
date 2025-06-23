@@ -6,7 +6,7 @@ import LottieAnimation from "./LottieAnimation";
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
-  const [lottieData, setLottieData] = useState<any>(null);
+  const [lottieData, setLottieData] = useState<unknown>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const Hero = () => {
   return (
     <section 
       className="overflow-hidden relative bg-cover" 
-      id="hero" 
+      id="home" 
       style={{
         backgroundImage: 'url("/Header-background.webp")',
         backgroundPosition: 'center 30%', 
@@ -164,7 +164,7 @@ const Hero = () => {
             {lottieData ? (
               <div className="relative z-10 animate-fade-in" style={{ animationDelay: "0.9s" }}>
                 <LottieAnimation 
-                  animationPath={lottieData} 
+                  animationPath={lottieData as string} 
                   className="w-full h-auto max-w-lg mx-auto"
                   loop={true}
                   autoplay={true}

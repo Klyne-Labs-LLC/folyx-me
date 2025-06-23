@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+import { cn, scrollToSection as utilScrollToSection, getActiveSection } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
+      
+      // Track active section for visual feedback using utility function
+      const sections = ['home', 'why-us', 'integrations', 'get-started'];
+      setActiveSection(getActiveSection(sections));
     };
     
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -21,11 +26,16 @@ const Navbar = () => {
     document.body.style.overflow = !isMenuOpen ? 'hidden' : '';
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+  /**
+   * Handles smooth scrolling to sections with proper offset calculation
+   * @param {string} sectionId - The ID of the target section
+   * @param {Event} e - The click event to prevent default behavior
+   */
+  const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // Use utility function for consistent scrolling behavior
+    utilScrollToSection(sectionId);
     
     // Close mobile menu if open
     if (isMenuOpen) {
@@ -34,12 +44,41 @@ const Navbar = () => {
     }
   };
 
+  /**
+   * Navigation link component with active state styling
+   */
+  const NavLink = ({ 
+    href, 
+    children, 
+    sectionId, 
+    className = "" 
+  }: { 
+    href: string; 
+    children: React.ReactNode; 
+    sectionId: string;
+    className?: string;
+  }) => (
+    <a 
+      href={href}
+      className={cn(
+        "nav-link transition-colors duration-200",
+        activeSection === sectionId 
+          ? "text-purple-600 font-semibold" 
+          : "text-gray-700 hover:text-purple-600",
+        className
+      )}
+      onClick={(e) => scrollToSection(sectionId, e)}
+    >
+      {children}
+    </a>
+  );
+
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300",
         isScrolled 
-          ? "bg-white shadow-sm" 
+          ? "bg-white/95 backdrop-blur-sm shadow-sm" 
           : "bg-transparent"
       )}
     >
@@ -47,11 +86,8 @@ const Navbar = () => {
         <a 
           href="#" 
           className="flex items-center flex-shrink-0"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToTop();
-          }}
-          aria-label="Folyx"
+          onClick={(e) => scrollToSection('home', e)}
+          aria-label="Folyx - Go to top"
           style={{ minWidth: '120px' }}
         >
           <div 
@@ -72,19 +108,18 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 flex-shrink-0">
-          <a 
-            href="#" 
-            className="nav-link"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToTop();
-            }}
-          >
+          <NavLink href="#home" sectionId="home">
             Home
-          </a>
-          <a href="#why-ai" className="nav-link">Why Us</a>
-          <a href="#integrations" className="nav-link">Integrations</a>
-          <a href="#details" className="nav-link">Get Started</a>
+          </NavLink>
+          <NavLink href="#why-us" sectionId="why-us">
+            Why Us
+          </NavLink>
+          <NavLink href="#integrations" sectionId="integrations">
+            Integrations
+          </NavLink>
+          <NavLink href="#get-started" sectionId="get-started">
+            Get Started
+          </NavLink>
         </nav>
 
         {/* Mobile menu button - increased touch target */}
@@ -99,49 +134,55 @@ const Navbar = () => {
 
       {/* Mobile Navigation - improved dropdown style */}
       <div className={cn(
-        "absolute top-full left-0 right-0 z-40 bg-white shadow-lg md:hidden transition-all duration-300 ease-in-out border-t border-gray-100",
+        "absolute top-full left-0 right-0 z-40 bg-white/95 backdrop-blur-sm shadow-lg md:hidden transition-all duration-300 ease-in-out border-t border-gray-100",
         isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-4 invisible"
       )}>
         <nav className="flex flex-col py-4 px-6">
           <a 
-            href="#" 
-            className="text-lg font-medium py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors" 
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToTop();
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
+            href="#home" 
+            className={cn(
+              "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
+              activeSection === 'home' 
+                ? "bg-purple-50 text-purple-600" 
+                : "hover:bg-gray-100"
+            )}
+            onClick={(e) => scrollToSection('home', e)}
           >
             Home
           </a>
           <a 
-            href="#why-ai" 
-            className="text-lg font-medium py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
+            href="#why-us" 
+            className={cn(
+              "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
+              activeSection === 'why-us' 
+                ? "bg-purple-50 text-purple-600" 
+                : "hover:bg-gray-100"
+            )}
+            onClick={(e) => scrollToSection('why-us', e)}
           >
             Why Us
           </a>
           <a 
             href="#integrations" 
-            className="text-lg font-medium py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
+            className={cn(
+              "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
+              activeSection === 'integrations' 
+                ? "bg-purple-50 text-purple-600" 
+                : "hover:bg-gray-100"
+            )}
+            onClick={(e) => scrollToSection('integrations', e)}
           >
             Integrations
           </a>
           <a 
-            href="#details" 
-            className="text-lg font-medium py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors" 
-            onClick={() => {
-              setIsMenuOpen(false);
-              document.body.style.overflow = '';
-            }}
+            href="#get-started" 
+            className={cn(
+              "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
+              activeSection === 'get-started' 
+                ? "bg-purple-50 text-purple-600" 
+                : "hover:bg-gray-100"
+            )}
+            onClick={(e) => scrollToSection('get-started', e)}
           >
             Get Started
           </a>

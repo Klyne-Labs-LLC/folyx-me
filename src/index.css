@@ -104,9 +104,16 @@
     @apply bg-white text-black font-sans antialiased;
   }
 
-  /* Smooth scrolling */
+  /* Smooth scrolling and scroll offset for fixed navbar */
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Offset for fixed navbar */
+  }
+  
+  @media (min-width: 768px) {
+    html {
+      scroll-padding-top: 90px; /* Larger offset for desktop */
+    }
   }
 
   /* Custom scrollbar */

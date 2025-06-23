@@ -70,13 +70,14 @@ const DetailsSection = () => {
         company: ""
       });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Waitlist signup error:', error);
       
       // Handle specific error messages
-      if (error.message?.includes('already on our waitlist')) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('already on our waitlist')) {
         toast.error("This email is already on our waitlist!");
-      } else if (error.message?.includes('valid email')) {
+      } else if (errorMessage.includes('valid email')) {
         toast.error("Please enter a valid email address");
       } else {
         toast.error("Something went wrong. Please try again.");
@@ -87,7 +88,7 @@ const DetailsSection = () => {
   };
 
   return (
-    <section id="details" className="w-full bg-white py-0">
+    <section id="get-started" className="w-full bg-white py-0">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
           {/* Left Card - Platform Features */}
