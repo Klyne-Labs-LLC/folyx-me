@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
@@ -95,34 +96,29 @@ const Hero = () => {
         padding: isMobile ? '100px 12px 40px' : '120px 20px 60px'
       }}
     >
-      <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-gradient-to-br from-orange-500/20 to-red-500/20 opacity-30 blur-3xl rounded-full"></div>
+      {/* Removed the orange gradient overlay that was causing readability issues */}
       
       <div className="container px-4 sm:px-6 lg:px-8" ref={containerRef}>
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
           <div className="w-full lg:w-1/2">
+            {/* Replaced tech-chip with simple badge */}
             <div 
-              className="tech-chip mb-3 sm:mb-6 opacity-0 animate-fade-in" 
+              className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-medium mb-3 sm:mb-6 opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.1s" }}
             >
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-orange-500 text-white mr-2">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-500 text-white mr-2 text-xs">
+                ✨
               </span>
               <span>Portfolio on Autopilot</span>
             </div>
             
             <h1 
-              className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
+              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in font-bold" 
               style={{ animationDelay: "0.3s" }}
             >
               <span className="text-gray-900">The Last Portfolio</span> <br className="hidden sm:inline" />
               <span 
-                className="font-semibold" 
-                style={{ 
-                  color: '#b82db1',
-                  textShadow: '1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 2px 2px 4px rgba(0,0,0,0.1)' 
-                }}
+                className="font-bold text-blue-600"
               >
                 You'll Ever Need to Build
               </span>
@@ -130,7 +126,7 @@ const Hero = () => {
             
             <p 
               style={{ animationDelay: "0.5s" }} 
-              className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-700 font-normal text-base sm:text-lg text-left"
+              className="mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-600 font-medium text-base sm:text-lg text-left"
             >
               Our AI builds and maintains your portfolio from your social profiles, so you never have to rebuild it again. Join thousands of professionals getting their free portfolio when we launch.
             </p>
@@ -141,21 +137,10 @@ const Hero = () => {
             >
               <a 
                 href="#get-started" 
-                className="flex items-center justify-center group w-full sm:w-auto text-center" 
-                style={{
-                  background: 'linear-gradient(135deg, #EA580C 0%, #DC2626 100%)',
-                  borderRadius: '1440px',
-                  boxSizing: 'border-box',
-                  color: '#FFFFFF',
-                  cursor: 'pointer',
-                  fontSize: '14px',
-                  lineHeight: '20px',
-                  padding: '16px 24px',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                }}
+                className="inline-flex items-center justify-center group w-full sm:w-auto text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-full transition-all duration-200 text-base"
               >
                 Join Waitlist - Get Free Portfolio
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           </div>
@@ -172,7 +157,7 @@ const Hero = () => {
               </div>
             ) : (
               <>
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-orange-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-blue-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
               <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
                 <img 
                   ref={imageRef} 
@@ -189,7 +174,7 @@ const Hero = () => {
         </div>
       </div>
       
-      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
+      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-blue-100/30 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
     </section>
   );
 };

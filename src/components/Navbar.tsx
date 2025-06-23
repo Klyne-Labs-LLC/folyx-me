@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -40,7 +41,7 @@ const Navbar = () => {
         "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300",
         isScrolled 
           ? "bg-white shadow-sm" 
-          : "bg-transparent"
+          : "bg-white/90 backdrop-blur-sm"
       )}
     >
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -55,9 +56,10 @@ const Navbar = () => {
           style={{ minWidth: '120px' }}
         >
           <div 
-            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 bg-clip-text text-transparent font-display italic"
+            className="text-2xl sm:text-3xl font-bold text-blue-600 font-sans tracking-tight"
             style={{ 
-              fontFamily: 'Brockmann, "Playfair Display", Georgia, serif',
+              fontFamily: 'Inter, sans-serif',
+              fontWeight: '800',
               paddingRight: '8px',
               paddingLeft: '4px',
               width: 'fit-content',
@@ -74,7 +76,7 @@ const Navbar = () => {
         <nav className="hidden md:flex space-x-8 flex-shrink-0">
           <a 
             href="#" 
-            className="nav-link"
+            className="text-gray-700 hover:text-blue-600 py-2 transition-colors duration-300 font-medium"
             onClick={(e) => {
               e.preventDefault();
               scrollToTop();
@@ -82,9 +84,9 @@ const Navbar = () => {
           >
             Home
           </a>
-          <a href="#why-ai" className="nav-link">Why Us</a>
-          <a href="#integrations" className="nav-link">Integrations</a>
-          <a href="#details" className="nav-link">Get Started</a>
+          <a href="#why-ai" className="text-gray-700 hover:text-blue-600 py-2 transition-colors duration-300 font-medium">Why Us</a>
+          <a href="#integrations" className="text-gray-700 hover:text-blue-600 py-2 transition-colors duration-300 font-medium">Integrations</a>
+          <a href="#details" className="text-gray-700 hover:text-blue-600 py-2 transition-colors duration-300 font-medium">Get Started</a>
         </nav>
 
         {/* Mobile menu button - increased touch target */}
