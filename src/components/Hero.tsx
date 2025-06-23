@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import LottieAnimation from "./LottieAnimation";
+import { useWaitlistCount } from "@/hooks/useWaitlistCount";
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const [lottieData, setLottieData] = useState<unknown>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const { count, loading } = useWaitlistCount();
 
   useEffect(() => {
     // Check if mobile on mount and when window resizes
@@ -139,24 +141,33 @@ const Hero = () => {
               className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.7s" }}
             >
-              <a 
-                href="#waitlist-form" 
-                className="flex items-center justify-center group w-full sm:w-auto text-center" 
-                style={{
-                  background: 'linear-gradient(135deg, #EA580C 0%, #DC2626 100%)',
-                  borderRadius: '1440px',
-                  boxSizing: 'border-box',
-                  color: '#FFFFFF',
-                  cursor: 'pointer',
-                  fontSize: '14px',
-                  lineHeight: '20px',
-                  padding: '16px 24px',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                }}
-              >
-                Join Waitlist - Get Free Portfolio
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              <div className="flex flex-col items-center gap-2">
+                <a 
+                  href="#waitlist-form" 
+                  className="flex items-center justify-center group w-full sm:w-auto text-center" 
+                  style={{
+                    background: 'linear-gradient(135deg, #EA580C 0%, #DC2626 100%)',
+                    borderRadius: '1440px',
+                    boxSizing: 'border-box',
+                    color: '#FFFFFF',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    lineHeight: '20px',
+                    padding: '16px 24px',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  }}
+                >
+                  Join Waitlist - Get Free Portfolio
+                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </a>
+                
+                {/* Waitlist count for FOMO */}
+                {!loading && (
+                  <p className="text-sm text-gray-600 font-medium text-center w-full sm:w-auto">
+                      {(count + 50).toLocaleString()} people already joined
+                  </p>
+                )}
+              </div>
             </div>
           </div>
           

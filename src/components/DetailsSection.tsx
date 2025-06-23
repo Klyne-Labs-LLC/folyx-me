@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useWaitlistCount } from "@/hooks/useWaitlistCount";
 
 const DetailsSection = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const DetailsSection = () => {
     company: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { count, loading } = useWaitlistCount();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -229,7 +231,7 @@ const DetailsSection = () => {
                   />
                 </div>
                 
-                <div>
+                <div className="space-y-3">
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
@@ -237,6 +239,13 @@ const DetailsSection = () => {
                   >
                     {isSubmitting ? "Joining..." : "Join Waitlist"}
                   </button>
+                  
+                  {/* Waitlist count for FOMO */}
+                  {!loading && (
+                    <p className="text-center text-xs text-gray-500 mt-2">
+                      {(count + 50).toLocaleString()} people waiting • Launching in 2 weeks
+                    </p>
+                  )}
                 </div>
               </form>
             </div>
