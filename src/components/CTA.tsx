@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { ArrowRight } from "lucide-react";
+import { scrollToSection } from "@/lib/utils";
 
 const CTA = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -42,17 +43,25 @@ const CTA = () => {
             <span>Join Folyx Today</span>
           </div>
           
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4 md:mb-6">
             Ready to Build Your <br className="hidden sm:inline" />
             <span className="text-blue-500">Professional Portfolio?</span>
           </h2>
           
-          <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
             Join thousands of professionals who've accelerated their careers with Folyx's AI-powered portfolio builder. Start free, no credit card required.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#waitlist-form" className="button-primary group flex items-center justify-center w-full sm:w-auto">
+            <a 
+              href="#waitlist-form" 
+              className="button-primary group flex items-center justify-center w-full sm:w-auto touch-target text-sm sm:text-base"
+              onClick={(e) => {
+                e.preventDefault();
+                // Scroll to waitlist form
+                scrollToSection('waitlist-form');
+              }}
+            >
               Join Waitlist - Get Free Portfolio
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>

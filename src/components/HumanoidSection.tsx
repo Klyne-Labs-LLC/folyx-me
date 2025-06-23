@@ -5,13 +5,27 @@ const HumanoidSection = () => {
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const ticking = useRef(false);
   const lastScrollY = useRef(0);
 
-  // More responsive timing function with shorter duration
+  // Check mobile state on mount
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // More responsive timing function with mobile-optimized heights
   const cardStyle = {
-    height: '60vh',
-    maxHeight: '600px',
+    height: isMobile ? '45vh' : '60vh', // Reduced height on mobile
+    maxHeight: isMobile ? '380px' : '600px', // Smaller max height on mobile
+    minHeight: isMobile ? '280px' : '400px', // Ensure minimum readability
     borderRadius: '20px',
     transition: 'transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1)',
     willChange: 'transform, opacity'
@@ -87,11 +101,11 @@ const HumanoidSection = () => {
       className="relative" 
       style={{ height: '300vh' }}
     >
-      {/* Scroll target positioned where 2nd card starts appearing */}
+      {/* Scroll target positioned to show 1st card prominently */}
       <div 
         id="why-us" 
         className="absolute" 
-        style={{ top: '120vh' }}
+        style={{ top: '20vh' }}
       ></div>
       
       <section className="w-full h-screen py-10 md:py-16 sticky top-0 overflow-hidden bg-white">
@@ -110,7 +124,7 @@ const HumanoidSection = () => {
               </div>
             </div>
             
-            <h2 className="section-title text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-1 md:mb-2">
+            <h2 className="section-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-1 md:mb-2">
               Why AI-Powered Portfolios
             </h2>
           </div>
@@ -132,7 +146,9 @@ const HumanoidSection = () => {
                   backgroundImage: "url('/background-section1.png')",
                   backgroundSize: "cover",
                   backgroundPosition: "top center",
-                  backgroundBlendMode: "overlay"
+                  backgroundBlendMode: "overlay",
+                  // Mobile optimization: reduce background attachment for better performance
+                  backgroundAttachment: isMobile ? 'scroll' : 'fixed'
                 }}
               ></div>
               
@@ -142,9 +158,9 @@ const HumanoidSection = () => {
                 </div>
               </div>
               
-              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
+              <div className="relative z-10 p-4 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display text-white font-bold leading-tight mb-2 sm:mb-4">
                     Your portfolio stays updated automatically with data from all your platforms
                   </h3>
                 </div>
@@ -178,9 +194,9 @@ const HumanoidSection = () => {
                 </div>
               </div>
               
-              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
+              <div className="relative z-10 p-4 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display text-white font-bold leading-tight mb-2 sm:mb-4">
                     AI creates personalized designs that match your industry and style
                   </h3>
                 </div>
@@ -214,9 +230,9 @@ const HumanoidSection = () => {
                 </div>
               </div>
               
-              <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
+              <div className="relative z-10 p-4 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display text-white font-bold leading-tight mb-2 sm:mb-4">
                     Focus on your career while your portfolio stays on autopilot
                   </h3>
                 </div>

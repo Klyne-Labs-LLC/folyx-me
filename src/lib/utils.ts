@@ -26,16 +26,46 @@ export function scrollToSection(sectionId: string, customOffset?: number) {
     return;
   }
   
-  // Calculate responsive offset for fixed navbar
-  const defaultOffset = window.innerWidth < 768 ? 80 : 90;
+  // Calculate responsive offset for fixed navbar with better mobile detection
+  const isMobile = window.innerWidth < 768;
+  const defaultOffset = isMobile ? 120 : 90; // Further increased mobile offset for better positioning
   const offset = customOffset ?? defaultOffset;
   
-  const targetPosition = targetElement.offsetTop - offset;
+  // Debug info for mobile scroll issues (remove in production)
+  if (isMobile) {
+    console.log(`Mobile scroll to: ${sectionId}, offset: ${offset}px`);
+  }
   
-  window.scrollTo({
-    top: Math.max(0, targetPosition), // Ensure we don't scroll to negative position
-    behavior: 'smooth'
-  });
+  // Get element position with more accurate calculation
+  const rect = targetElement.getBoundingClientRect();
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const targetPosition = rect.top + scrollTop - offset;
+  
+  // Add small delay for mobile to ensure DOM is ready
+  const scrollDelay = isMobile ? 50 : 0;
+  
+  setTimeout(() => {
+    window.scrollTo({
+      top: Math.max(0, targetPosition),
+      behavior: 'smooth'
+    });
+    
+    // Fallback for mobile browsers that might not honor smooth behavior
+    if (isMobile) {
+      setTimeout(() => {
+        const currentScroll = window.pageYOffset;
+        const expectedScroll = Math.max(0, targetPosition);
+        
+        // If scroll didn't work properly, try again with instant scroll
+        if (Math.abs(currentScroll - expectedScroll) > 50) {
+          window.scrollTo({
+            top: expectedScroll,
+            behavior: 'auto' // Use instant scroll as fallback
+          });
+        }
+      }, 300);
+    }
+  }, scrollDelay);
 }
 
 /**

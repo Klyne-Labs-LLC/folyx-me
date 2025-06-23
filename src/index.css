@@ -107,12 +107,19 @@
   /* Smooth scrolling and scroll offset for fixed navbar */
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px; /* Offset for fixed navbar */
+    scroll-padding-top: 120px; /* Further increased offset for mobile navbar */
   }
   
   @media (min-width: 768px) {
     html {
-      scroll-padding-top: 90px; /* Larger offset for desktop */
+      scroll-padding-top: 90px; /* Desktop offset */
+    }
+  }
+  
+  /* Ensure smooth scrolling works on all mobile browsers */
+  @media (max-width: 767px) {
+    html {
+      -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
     }
   }
 
@@ -142,6 +149,62 @@
     color: transparent;
     background-size: cover;
     background-position: center;
+  }
+
+  /* Touch-friendly improvements */
+  .touch-target {
+    min-height: 44px; /* iOS recommended touch target size */
+    min-width: 44px;
+  }
+
+  /* Better mobile hover states */
+  @media (hover: hover) {
+    .hover-lift:hover {
+      transform: translateY(-5px);
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+  }
+
+  /* Mobile-specific optimizations */
+  @media (max-width: 767px) {
+    .mobile-text-sm {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+    
+    .mobile-reduced-motion {
+      animation-duration: 0.3s !important;
+      transition-duration: 0.3s !important;
+    }
+    
+    /* Optimize mobile scrolling performance */
+    * {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+    
+    /* Better mobile spacing */
+    .mobile-padding {
+      padding: 1rem;
+    }
+    
+    /* Mobile-optimized card heights */
+    .mobile-card-header {
+      min-height: 8rem;
+      max-height: 12rem;
+    }
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   .pulse-chip {

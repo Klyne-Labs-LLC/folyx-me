@@ -33,14 +33,23 @@ const Navbar = () => {
    */
   const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     
-    // Use utility function for consistent scrolling behavior
-    utilScrollToSection(sectionId);
+    // Debug log for mobile navigation
     
-    // Close mobile menu if open
+    // Close mobile menu first if open
     if (isMenuOpen) {
       setIsMenuOpen(false);
       document.body.style.overflow = '';
+      
+      // Add delay before scrolling to allow menu to close
+      setTimeout(() => {
+        // Scroll after menu closes
+        utilScrollToSection(sectionId);
+      }, 100);
+    } else {
+      // Direct scroll for desktop
+      utilScrollToSection(sectionId);
     }
   };
 
@@ -79,7 +88,7 @@ const Navbar = () => {
         "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300",
         isScrolled 
           ? "bg-white/95 backdrop-blur-sm shadow-sm" 
-          : "bg-transparent"
+          : "bg-white/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-0"
       )}
     >
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -135,7 +144,7 @@ const Navbar = () => {
       {/* Mobile Navigation - improved dropdown style */}
       <div className={cn(
         "absolute top-full left-0 right-0 z-40 bg-white/95 backdrop-blur-sm shadow-lg md:hidden transition-all duration-300 ease-in-out border-t border-gray-100",
-        isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-4 invisible"
+        isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-4 invisible pointer-events-none"
       )}>
         <nav className="flex flex-col py-4 px-6">
           <a 

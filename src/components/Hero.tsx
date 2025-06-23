@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, scrollToSection } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import LottieAnimation from "./LottieAnimation";
 import { useWaitlistCount } from "@/hooks/useWaitlistCount";
@@ -133,7 +133,7 @@ const Hero = () => {
             </div>
             
             <h1 
-              className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
+              className="section-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.3s" }}
             >
               <span className="text-gray-900">The Last Portfolio</span> <br className="hidden sm:inline" />
@@ -150,9 +150,10 @@ const Hero = () => {
             
             <p 
               style={{ animationDelay: "0.5s" }} 
-              className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-700 font-normal text-base sm:text-lg text-left"
+              className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-700 font-normal text-sm sm:text-base md:text-lg text-left"
             >
-              Our AI builds and maintains your portfolio from your social profiles, so you never have to rebuild it again. Join thousands of professionals getting their free portfolio when we launch.
+              Our AI builds and maintains your portfolio from your social profiles, so you never have to rebuild it again.<br className="hidden sm:inline" /> 
+              Join thousands of professionals getting their free portfolio when we launch.
             </p>
             
             <div 
@@ -163,6 +164,11 @@ const Hero = () => {
                 <a 
                   href="#waitlist-form" 
                   className="flex items-center justify-center group w-full sm:w-auto text-center" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Scroll to waitlist form
+                    scrollToSection('waitlist-form');
+                  }}
                   style={{
                     background: 'linear-gradient(135deg, #EA580C 0%, #DC2626 100%)',
                     borderRadius: '1440px',

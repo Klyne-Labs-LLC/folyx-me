@@ -114,12 +114,12 @@ const DetailsSection = () => {
           {/* Left Card - Platform Features */}
           <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant">
             {/* Card Header with background image instead of gradient */}
-            <div className="relative h-48 sm:h-64 p-6 sm:p-8 flex items-end" style={{
+            <div className="relative h-32 sm:h-48 md:h-64 p-4 sm:p-6 md:p-8 flex items-end" style={{
               backgroundImage: "url('/background-section3.png')",
               backgroundSize: "cover",
               backgroundPosition: "center"
             }}>
-              <h2 className="text-2xl sm:text-3xl font-display text-white font-bold">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-display text-white font-bold">
                 Platform Features
               </h2>
             </div>
@@ -192,7 +192,7 @@ const DetailsSection = () => {
           {/* Right Card - Contact Form */}
           <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant" id="waitlist-form">
             {/* Card Header with background image instead of gradient */}
-            <div className="relative h-48 sm:h-64 p-6 sm:p-8 flex flex-col items-start" style={{
+            <div className="relative h-32 sm:h-48 md:h-64 p-4 sm:p-6 md:p-8 flex flex-col items-start" style={{
               backgroundImage: "url('/background-section1.png')",
               backgroundSize: "cover",
               backgroundPosition: "center"
@@ -200,7 +200,7 @@ const DetailsSection = () => {
               <div className="inline-block px-4 sm:px-6 py-2 border border-white text-white rounded-full text-xs mb-4">
                 Join Waitlist
               </div>
-              <h2 className="text-2xl sm:text-3xl font-display text-white font-bold mt-auto">
+              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-display text-white font-bold mt-auto">
                 Get your free portfolio when we launch
               </h2>
             </div>
@@ -210,7 +210,7 @@ const DetailsSection = () => {
               backgroundColor: "#FFFFFF",
               border: "1px solid #ECECEC"
             }}>
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 md:space-y-6">
                 <div>
                   <input 
                     type="text" 
@@ -218,7 +218,7 @@ const DetailsSection = () => {
                     value={formData.fullName} 
                     onChange={handleChange} 
                     placeholder="Full name" 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                    className="w-full px-3 sm:px-4 py-3 text-sm sm:text-base rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
                     required 
                     disabled={isSubmitting || isSubmitted}
                   />
@@ -231,7 +231,7 @@ const DetailsSection = () => {
                     value={formData.email} 
                     onChange={handleChange} 
                     placeholder="Email address" 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                    className="w-full px-3 sm:px-4 py-3 text-sm sm:text-base rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
                     required 
                     disabled={isSubmitting || isSubmitted}
                   />
@@ -244,7 +244,7 @@ const DetailsSection = () => {
                     value={formData.company} 
                     onChange={handleChange} 
                     placeholder="Current role/company (optional)" 
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
+                    className="w-full px-3 sm:px-4 py-3 text-sm sm:text-base rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
                     disabled={isSubmitting || isSubmitted}
                   />
                 </div>
