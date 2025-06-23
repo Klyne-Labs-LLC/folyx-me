@@ -137,6 +137,14 @@
     background-position: center;
   }
 
+  .pulse-chip {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-pulse-100 text-pulse-600 border border-pulse-200;
+  }
+
+  .tech-chip {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-600 border border-blue-200;
+  }
+  
   .section-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12;
   }
@@ -155,6 +163,14 @@
 
   .feature-card {
     @apply p-6 rounded-2xl transition-all duration-500 hover:translate-y-[-5px];
+  }
+  
+  .button-primary {
+    @apply bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .button-secondary {
+    @apply bg-transparent border border-gray-300 hover:border-blue-500 text-gray-800 hover:text-blue-500 font-medium py-3 px-6 rounded-full transition-all duration-300;
   }
   
   .nav-link {
@@ -188,6 +204,11 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Blue gradient backgrounds */
+.bg-blue-gradient {
+  background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
 }
 
 .stagger-1 { animation-delay: 0.1s; }

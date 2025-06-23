@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -49,8 +48,8 @@ const FeatureCard = ({ icon, title, description, index }: FeatureCardProps) => {
       <div className="rounded-full bg-blue-50 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-blue-500 mb-4 sm:mb-5">
         {icon}
       </div>
-      <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-900">{title}</h3>
-      <p className="text-gray-600 text-sm sm:text-base leading-relaxed">{description}</p>
+      <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">{title}</h3>
+      <p className="text-gray-600 text-sm sm:text-base">{description}</p>
     </div>
   );
 };
@@ -91,15 +90,14 @@ const Features = () => {
     <section className="py-12 sm:py-16 md:py-20 pb-0 relative bg-gray-50" id="features" ref={sectionRef}>
       <div className="section-container">
         <div className="text-center mb-10 sm:mb-16">
-          {/* Replaced tech-chip with simple heading structure */}
-          <h4 className="text-blue-600 font-semibold text-sm uppercase tracking-wide mb-3 sm:mb-4 opacity-0 fade-in-element">
-            Features
-          </h4>
-          <h2 className="section-title mb-3 sm:mb-4 opacity-0 fade-in-element text-gray-900">
+          <div className="tech-chip mx-auto mb-3 sm:mb-4 opacity-0 fade-in-element">
+            <span>Features</span>
+          </div>
+          <h2 className="section-title mb-3 sm:mb-4 opacity-0 fade-in-element">
             Professional Portfolios, <br className="hidden sm:block" />
             Zero Effort Required
           </h2>
-          <p className="section-subtitle mx-auto opacity-0 fade-in-element text-gray-600">
+          <p className="section-subtitle mx-auto opacity-0 fade-in-element">
             Advanced AI technology that transforms your social media presence into a stunning professional portfolio.
           </p>
         </div>
