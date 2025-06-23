@@ -1,51 +1,103 @@
+
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+
 const DetailsSection = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     company: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      name,
-      value
-    } = e.target;
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   };
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
 
-    // Simple validation
-    if (!formData.fullName || !formData.email) {
-      toast.error("Please fill in all required fields");
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Client-side validation
+    if (!formData.fullName.trim()) {
+      toast.error("Please enter your full name");
       return;
     }
 
-    // Waitlist form submission
-    toast.success("🎉 You're on the waitlist! We'll send you your free portfolio when it's ready!");
+    if (!formData.email.trim()) {
+      toast.error("Please enter your email address");
+      return;
+    }
 
-    // Reset form
-    setFormData({
-      fullName: "",
-      email: "",
-      company: ""
-    });
+    if (!validateEmail(formData.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Call the edge function
+      const { data, error } = await supabase.functions.invoke('waitlist-signup', {
+        body: {
+          fullName: formData.fullName.trim(),
+          email: formData.email.trim().toLowerCase(),
+          company: formData.company.trim() || null,
+        },
+      });
+
+      if (error) {
+        console.error('Edge function error:', error);
+        throw error;
+      }
+
+      // Success
+      toast.success("🎉 You're on the waitlist! We'll send you your free portfolio when it's ready!");
+      
+      // Reset form
+      setFormData({
+        fullName: "",
+        email: "",
+        company: ""
+      });
+
+    } catch (error: any) {
+      console.error('Waitlist signup error:', error);
+      
+      // Handle specific error messages
+      if (error.message?.includes('already on our waitlist')) {
+        toast.error("This email is already on our waitlist!");
+      } else if (error.message?.includes('valid email')) {
+        toast.error("Please enter a valid email address");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-  return <section id="details" className="w-full bg-white py-0">
+
+  return (
+    <section id="details" className="w-full bg-white py-0">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
           {/* Left Card - Platform Features */}
           <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant">
             {/* Card Header with background image instead of gradient */}
             <div className="relative h-48 sm:h-64 p-6 sm:p-8 flex items-end" style={{
-            backgroundImage: "url('/background-section3.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center"
-          }}>
+              backgroundImage: "url('/background-section3.png')",
+              backgroundSize: "cover",
+              backgroundPosition: "center"
+            }}>
               <h2 className="text-2xl sm:text-3xl font-display text-white font-bold">
                 Platform Features
               </h2>
@@ -53,9 +105,9 @@ const DetailsSection = () => {
             
             {/* Card Content */}
             <div className="bg-white p-4 sm:p-8" style={{
-            backgroundColor: "#FFFFFF",
-            border: "1px solid #ECECEC"
-          }}>
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #ECECEC"
+            }}>
               <h3 className="text-lg sm:text-xl font-display mb-6 sm:mb-8">
                 Join the waitlist and get your professional portfolio for free when we launch
               </h3>
@@ -112,7 +164,6 @@ const DetailsSection = () => {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -121,10 +172,10 @@ const DetailsSection = () => {
           <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-elegant">
             {/* Card Header with background image instead of gradient */}
             <div className="relative h-48 sm:h-64 p-6 sm:p-8 flex flex-col items-start" style={{
-            backgroundImage: "url('/background-section1.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center"
-          }}>
+              backgroundImage: "url('/background-section1.png')",
+              backgroundSize: "cover",
+              backgroundPosition: "center"
+            }}>
               <div className="inline-block px-4 sm:px-6 py-2 border border-white text-white rounded-full text-xs mb-4">
                 Join Waitlist
               </div>
@@ -135,9 +186,9 @@ const DetailsSection = () => {
             
             {/* Card Content - Form */}
             <div className="bg-white p-4 sm:p-8" style={{
-            backgroundColor: "#FFFFFF",
-            border: "1px solid #ECECEC"
-          }}>
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #ECECEC"
+            }}>
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div>
                   <input 
@@ -148,6 +199,7 @@ const DetailsSection = () => {
                     placeholder="Full name" 
                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
                     required 
+                    disabled={isSubmitting}
                   />
                 </div>
                 
@@ -160,6 +212,7 @@ const DetailsSection = () => {
                     placeholder="Email address" 
                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
                     required 
+                    disabled={isSubmitting}
                   />
                 </div>
                 
@@ -171,15 +224,17 @@ const DetailsSection = () => {
                     onChange={handleChange} 
                     placeholder="Current role/company (optional)" 
                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" 
+                    disabled={isSubmitting}
                   />
                 </div>
                 
                 <div>
                   <button 
                     type="submit" 
-                    className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-medium rounded-full transition-colors duration-300"
+                    disabled={isSubmitting}
+                    className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-medium rounded-full transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Join Waitlist
+                    {isSubmitting ? "Joining..." : "Join Waitlist"}
                   </button>
                 </div>
               </form>
@@ -187,6 +242,8 @@ const DetailsSection = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default DetailsSection;
