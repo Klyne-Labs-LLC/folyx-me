@@ -88,8 +88,16 @@ const Navbar = () => {
         "fixed top-0 left-0 right-0 z-50 py-2 sm:py-3 md:py-4 transition-all duration-300",
         isScrolled 
           ? "bg-white/95 backdrop-blur-sm shadow-sm" 
-          : "bg-white/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-0"
+          : "bg-transparent"
       )}
+      style={{
+        // Ensure navbar stays visible on mobile
+        zIndex: 9999,
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0
+      }}
     >
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <a 
@@ -142,10 +150,16 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Navigation - improved dropdown style */}
-      <div className={cn(
-        "absolute top-full left-0 right-0 z-40 bg-white/95 backdrop-blur-sm shadow-lg md:hidden transition-all duration-300 ease-in-out border-t border-gray-100",
-        isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-4 invisible pointer-events-none"
-      )}>
+      <div 
+        className={cn(
+          "absolute top-full left-0 right-0 z-40 bg-white/95 backdrop-blur-sm shadow-lg md:hidden transition-all duration-300 ease-in-out border-t border-gray-100",
+          isMenuOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-4 invisible pointer-events-none"
+        )}
+        style={{
+          zIndex: 9998, // Just below header but above everything else
+          position: 'absolute'
+        }}
+      >
         <nav className="flex flex-col py-4 px-6">
           <a 
             href="#home" 

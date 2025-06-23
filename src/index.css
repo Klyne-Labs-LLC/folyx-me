@@ -180,12 +180,6 @@
       transition-duration: 0.3s !important;
     }
     
-    /* Optimize mobile scrolling performance */
-    * {
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-    }
-    
     /* Better mobile spacing */
     .mobile-padding {
       padding: 1rem;
@@ -195,6 +189,12 @@
     .mobile-card-header {
       min-height: 8rem;
       max-height: 12rem;
+    }
+    
+    /* Ensure navbar stays on top on mobile */
+    header {
+      z-index: 9999 !important;
+      position: fixed !important;
     }
   }
 

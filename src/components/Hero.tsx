@@ -152,8 +152,7 @@ const Hero = () => {
               style={{ animationDelay: "0.5s" }} 
               className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-700 font-normal text-sm sm:text-base md:text-lg text-left"
             >
-              Our AI builds and maintains your portfolio from your social profiles, so you never have to rebuild it again.<br className="hidden sm:inline" /> 
-              Join thousands of professionals getting their free portfolio when we launch.
+              Our AI builds and maintains your portfolio from your social profiles, so you never have to rebuild it again. Join thousands of professionals getting their free portfolio when we launch.
             </p>
             
             <div 
