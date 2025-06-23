@@ -145,7 +145,7 @@ const HumanoidSection = () => {
               <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                    Your achievements update automatically across all platforms
+                    Your portfolio stays updated automatically with data from all your platforms
                   </h3>
                 </div>
               </div>
@@ -217,7 +217,7 @@ const HumanoidSection = () => {
               <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-display text-white font-bold leading-tight mb-4">
-                    Focus on your career while your portfolio stays perfectly updated
+                    Focus on your career while your portfolio stays on autopilot
                   </h3>
                 </div>
               </div>
