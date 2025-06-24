@@ -107,51 +107,50 @@ const Hero = () => {
   
   return (
     <section 
-      className="overflow-hidden relative min-h-screen flex items-center" 
-      id="home"
+      className="overflow-hidden relative bg-cover" 
+      id="home" 
       style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        padding: isMobile ? '120px 12px 60px' : '140px 20px 80px'
+        backgroundImage: 'url("/Header-background.webp")',
+        backgroundPosition: 'center 30%', 
+        padding: isMobile ? '100px 12px 40px' : '120px 20px 60px'
       }}
     >
-      {/* Modern floating elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-float"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl animate-pulse-slow"></div>
-      <div className="absolute top-1/2 left-1/4 w-40 h-40 bg-blue-300/15 rounded-full blur-2xl"></div>
+      <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-gradient-to-br from-orange-500/20 to-red-500/20 opacity-30 blur-3xl rounded-full"></div>
       
-      <div className="container px-4 sm:px-6 lg:px-8 relative z-10" ref={containerRef}>
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+      <div className="container px-4 sm:px-6 lg:px-8" ref={containerRef}>
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
           <div className="w-full lg:w-1/2">
-            {/* Modern badge */}
             <div 
-              className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white/90 text-sm font-medium mb-6 opacity-0 animate-fade-in" 
+              className="tech-chip mb-3 sm:mb-6 opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.1s" }}
             >
-              <div className="w-2 h-2 bg-white rounded-full mr-3 animate-pulse"></div>
-              Portfolio on Autopilot
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-orange-500 text-white mr-2">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </span>
+              <span>Portfolio on Autopilot</span>
             </div>
             
             <h1 
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white mb-6 opacity-0 animate-fade-in" 
-              style={{ 
-                animationDelay: "0.3s",
-                fontFamily: 'Inter, system-ui, sans-serif',
-                fontWeight: '800',
-                letterSpacing: '-0.02em'
-              }}
+              className="section-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
+              style={{ animationDelay: "0.3s" }}
             >
-              The Last Portfolio{" "}
-              <br className="hidden sm:inline" />
+              <span className="text-gray-900">The Last Portfolio</span> <br className="hidden sm:inline" />
               <span 
-                className="bg-gradient-to-r from-yellow-300 via-pink-300 to-purple-300 bg-clip-text text-transparent"
+                className="font-semibold" 
+                style={{ 
+                  color: '#b82db1',
+                  textShadow: '1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 2px 2px 4px rgba(0,0,0,0.1)' 
+                }}
               >
-                You'll Ever Need
+                You'll Ever Need to Build
               </span>
             </h1>
             
             <p 
               style={{ animationDelay: "0.5s" }} 
-              className="text-xl text-white/80 leading-relaxed mb-8 max-w-2xl opacity-0 animate-fade-in"
+              className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-700 font-normal text-sm sm:text-base md:text-lg text-left"
             >
               Our AI builds and maintains your portfolio from your social profiles, so you never have to rebuild it again. Join thousands of professionals getting their free portfolio when we launch.
             </p>
@@ -160,29 +159,42 @@ const Hero = () => {
               className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.7s" }}
             >
-              <div className="flex flex-col items-start gap-3">
+              <div className="flex flex-col items-center gap-2">
                 <a 
                   href="#waitlist-form" 
-                  className="group inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-gray-50" 
+                  className="flex items-center justify-center group w-full sm:w-auto text-center" 
                   onClick={(e) => {
                     e.preventDefault();
+                    // Scroll to waitlist form
                     scrollToSection('waitlist-form');
+                  }}
+                  style={{
+                    background: 'linear-gradient(135deg, #EA580C 0%, #DC2626 100%)',
+                    borderRadius: '1440px',
+                    boxSizing: 'border-box',
+                    color: '#FFFFFF',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    lineHeight: '20px',
+                    padding: '16px 24px',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
                   }}
                 >
                   Join Waitlist - Get Free Portfolio
-                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </a>
                 
+                {/* Waitlist count for FOMO */}
                 {!loading && (
-                  <p className="text-white/70 text-sm font-medium">
-                    {(count + 50 + localIncrement).toLocaleString()} people already joined
+                  <p className="text-sm text-gray-600 font-medium text-center w-full sm:w-auto">
+                      {(count + 50 + localIncrement).toLocaleString()} people already joined
                   </p>
                 )}
               </div>
             </div>
           </div>
           
-          <div className="w-full lg:w-1/2 relative mt-8 lg:mt-0">
+          <div className="w-full lg:w-1/2 relative mt-6 lg:mt-0">
             {lottieData ? (
               <div className="relative z-10 animate-fade-in" style={{ animationDelay: "0.9s" }}>
                 <LottieAnimation 
@@ -193,22 +205,25 @@ const Hero = () => {
                 />
               </div>
             ) : (
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-white/5 rounded-3xl backdrop-blur-sm border border-white/20 -z-10 shadow-2xl"></div>
-                <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-3xl shadow-2xl">
-                  <img 
-                    ref={imageRef} 
-                    src="/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" 
-                    alt="Folyx Portfolio Builder Dashboard" 
-                    className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
-                    style={{ transformStyle: 'preserve-3d' }} 
-                  />
-                </div>
+              <>
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-orange-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
+              <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
+                <img 
+                  ref={imageRef} 
+                  src="/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" 
+                  alt="Folyx Portfolio Builder Dashboard" 
+                  className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
+                  style={{ transformStyle: 'preserve-3d' }} 
+                />
+                <div className="absolute inset-0" style={{ backgroundImage: 'url("/hero-image.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', mixBlendMode: 'overlay', opacity: 0.3 }}></div>
               </div>
+              </>
             )}
           </div>
         </div>
       </div>
+      
+      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
     </section>
   );
 };
