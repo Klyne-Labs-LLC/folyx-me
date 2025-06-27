@@ -189,7 +189,7 @@ serve(async (req) => {
       const brandText = sanitizedCompany ? " at " + sanitizedCompany : ""
       
       await resend.emails.send({
-        from: 'Anian <anian@folyx.me>', // Founder's name and email
+        from: 'Anian from Folyx <anian@folyx.me>', // Founder's name and email
         to: sanitizedEmail,
         subject: `${firstName}, confirming your Folyx waitlist signup`,
         html: `

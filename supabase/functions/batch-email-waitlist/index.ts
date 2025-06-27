@@ -65,7 +65,7 @@ serve(async (req) => {
         const firstName = full_name.split(' ')[0]
         
         await resend.emails.send({
-          from: 'Anian <anian@folyx.me>', // Founder's name and email
+          from: 'Anian from Folyx<anian@folyx.me>', // Founder's name and email
           to: email,
           subject: `${firstName}, remember signing up for Folyx?`,
           html: `
