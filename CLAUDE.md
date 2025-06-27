@@ -41,8 +41,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Database**: Single `waitlist` table with fields: id, full_name, email, company, created_at
 - **Client**: `src/integrations/supabase/client.ts` - Pre-configured Supabase client
 - **Types**: `src/integrations/supabase/types.ts` - Auto-generated TypeScript types
-- **Edge Function**: `supabase/functions/waitlist-signup/index.ts` - Handles waitlist signup with validation
+- **Edge Function**: `supabase/functions/waitlist-signup/index.ts` - Handles waitlist signup with enhanced validation and sanitization
 - **Migration**: Database schema in `supabase/migrations/` with RLS policies
+
+#### Validation Rules
+- **Full Name**: 2-50 characters, type validation, sanitization, pattern checks for repeated chars and special characters
+- **Email**: Enhanced regex validation, length limits (100 chars), suspicious pattern detection, lowercase normalization
+- **Company**: Optional field, 100 character limit, sanitization with empty string conversion to null
 
 ### Key Features
 - **Waitlist System**: Users can sign up with name, email, and optional company
