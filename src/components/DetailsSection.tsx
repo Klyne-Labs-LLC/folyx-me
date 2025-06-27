@@ -30,16 +30,44 @@ const DetailsSection = () => {
   };
 
   const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
+  };
+
+  const validateFullName = (name: string) => {
+    const trimmedName = name.trim();
+    
+    // Check length
+    if (trimmedName.length < 2 || trimmedName.length > 50) {
+      return false;
+    }
+    
+    // Check for repeated characters (more than 10 in a row)
+    const repeatedCharPattern = /(.)\1{10,}/;
+    if (repeatedCharPattern.test(trimmedName)) {
+      return false;
+    }
+    
+    // Check for suspicious special characters
+    const specialCharPattern = /[{}[\]"\\]/;
+    if (specialCharPattern.test(trimmedName)) {
+      return false;
+    }
+    
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Client-side validation
+    // Enhanced client-side validation
     if (!formData.fullName.trim()) {
       toast.error("Please enter your full name");
+      return;
+    }
+
+    if (!validateFullName(formData.fullName)) {
+      toast.error("Please enter a valid full name (2-50 characters, no special symbols)");
       return;
     }
 
@@ -50,6 +78,27 @@ const DetailsSection = () => {
 
     if (!validateEmail(formData.email)) {
       toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // Check for suspicious email patterns
+    const email = formData.email.trim().toLowerCase();
+    const suspiciousEmailPatterns = [
+      /^null@/,
+      /test@test/,
+      /sample@/,
+      /^\d+@/,
+      /@null\./,
+      /@test\./
+    ];
+
+    if (suspiciousEmailPatterns.some(pattern => pattern.test(email))) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    if (formData.company && formData.company.length > 100) {
+      toast.error("Company name is too long");
       return;
     }
 
@@ -99,6 +148,8 @@ const DetailsSection = () => {
         toast.error("This email is already on our waitlist!");
       } else if (errorMessage.includes('valid email')) {
         toast.error("Please enter a valid email address");
+      } else if (errorMessage.includes('valid full name')) {
+        toast.error("Please enter a valid full name");
       } else {
         toast.error("Something went wrong. Please try again.");
       }
@@ -221,6 +272,7 @@ const DetailsSection = () => {
                     className="w-full px-3 sm:px-4 py-3 text-sm sm:text-base rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
                     required 
                     disabled={isSubmitting || isSubmitted}
+                    maxLength={50}
                   />
                 </div>
                 
@@ -234,6 +286,7 @@ const DetailsSection = () => {
                     className="w-full px-3 sm:px-4 py-3 text-sm sm:text-base rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
                     required 
                     disabled={isSubmitting || isSubmitted}
+                    maxLength={100}
                   />
                 </div>
                 
@@ -246,6 +299,7 @@ const DetailsSection = () => {
                     placeholder="Current role/company (optional)" 
                     className="w-full px-3 sm:px-4 py-3 text-sm sm:text-base rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed" 
                     disabled={isSubmitting || isSubmitted}
+                    maxLength={100}
                   />
                 </div>
                 
