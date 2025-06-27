@@ -62,6 +62,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `components.json` - shadcn/ui component configuration
 - `supabase/config.toml` - Supabase local development configuration
 
+## Email Configuration
+
+### Resend Integration
+- **Service**: Resend email API for transactional emails
+- **Environment Variable**: `RESEND_API_KEY` (configured in Supabase Edge Functions)
+- **From Address**: Update `noreply@yourdomain.com` in waitlist-signup function to your verified domain
+- **Features**: Welcome email with HTML template sent automatically on waitlist signup
+- **Error Handling**: Email failures don't prevent waitlist signup completion
+
+### Setup Requirements
+1. Sign up for Resend account and verify your domain
+2. Add `RESEND_API_KEY` to Supabase Edge Functions environment variables
+3. Update the `from` email address in the waitlist-signup function
+4. Configure DNS records (SPF, DKIM) for better deliverability
+
 ## Development Notes
 
 - Project uses absolute imports with `@/` alias pointing to `src/`

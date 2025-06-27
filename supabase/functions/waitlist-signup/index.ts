@@ -1,6 +1,7 @@
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { Resend } from 'https://esm.sh/resend@2.0.0'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -178,14 +179,42 @@ serve(async (req) => {
       )
     }
 
-    // Send confirmation email (you'll need to configure this with your email service)
+    // Send welcome email using Resend
     try {
-      // For now, we'll just log the email that would be sent
-      console.log(`Confirmation email would be sent to: ${sanitizedEmail}`)
-      console.log(`Welcome ${sanitizedFullName} to the Folyx waitlist!`)
+      const resend = new Resend(Deno.env.get('RESEND_API_KEY'))
+      
+      await resend.emails.send({
+        from: 'anian@folyx.me', // Replace with your verified domain
+        to: sanitizedEmail,
+        subject: 'Welcome to Folyx Waitlist! 🚀',
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h1 style="color: #333; text-align: center;">Welcome to Folyx!</h1>
+            <p>Hi ${sanitizedFullName},</p>
+            <p>Thanks for joining the Folyx waitlist! We're excited to have you on board.</p>
+            <p>We're working hard to bring you something amazing. You'll be among the first to know when we launch.</p>
+            <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <h3 style="margin-top: 0;">What's next?</h3>
+              <ul>
+                <li>We'll keep you updated on our progress</li>
+                <li>You'll get early access when we launch</li>
+                <li>No spam, just the good stuff!</li>
+              </ul>
+            </div>
+            <p>Best regards,<br>The Folyx Team</p>
+            <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
+            <p style="font-size: 12px; color: #666; text-align: center;">
+              This email was sent because you signed up for the Folyx waitlist.
+            </p>
+          </div>
+        `
+      })
+      
+      console.log(`Welcome email sent successfully to: ${sanitizedEmail}`)
     } catch (emailError) {
       console.error('Email sending failed:', emailError)
-      // Don't fail the whole request if email fails
+      // Don't fail the whole request if email sending fails
+      // The user still gets added to the waitlist
     }
 
     return new Response(
