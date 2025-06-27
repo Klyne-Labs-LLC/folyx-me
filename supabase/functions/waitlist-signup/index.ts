@@ -1,4 +1,3 @@
-
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { Resend } from 'https://esm.sh/resend@2.0.0'
@@ -179,38 +178,57 @@ serve(async (req) => {
       )
     }
 
-    // Send welcome email using Resend
+    // Send personalized welcome email from founder using Resend
     try {
       const resend = new Resend(Deno.env.get('RESEND_API_KEY'))
       
+      // Get first name from full name for personalization
+      const firstName = sanitizedFullName.split(' ')[0]
+      
+      const companyText = sanitizedCompany ? "Thanks for joining from " + sanitizedCompany + "!" : "Thanks for joining!"
+      const brandText = sanitizedCompany ? " at " + sanitizedCompany : ""
+      
       await resend.emails.send({
-        from: 'anian@folyx.me', // Replace with your verified domain
+        from: 'Anian <anian@folyx.me>', // Founder's name and email
         to: sanitizedEmail,
-        subject: 'Welcome to Folyx Waitlist! 🚀',
+        subject: `${firstName}, confirming your Folyx waitlist signup`,
         html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h1 style="color: #333; text-align: center;">Welcome to Folyx!</h1>
-            <p>Hi ${sanitizedFullName},</p>
-            <p>Thanks for joining the Folyx waitlist! We're excited to have you on board.</p>
-            <p>We're working hard to bring you something amazing. You'll be among the first to know when we launch.</p>
-            <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h3 style="margin-top: 0;">What's next?</h3>
-              <ul>
-                <li>We'll keep you updated on our progress</li>
-                <li>You'll get early access when we launch</li>
-                <li>No spam, just the good stuff!</li>
-              </ul>
-            </div>
-            <p>Best regards,<br>The Folyx Team</p>
+          <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #333;">
+            
+            <p>Hi ${firstName},</p>
+            
+            <p>${companyText} You're now on the Folyx waitlist.</p>
+            
+            <p>I'm Anian from Folyx. I wanted to personally reach out because you signed up for something I'm genuinely excited about.</p>
+            
+            <p>Here's what we're building: an AI that automatically maintains your portfolio by syncing with your LinkedIn, GitHub, Medium, and other profiles. No more manual updates when you publish something new or land a new role${brandText}.</p>
+            
+            <p>The idea came from my own frustration. Every time I wrote a new article, shipped a project, or updated my LinkedIn, I had to remember to update my portfolio too. Usually, I forgot.</p>
+            
+            <p>What you can expect:</p>
+            <ul>
+              <li>Your portfolio stays current automatically</li>
+              <li>Professional design that matches your field</li>
+              <li>Works with platforms you already use</li>
+              <li>Early access when we launch</li>
+            </ul>
+            
+            <p>I'll email you personally when we're ready to launch. No spam, just updates from me.</p>
+            
+            <p>If you have any questions. shoot me an email at <a href="mailto:tajwaruzzaman@iut-dhaka.edu">tajwaruzzaman@iut-dhaka.edu</a>, as I haven't set up a reply email yet :)</p>
+            
+            <p>Best,<br>
+            Taki Tajwaruzzaman Khan (Anian), Folyx</p>
+            
             <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
-            <p style="font-size: 12px; color: #666; text-align: center;">
-              This email was sent because you signed up for the Folyx waitlist.
+            <p style="font-size: 12px; color: #666;">
+              This email was sent because you joined the Folyx waitlist at folyx.me
             </p>
           </div>
         `
       })
       
-      console.log(`Welcome email sent successfully to: ${sanitizedEmail}`)
+      console.log(`Transactional welcome email sent successfully from founder to: ${sanitizedEmail}`)
     } catch (emailError) {
       console.error('Email sending failed:', emailError)
       // Don't fail the whole request if email sending fails
