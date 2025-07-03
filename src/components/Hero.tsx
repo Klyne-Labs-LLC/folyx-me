@@ -1,229 +1,107 @@
-import React, { useEffect, useRef, useState } from "react";
-import { cn, scrollToSection } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
-import LottieAnimation from "./LottieAnimation";
-import { useWaitlistCount } from "@/hooks/useWaitlistCount";
+
+import React, { useEffect, useRef } from "react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { scrollToSection } from "@/lib/utils";
 
 const Hero = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const [lottieData, setLottieData] = useState<unknown>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [localIncrement, setLocalIncrement] = useState(0);
-  const { count, loading } = useWaitlistCount();
-
+  const heroRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
-    // Clear any stored increment on page load/refresh since DB count will now include it
-    localStorage.removeItem('waitlistIncrement');
-    setLocalIncrement(0);
-
-    // Listen for custom event when form is submitted on same page
-    const handleWaitlistSubmit = () => {
-      setLocalIncrement(1);
-    };
-
-    window.addEventListener('waitlistSubmitted', handleWaitlistSubmit);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
     
-    return () => {
-      window.removeEventListener('waitlistSubmitted', handleWaitlistSubmit);
-    };
-  }, []);
-
-  useEffect(() => {
-    // Check if mobile on mount and when window resizes
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    fetch('/loop-header.lottie')
-      .then(response => response.json())
-      .then(data => setLottieData(data))
-      .catch(error => console.error("Error loading Lottie animation:", error));
-  }, []);
-
-  useEffect(() => {
-    // Skip effect on mobile
-    if (isMobile) return;
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current || !imageRef.current) return;
-      
-      const {
-        left,
-        top,
-        width,
-        height
-      } = containerRef.current.getBoundingClientRect();
-      const x = (e.clientX - left) / width - 0.5;
-      const y = (e.clientY - top) / height - 0.5;
-
-      imageRef.current.style.transform = `perspective(1000px) rotateY(${x * 2.5}deg) rotateX(${-y * 2.5}deg) scale3d(1.02, 1.02, 1.02)`;
-    };
-    
-    const handleMouseLeave = () => {
-      if (!imageRef.current) return;
-      imageRef.current.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
-    };
-    
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("mousemove", handleMouseMove);
-      container.addEventListener("mouseleave", handleMouseLeave);
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
     }
     
     return () => {
-      if (container) {
-        container.removeEventListener("mousemove", handleMouseMove);
-        container.removeEventListener("mouseleave", handleMouseLeave);
+      if (heroRef.current) {
+        observer.unobserve(heroRef.current);
       }
     };
-  }, [isMobile]);
-  
-  useEffect(() => {
-    // Skip parallax on mobile
-    if (isMobile) return;
-    
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const elements = document.querySelectorAll('.parallax');
-      elements.forEach(el => {
-        const element = el as HTMLElement;
-        const speed = parseFloat(element.dataset.speed || '0.1');
-        const yPos = -scrollY * speed;
-        element.style.setProperty('--parallax-y', `${yPos}px`);
-      });
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile]);
-  
+  }, []);
+
   return (
     <section 
-      className="overflow-hidden relative bg-cover" 
-      id="home" 
-      style={{
-        backgroundImage: 'url("/Header-background.webp")',
-        backgroundPosition: 'center 30%', 
-        padding: isMobile ? '100px 12px 40px' : '120px 20px 60px'
-      }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50"
+      id="hero"
+      ref={heroRef}
     >
-      <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-gradient-to-br from-orange-500/20 to-red-500/20 opacity-30 blur-3xl rounded-full"></div>
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-100/30 via-transparent to-purple-100/30" />
+      <div className="absolute top-20 left-10 w-32 h-32 bg-blue-200/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-20 right-10 w-40 h-40 bg-purple-200/20 rounded-full blur-3xl animate-pulse delay-1000" />
       
-      <div className="container px-4 sm:px-6 lg:px-8" ref={containerRef}>
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
-          <div className="w-full lg:w-1/2">
-            <div 
-              className="tech-chip mb-3 sm:mb-6 opacity-0 animate-fade-in" 
-              style={{ animationDelay: "0.1s" }}
-            >
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-orange-500 text-white mr-2">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              </span>
-              <span>Portfolio on Autopilot</span>
-            </div>
-            
-            <h1 
-              className="section-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
-              style={{ animationDelay: "0.3s" }}
-            >
-              <span className="text-gray-900">The Last Portfolio</span> <br className="hidden sm:inline" />
-              <span 
-                className="font-semibold" 
-                style={{ 
-                  color: '#b82db1',
-                  textShadow: '1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 2px 2px 4px rgba(0,0,0,0.1)' 
-                }}
-              >
-                You'll Ever Need to Build
-              </span>
-            </h1>
-            
-            <p 
-              style={{ animationDelay: "0.5s" }} 
-              className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-700 font-normal text-sm sm:text-base md:text-lg text-left"
-            >
-              Our AI builds and maintains your portfolio from your social profiles, so you never have to rebuild it again. Join thousands of professionals getting their free portfolio when we launch.
-            </p>
-            
-            <div 
-              className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in" 
-              style={{ animationDelay: "0.7s" }}
-            >
-              <div className="flex flex-col items-center gap-2">
-                <a 
-                  href="#waitlist-form" 
-                  className="flex items-center justify-center group w-full sm:w-auto text-center" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // Scroll to waitlist form
-                    scrollToSection('waitlist-form');
-                  }}
-                  style={{
-                    background: 'linear-gradient(135deg, #EA580C 0%, #DC2626 100%)',
-                    borderRadius: '1440px',
-                    boxSizing: 'border-box',
-                    color: '#FFFFFF',
-                    cursor: 'pointer',
-                    fontSize: '14px',
-                    lineHeight: '20px',
-                    padding: '16px 24px',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                  }}
-                >
-                  Join Waitlist - Get Free Portfolio
-                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-                
-                {/* Waitlist count for FOMO */}
-                {!loading && (
-                  <p className="text-sm text-gray-600 font-medium text-center w-full sm:w-auto">
-                      {(count + 50 + localIncrement).toLocaleString()} people already joined
-                  </p>
-                )}
-              </div>
-            </div>
+      <div className="section-container relative z-10 text-center opacity-0 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto">
+          {/* Tech chip */}
+          <div className="tech-chip mx-auto mb-4 sm:mb-6 inline-flex items-center">
+            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-blue-500" />
+            <span>AI-Powered Portfolio Generation</span>
           </div>
           
-          <div className="w-full lg:w-1/2 relative mt-6 lg:mt-0">
-            {lottieData ? (
-              <div className="relative z-10 animate-fade-in" style={{ animationDelay: "0.9s" }}>
-                <LottieAnimation 
-                  animationPath={lottieData as string} 
-                  className="w-full h-auto max-w-lg mx-auto"
-                  loop={true}
-                  autoplay={true}
-                />
+          {/* Main headline */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+            The Last Portfolio You'll <br className="hidden sm:inline" />
+            <span className="text-blue-500">Ever Need to Build</span>
+          </h1>
+          
+          {/* Detailed service description for Stripe compliance */}
+          <div className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed space-y-4">
+            <p>
+              <strong>Folyx</strong> is an AI-powered professional portfolio generation service that automatically 
+              creates stunning, professional portfolios by analyzing your social media profiles, particularly 
+              LinkedIn, Twitter, and GitHub.
+            </p>
+            <p>
+              Our advanced artificial intelligence technology transforms your scattered online presence into 
+              a cohesive, professional portfolio website that showcases your skills, experience, and achievements 
+              to potential employers and clients.
+            </p>
+            <p className="text-sm sm:text-base text-gray-500">
+              Service includes: AI content analysis, professional design generation, instant website deployment, 
+              custom domain setup, and ongoing portfolio updates as your career evolves.
+            </p>
+          </div>
+          
+          {/* CTA Button */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8 sm:mb-12">
+            <a 
+              href="#get-started" 
+              className="button-primary group flex items-center justify-center w-full sm:w-auto touch-target text-sm sm:text-base"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection('get-started');
+              }}
+            >
+              Get Your AI Portfolio
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+
+          {/* Social proof */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <div className="flex -space-x-2">
+                <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-xs font-medium border-2 border-white">J</div>
+                <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xs font-medium border-2 border-white">M</div>
+                <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-xs font-medium border-2 border-white">S</div>
               </div>
-            ) : (
-              <>
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-orange-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
-              <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
-                <img 
-                  ref={imageRef} 
-                  src="/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" 
-                  alt="Folyx Portfolio Builder Dashboard" 
-                  className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
-                  style={{ transformStyle: 'preserve-3d' }} 
-                />
-                <div className="absolute inset-0" style={{ backgroundImage: 'url("/hero-image.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', mixBlendMode: 'overlay', opacity: 0.3 }}></div>
-              </div>
-              </>
-            )}
+              <span>58 professionals joined early access</span>
+            </div>
+            <div className="text-yellow-500">★★★★★</div>
           </div>
         </div>
       </div>
-      
-      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
     </section>
   );
 };
