@@ -124,19 +124,19 @@ const Hero = () => {
               className="tech-chip mb-3 sm:mb-6 opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.1s" }}
             >
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white mr-2">
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-orange-500 text-white mr-2">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
               </span>
-              <span>Problem: You're Invisible Online</span>
+              <span>Portfolio on Autopilot</span>
             </div>
             
             <h1 
               className="section-title text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.3s" }}
             >
-              <span className="text-gray-900">Stop Being Invisible to</span> <br className="hidden sm:inline" />
+              <span className="text-gray-900">The Last Portfolio</span> <br className="hidden sm:inline" />
               <span 
                 className="font-semibold" 
                 style={{ 
@@ -144,7 +144,7 @@ const Hero = () => {
                   textShadow: '1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 2px 2px 4px rgba(0,0,0,0.1)' 
                 }}
               >
-                Recruiters Who Actually Matter
+                You'll Ever Need to Build
               </span>
             </h1>
             
@@ -152,17 +152,8 @@ const Hero = () => {
               style={{ animationDelay: "0.5s" }} 
               className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-700 font-normal text-sm sm:text-base md:text-lg text-left"
             >
-              You've got the skills. You've shipped real products. But your online presence looks like a scattered mess of half-finished profiles and outdated GitHub repos. <strong>Meanwhile, mediocre developers with polished portfolios are getting the interviews you deserve.</strong>
+              Our AI builds and maintains your portfolio from your social profiles, so you never have to rebuild it again. Join thousands of professionals getting their free portfolio when we launch.
             </p>
-
-            <div 
-              className="bg-gray-50 border-l-4 border-orange-500 p-4 mb-6 opacity-0 animate-fade-in" 
-              style={{ animationDelay: "0.6s" }}
-            >
-              <p className="text-gray-800 text-sm font-medium">
-                <strong>Here's what's actually happening:</strong> Top-tier companies have 30 seconds to evaluate you online before they decide if you're worth a phone screen. Your LinkedIn is outdated. Your portfolio site is from 2019. Your GitHub shows side projects but no context.
-              </p>
-            </div>
             
             <div 
               className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in" 
@@ -174,6 +165,7 @@ const Hero = () => {
                   className="flex items-center justify-center group w-full sm:w-auto text-center" 
                   onClick={(e) => {
                     e.preventDefault();
+                    // Scroll to waitlist form
                     scrollToSection('waitlist-form');
                   }}
                   style={{
@@ -183,19 +175,19 @@ const Hero = () => {
                     color: '#FFFFFF',
                     cursor: 'pointer',
                     fontSize: '14px',
-                    fontWeight: '600',
                     lineHeight: '20px',
                     padding: '16px 24px',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                   }}
                 >
-                  Get Early Access - Fix This Problem
+                  Join Waitlist - Get Free Portfolio
                   <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </a>
                 
+                {/* Waitlist count for FOMO */}
                 {!loading && (
                   <p className="text-sm text-gray-600 font-medium text-center w-full sm:w-auto">
-                    {(count + 50 + localIncrement).toLocaleString()} engineers already got early access
+                      {(count + 50 + localIncrement).toLocaleString()} people already joined
                   </p>
                 )}
               </div>
@@ -219,7 +211,7 @@ const Hero = () => {
                 <img 
                   ref={imageRef} 
                   src="/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" 
-                  alt="Professional Portfolio Dashboard - Before vs After" 
+                  alt="Folyx Portfolio Builder Dashboard" 
                   className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
                   style={{ transformStyle: 'preserve-3d' }} 
                 />
