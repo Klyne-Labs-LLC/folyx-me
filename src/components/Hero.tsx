@@ -41,7 +41,7 @@ const Hero = () => {
       <div className="absolute top-20 left-10 w-32 h-32 bg-blue-200/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-20 right-10 w-40 h-40 bg-purple-200/20 rounded-full blur-3xl animate-pulse delay-1000" />
       
-      <div className="section-container relative z-10 text-center opacity-0 px-4 sm:px-6">
+      <div className="section-container relative z-10 text-center px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
           {/* Tech chip */}
           <div className="tech-chip mx-auto mb-4 sm:mb-6 inline-flex items-center">
