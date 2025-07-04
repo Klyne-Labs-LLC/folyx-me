@@ -1,3 +1,4 @@
+
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -74,6 +75,8 @@ const CancellationPolicy = () => {
                 If you need assistance with cancellation or have questions about this policy:
                 <br />
                 Email: anian@folyx.me
+                <br />
+                Phone: +1 628-265-7466
                 <br />
                 Response time: Within 24 hours during business days
               </p>

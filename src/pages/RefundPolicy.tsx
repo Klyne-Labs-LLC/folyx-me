@@ -1,3 +1,4 @@
+
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -58,6 +59,8 @@ const RefundPolicy = () => {
                 For refund requests or questions about this policy, please contact us at:
                 <br />
                 Email: anian@folyx.me
+                <br />
+                Phone: +1 628-265-7466
                 <br />
                 Response time: Within 24 hours during business days
               </p>

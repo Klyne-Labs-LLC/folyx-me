@@ -20,11 +20,15 @@ const Contact = () => {
                   <p className="text-gray-600">anian@folyx.me</p>
                 </div>
                 <div>
+                  <h3 className="font-medium text-gray-900">Phone</h3>
+                  <p className="text-gray-600">+1 628-265-7466</p>
+                </div>
+                <div>
                   <h3 className="font-medium text-gray-900">Business Address</h3>
                   <p className="text-gray-600">
                     Folyx Inc.<br />
-                    1234 Technology Drive<br />
-                    San Francisco, CA 94105<br />
+                    530 Divisadero St<br />
+                    San Francisco, CA 94117<br />
                     United States
                   </p>
                 </div>

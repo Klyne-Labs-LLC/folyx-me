@@ -1,3 +1,4 @@
+
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -96,7 +97,9 @@ const TermsOfService = () => {
                 <br />
                 Email: anian@folyx.me
                 <br />
-                Address: Folyx Inc., 1234 Technology Drive, San Francisco, CA 94105
+                Phone: +1 628-265-7466
+                <br />
+                Address: Folyx Inc., 530 Divisadero St, San Francisco, CA 94117
               </p>
             </section>
           </div>
