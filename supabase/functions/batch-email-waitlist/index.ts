@@ -1,3 +1,4 @@
+
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { Resend } from 'https://esm.sh/resend@2.0.0'
@@ -91,7 +92,7 @@ serve(async (req) => {
               
               <p>I'll email you personally when we're ready. No spam, just a heads up from me when it's time.</p>
               
-              <p>If you have questions or want to chat, shoot me an email at <a href="mailto:tajwaruzzaman@iut-dhaka.edu">tajwaruzzaman@iut-dhaka.edu</a> (I haven't set up a proper reply system yet, so this is the best way to reach me).</p>
+              <p>If you have questions or want to chat, feel free to reply to this email - I read and respond to every message personally.</p>
               
               <p>Best,<br>
               Taki Tajwaruzzaman Khan (Anian), Folyx</p>
