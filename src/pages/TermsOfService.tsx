@@ -94,7 +94,7 @@ const TermsOfService = () => {
               <p className="text-gray-600">
                 For questions about these Terms of Service:
                 <br />
-                Email: legal@folyx.me
+                Email: anian@folyx.me
                 <br />
                 Address: Folyx Inc., 1234 Technology Drive, San Francisco, CA 94105
               </p>

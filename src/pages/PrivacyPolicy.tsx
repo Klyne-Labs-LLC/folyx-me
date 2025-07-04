@@ -83,7 +83,7 @@ const PrivacyPolicy = () => {
               <p className="text-gray-600">
                 For questions about this Privacy Policy or to exercise your rights:
                 <br />
-                Email: privacy@folyx.me
+                Email: anian@folyx.me
                 <br />
                 Address: Folyx Inc., 1234 Technology Drive, San Francisco, CA 94105
               </p>
