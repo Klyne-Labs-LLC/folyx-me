@@ -7,6 +7,14 @@ import { Link } from "react-router-dom";
  * Includes all required business information and policy links
  */
 const Footer = () => {
+  const handlePageNavigation = () => {
+    // Scroll to top smoothly when navigating to a new page
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <footer className="w-full pt-6">
       {/* Card-based footer with background image - truly dissolved with screen bottom */}
@@ -58,30 +66,35 @@ const Footer = () => {
               <Link 
                 to="/contact" 
                 className="text-white/80 hover:text-white text-xs transition-colors"
+                onClick={handlePageNavigation}
               >
                 Contact Us
               </Link>
               <Link 
                 to="/privacy-policy" 
                 className="text-white/80 hover:text-white text-xs transition-colors"
+                onClick={handlePageNavigation}
               >
                 Privacy Policy
               </Link>
               <Link 
                 to="/terms-of-service" 
                 className="text-white/80 hover:text-white text-xs transition-colors"
+                onClick={handlePageNavigation}
               >
                 Terms of Service
               </Link>
               <Link 
                 to="/refund-policy" 
                 className="text-white/80 hover:text-white text-xs transition-colors"
+                onClick={handlePageNavigation}
               >
                 Refund Policy
               </Link>
               <Link 
                 to="/cancellation-policy" 
                 className="text-white/80 hover:text-white text-xs transition-colors"
+                onClick={handlePageNavigation}
               >
                 Cancellation Policy
               </Link>
