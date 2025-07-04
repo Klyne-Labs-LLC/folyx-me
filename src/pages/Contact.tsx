@@ -7,7 +7,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-900 mb-8">Contact Us</h1>
           
@@ -17,7 +17,7 @@ const Contact = () => {
               <div className="space-y-4">
                 <div>
                   <h3 className="font-medium text-gray-900">Email</h3>
-                  <p className="text-gray-600">support@folyx.me</p>
+                  <p className="text-gray-600">anian@folyx.me</p>
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-900">Business Address</h3>

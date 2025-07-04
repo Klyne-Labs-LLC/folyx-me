@@ -90,7 +90,7 @@ const Footer = () => {
             {/* Right side - Contact info */}
             <div className="text-right">
               <p className="text-white/80 text-xs font-medium">
-                support@folyx.me
+                anian@folyx.me
               </p>
               <p className="text-white/70 text-xs">
                 © 2025 Folyx Inc.

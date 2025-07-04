@@ -7,7 +7,7 @@ const RefundPolicy = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-900 mb-8">Refund Policy</h1>
           
@@ -36,7 +36,7 @@ const RefundPolicy = () => {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">Refund Process</h2>
               <ol className="list-decimal pl-6 text-gray-600 space-y-2">
-                <li>Contact our support team at support@folyx.me</li>
+                <li>Contact our support team at anian@folyx.me</li>
                 <li>Provide your account details and reason for the refund request</li>
                 <li>Our team will review your request within 2-3 business days</li>
                 <li>If approved, refunds will be processed within 5-10 business days</li>
@@ -58,7 +58,7 @@ const RefundPolicy = () => {
               <p className="text-gray-600">
                 For refund requests or questions about this policy, please contact us at:
                 <br />
-                Email: support@folyx.me
+                Email: anian@folyx.me
                 <br />
                 Response time: Within 24 hours during business days
               </p>

@@ -7,7 +7,7 @@ const CancellationPolicy = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <main className="container mx-auto px-4 py-16">
+      <main className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-900 mb-8">Cancellation Policy</h1>
           
@@ -39,12 +39,12 @@ const CancellationPolicy = () => {
                 <li>Confirm your cancellation request</li>
               </ol>
               <p className="text-gray-600 mt-4">
-                Alternatively, you can contact our support team at support@folyx.me for assistance with cancellation.
+                Alternatively, you can contact our support team at anian@folyx.me for assistance with cancellation.
               </p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibent text-gray-900 mb-4">Service Cancellation by Folyx</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">Service Cancellation by Folyx</h2>
               <p className="text-gray-600 mb-4">
                 Folyx reserves the right to cancel or suspend service in the following circumstances:
               </p>
@@ -74,7 +74,7 @@ const CancellationPolicy = () => {
               <p className="text-gray-600">
                 If you need assistance with cancellation or have questions about this policy:
                 <br />
-                Email: support@folyx.me
+                Email: anian@folyx.me
                 <br />
                 Response time: Within 24 hours during business days
               </p>
