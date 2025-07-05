@@ -116,19 +116,6 @@
   }
 }
 
-/* Robot Showcase Section */
-.robot-image-container {
-  position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  transition: transform 0.5s ease;
-}
-
-.robot-image-container:hover {
-  transform: scale(1.02);
-}
-
 .feature-item {
   background-color: white;
   border-radius: 12px;
@@ -143,10 +130,6 @@
 }
 
 /* Enhanced mobile optimizations */
-@media (max-width: 640px) {
-  .robot-image-container {
-    border-radius: 16px;
-  }
   
   .feature-grid {
     grid-template-columns: 1fr;
@@ -172,7 +155,7 @@
   .rounded-3xl {
     border-radius: 1rem !important;
   }
-}
+
 
 /* Disable parallax on mobile for better performance */
 @media (max-width: 768px) {
