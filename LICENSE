@@ -1,25 +1,90 @@
-Proprietary License
+# FOLYX PROPRIETARY SOFTWARE LICENSE
 
-Copyright (c) Folyx, 2025
+**Copyright (c) Folyx, 2025**  
+**All Rights Reserved**
 
-All rights reserved.
+## 1. PROPRIETARY RIGHTS
 
-This software and all associated source code, assets, and documentation ("Software") are the exclusive and confidential property of Folyx (folyx.me).
+This software and all associated source code, object code, documentation, assets, algorithms, data structures, user interfaces, and any modifications or derivatives thereof (collectively, the "Software") are the exclusive and confidential proprietary property of Folyx, a company accessible at folyx.me ("Company").
 
-Unauthorized copying, distribution, modification, sublicensing, reverse engineering, or use of any part of this Software, in whole or in part, is strictly prohibited without the prior written consent of the copyright holder.
+## 2. RESTRICTIONS ON USE
 
-This Software is provided solely for internal use by authorized employees, contractors, and agents of Folyx ("Authorized Users"). Authorized Users may access and use the Software only for tasks directly related to their responsibilities within the company.
+Unauthorized access, copying, distribution, modification, sublicensing, reverse engineering, decompilation, disassembly, or any other use of the Software, in whole or in part, is strictly prohibited without the prior written consent of the Company.
 
-*Authorized Users are strictly prohibited from:*
-- Reusing any part of the Software for personal or third-party projects
-- Sharing any part of the Software with unauthorized individuals or organizations
-- Using the Software after their employment or engagement ends
-- Creating competing products or services based on this Software
+## 3. AUTHORIZED USE
 
-These restrictions survive the termination of employment or engagement.
+This Software is provided solely for internal business use by authorized employees, contractors, and agents of Company who have signed appropriate confidentiality agreements ("Authorized Users"). Authorized Users may access and use the Software only for tasks directly related to their authorized responsibilities within the Company and subject to the terms of this License.
 
-All code and intellectual property developed using this Software, or based on it, shall remain the sole property of Folyx.
+## 4. PROHIBITED ACTIVITIES
 
-THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+Authorized Users are expressly prohibited from:
 
-For licensing or legal inquiries, contact: anian@folyx.me
+- **Personal/Third-Party Use**: Reusing any part of the Software for personal projects or third-party commercial ventures
+- **Unauthorized Disclosure**: Sharing, transmitting, or providing access to any part of the Software to unauthorized individuals, entities, or organizations
+- **Post-Employment Use**: Using, accessing, or retaining the Software after termination of employment, engagement, or authorization
+- **Competitive Development**: Creating, developing, or contributing to competing products, services, or technologies based on or derived from this Software
+- **Reverse Engineering**: Attempting to reverse engineer, decompile, disassemble, or derive source code from the Software
+- **Circumvention**: Bypassing, disabling, or circumventing any security measures, access controls, or usage restrictions
+- **Benchmarking**: Conducting or publishing performance benchmarks or comparative analyses without written permission
+
+## 5. INTELLECTUAL PROPERTY OWNERSHIP
+
+All code, algorithms, innovations, improvements, modifications, and intellectual property developed using, incorporating, or derived from this Software shall remain the sole and exclusive property of Company. Authorized Users hereby assign all rights, title, and interest in such developments to Company.
+
+## 6. TERMINATION
+
+This License terminates automatically upon:
+- Termination of the Authorized User's employment or engagement with Company
+- Breach of any term of this License
+- Written notice from Company
+
+Upon termination, Authorized Users must immediately:
+- Cease all use of the Software
+- Return or destroy all copies, derivatives, and related materials
+- Provide written certification of compliance within 10 days
+
+## 7. SURVIVAL
+
+The restrictions and obligations set forth in Sections 4, 5, 6, 8, 9, 10, 11, and 12 shall survive termination of this License and continue indefinitely.
+
+## 8. CONFIDENTIALITY
+
+The Software contains valuable trade secrets and confidential information. Authorized Users acknowledge that disclosure would cause irreparable harm to Company and agree to maintain strict confidentiality using the same degree of care used to protect their own confidential information, but in no event less than reasonable care.
+
+## 9. INDEMNIFICATION
+
+Authorized Users agree to indemnify, defend, and hold harmless Company from any claims, damages, losses, or expenses arising from their unauthorized use, disclosure, or breach of this License.
+
+## 10. EXPORT COMPLIANCE
+
+Authorized Users acknowledge that the Software may be subject to U.S. export control laws and regulations. Users agree to comply with all applicable export laws and will not export, re-export, or transfer the Software to prohibited countries, entities, or persons.
+
+## 11. WARRANTY DISCLAIMER
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. COMPANY DISCLAIMS ALL WARRANTIES AND CONDITIONS WITH REGARD TO THE SOFTWARE.
+
+## 12. LIMITATION OF LIABILITY
+
+IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, DATA, OR USE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED $100.
+
+## 13. GOVERNING LAW AND JURISDICTION
+
+This License shall be governed by and construed in accordance with the laws of the State of Delaware, United States, without regard to conflict of law principles. Any disputes arising under this License shall be subject to the exclusive jurisdiction of the state and federal courts located in Delaware.
+
+## 14. SEVERABILITY
+
+If any provision of this License is held to be unenforceable, the remainder shall continue in full force and effect, and the unenforceable provision shall be modified to the minimum extent necessary to make it enforceable.
+
+## 15. ENTIRE AGREEMENT
+
+This License constitutes the entire agreement between the parties regarding the Software and supersedes all prior agreements and understandings, whether written or oral.
+
+## 16. MODIFICATIONS
+
+This License may only be modified by written agreement signed by an authorized representative of Company.
+
+---
+
+**For licensing inquiries or legal questions, contact:** anian@folyx.me
+
+**Last Updated:** July 2025
