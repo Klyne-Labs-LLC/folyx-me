@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { cn, scrollToSection as utilScrollToSection, getActiveSection } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +23,20 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle hash navigation when component mounts or location changes
+  useEffect(() => {
+    // Only process hash on home page
+    if (location.pathname === '/' && location.hash) {
+      // Remove the '#' from the hash
+      const sectionId = location.hash.substring(1);
+      
+      // Wait a bit for the page to render, then scroll to the section
+      setTimeout(() => {
+        utilScrollToSection(sectionId);
+      }, 100);
+    }
+  }, [location]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     // Prevent background scrolling when menu is open
@@ -27,7 +44,7 @@ const Navbar = () => {
   };
 
   /**
-   * Handles smooth scrolling to sections with proper offset calculation
+   * Handles navigation to sections - scrolls if on home page, navigates if on other pages
    * @param {string} sectionId - The ID of the target section
    * @param {Event} e - The click event to prevent default behavior
    */
@@ -35,16 +52,23 @@ const Navbar = () => {
     e.preventDefault();
     e.stopPropagation();
     
-    // Debug log for mobile navigation
-    
     // Close mobile menu first if open
     if (isMenuOpen) {
       setIsMenuOpen(false);
       document.body.style.overflow = '';
-      
-      // Add delay before scrolling to allow menu to close
+    }
+    
+    // If we're not on the home page, navigate to home with hash
+    if (location.pathname !== '/') {
+      // Navigate to home page with section hash
+      navigate(`/#${sectionId}`);
+      return;
+    }
+    
+    // If we're on the home page, scroll to section
+    if (isMenuOpen) {
+      // Add delay for mobile menu to close
       setTimeout(() => {
-        // Scroll after menu closes
         utilScrollToSection(sectionId);
       }, 100);
     } else {
@@ -101,10 +125,19 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <a 
-          href="#" 
+          href="/" 
           className="flex items-center flex-shrink-0"
-          onClick={(e) => scrollToSection('home', e)}
-          aria-label="Folyx - Go to top"
+          onClick={(e) => {
+            e.preventDefault();
+            if (location.pathname === '/') {
+              // If on home page, scroll to top
+              utilScrollToSection('home');
+            } else {
+              // If on other page, navigate to home
+              navigate('/');
+            }
+          }}
+          aria-label="Folyx - Go to home"
           style={{ minWidth: '120px' }}
         >
           <div 
@@ -125,16 +158,16 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 flex-shrink-0">
-          <NavLink href="#home" sectionId="home">
+          <NavLink href="/#home" sectionId="home">
             Home
           </NavLink>
-          <NavLink href="#why-us" sectionId="why-us">
+          <NavLink href="/#why-us" sectionId="why-us">
             Why Us
           </NavLink>
-          <NavLink href="#integrations" sectionId="integrations">
+          <NavLink href="/#integrations" sectionId="integrations">
             Integrations
           </NavLink>
-          <NavLink href="#waitlist-form" sectionId="waitlist-form">
+          <NavLink href="/#waitlist-form" sectionId="waitlist-form">
             Get Started
           </NavLink>
         </nav>
@@ -162,7 +195,7 @@ const Navbar = () => {
       >
         <nav className="flex flex-col py-4 px-6">
           <a 
-            href="#home" 
+            href="/#home" 
             className={cn(
               "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
               activeSection === 'home' 
@@ -174,7 +207,7 @@ const Navbar = () => {
             Home
           </a>
           <a 
-            href="#why-us" 
+            href="/#why-us" 
             className={cn(
               "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
               activeSection === 'why-us' 
@@ -186,7 +219,7 @@ const Navbar = () => {
             Why Us
           </a>
           <a 
-            href="#integrations" 
+            href="/#integrations" 
             className={cn(
               "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
               activeSection === 'integrations' 
@@ -198,7 +231,7 @@ const Navbar = () => {
             Integrations
           </a>
           <a 
-            href="#waitlist-form" 
+            href="/#waitlist-form" 
             className={cn(
               "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
               activeSection === 'waitlist-form' 
