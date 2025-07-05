@@ -1,0 +1,19 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!api/|_next/|_static/|favicon.ico|robots.txt|sitemap.xml|.*\\.(?:css|js|png|jpg|jpeg|gif|webp|svg|ico|woff|woff2|ttf|eot|mp4|webm|mp3|wav|flac|aac|ogg|oga|opus)).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/service-worker.js",
+      "headers": [
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
+      ]
+    }
+  ]
+} 
