@@ -2,12 +2,12 @@ import themes from "daisyui/src/theming/themes.js";
 
 const config = {
   // REQUIRED
-  appName: "Quick Poll",
+  appName: "Folyx",
   // REQUIRED: a short description of your app for SEO tags (can be overwritten)
   appDescription:
-    "Quick Poll is an easy-to-use polling app.",
+    "Folyx - AI-powered portfolio generation platform. Create stunning professional portfolios automatically.",
   // REQUIRED (no https://, not trialing slash at the end, just the naked domain)
-  domainName: "quickpoll.shipfa.st",
+  domainName: "folyx.me",
   crisp: {
     // Crisp website ID. IF YOU DON'T USE CRISP: just remove this => Then add a support email in this config file (mailgun.supportEmail) otherwise customer support won't work.
     id: "",
@@ -26,18 +26,20 @@ const config = {
         //  REQUIRED - Name of the plan, displayed on the pricing page
         name: "Starter",
         // A friendly description of the plan, displayed on the pricing page. Tip: explain why this plan and not others
-        description: "Perfect for small projects",
+        description: "Perfect for getting started with portfolio creation",
         // The price you want to display, the one user will be charged on Stripe.
-        price: 79,
+        price: 19,
         // If you have an anchor price (i.e. $29) that you want to display crossed out, put it here. Otherwise, leave it empty
-        priceAnchor: 99,
+        priceAnchor: 29,
         features: [
           {
-            name: "NextJS boilerplate",
+            name: "3 Portfolios",
           },
-          { name: "User oauth" },
-          { name: "Database" },
-          { name: "Emails" },
+          { name: "All Templates (15+)" },
+          { name: "Platform Integrations (GitHub, LinkedIn)" },
+          { name: "Custom Domain" },
+          { name: "AI Content Generation" },
+          { name: "Weekly Auto-Updates" },
         ],
       },
       {
@@ -47,19 +49,20 @@ const config = {
           process.env.NODE_ENV === "development"
             ? "price_1O5KtcAxyNprDp7iftKnrrpw"
             : "price_456",
-        name: "Advanced",
-        description: "You need more power",
-        price: 99,
-        priceAnchor: 149,
+        name: "Pro",
+        description: "For professionals who need advanced features",
+        price: 49,
+        priceAnchor: 69,
         features: [
           {
-            name: "NextJS boilerplate",
+            name: "Unlimited Portfolios",
           },
-          { name: "User oauth" },
-          { name: "Database" },
-          { name: "Emails" },
-          { name: "1 year of updates" },
-          { name: "24/7 support" },
+          { name: "Advanced AI Content & SEO" },
+          { name: "All Platform Integrations" },
+          { name: "Advanced Analytics" },
+          { name: "CV/Resume Parsing" },
+          { name: "Daily Auto-Updates" },
+          { name: "Priority Support" },
         ],
       },
     ],
@@ -74,13 +77,13 @@ const config = {
     // subdomain to use when sending emails, if you don't have a subdomain, just remove it. Highly recommended to have one (i.e. mg.yourdomain.com or mail.yourdomain.com)
     subdomain: "mg",
     // REQUIRED — Email 'From' field to be used when sending magic login links
-    fromNoReply: `ShipFast <noreply@mg.shipfa.st>`,
+    fromNoReply: `Folyx <noreply@folyx.me>`,
     // REQUIRED — Email 'From' field to be used when sending other emails, like abandoned carts, updates etc..
-    fromAdmin: `Marc at ShipFast <marc@mg.shipfa.st>`,
+    fromAdmin: `Team at Folyx <team@folyx.me>`,
     // Email shown to customer if need support. Leave empty if not needed => if empty, set up Crisp above, otherwise you won't be able to offer customer support."
-    supportEmail: "marc@mg.shipfa.st",
+    supportEmail: "support@folyx.me",
     // When someone replies to supportEmail sent by the app, forward it to the email below (otherwise it's lost). If you set supportEmail to empty, this will be ignored.
-    forwardRepliesTo: "marc.louvion@gmail.com",
+    forwardRepliesTo: "support@folyx.me",
   },
   colors: {
     // REQUIRED — The DaisyUI theme to use (added to the main layout.js). Leave blank for default (light & dark mode). If you any other theme than light/dark, you need to add it in config.tailwind.js in daisyui.themes.
