@@ -16,7 +16,7 @@
 ## 🏗️ Core Infrastructure Migration
 
 ### **1. Authentication & User Management**
-**Source**: `/app/api/auth/`, `/app/middleware.js`, `/app/libs/api.js`
+**Source**: `/application/api/auth/`, `/application/middleware.js`, `/application/libs/api.js`
 **Target**: Integrate into current Folyx Supabase setup
 
 **Extended Database Schema:**
