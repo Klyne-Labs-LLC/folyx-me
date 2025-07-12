@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This repository contains **two separate applications**:
 
 1. **Landing Page** (root `/`) - React TypeScript waitlist landing page
-2. **SaaS Application** (`/app/`) - Complete Next.js polling/survey app with payment processing
+2. **SaaS Application** (`/application/`) - Complete Next.js polling/survey app with payment processing
 
 ## Development Commands
 
@@ -18,11 +18,11 @@ This repository contains **two separate applications**:
 - `npm run lint` - Run ESLint linting
 - `npm run preview` - Preview production build locally
 
-### SaaS Application (/app Directory)
-- `cd app && npm run dev` - Start Next.js development server on port 3000
-- `cd app && npm run build` - Build for production with sitemap generation
-- `cd app && npm run start` - Start production server
-- `cd app && npm run lint` - Run Next.js linting
+### SaaS Application (/application Directory)
+- `cd application && npm run dev` - Start Next.js development server on port 3000
+- `cd application && npm run build` - Build for production with sitemap generation
+- `cd application && npm run start` - Start production server
+- `cd application && npm run lint` - Run Next.js linting
 
 ## Technology Stack
 
@@ -37,7 +37,7 @@ This repository contains **two separate applications**:
 - **Form Handling**: React Hook Form with Zod validation
 - **Analytics**: Vercel Analytics
 
-### SaaS Application (/app)
+### SaaS Application (/application)
 - **Framework**: Next.js 14 with App Router
 - **Database**: Supabase (PostgreSQL) with auth helpers
 - **Authentication**: Supabase Auth with OAuth
@@ -66,9 +66,9 @@ This repository contains **two separate applications**:
 - **Data Flow**: Client → API routes → Supabase → Response
 - **Payment Flow**: Stripe checkout → Webhook → User provisioning
 - **Key Directories**:
-  - `app/api/` - Backend API endpoints
-  - `app/dashboard/` - Protected user interface
-  - `app/[...survey]/` - Dynamic public poll pages
+  - `application/api/` - Backend API endpoints
+  - `application/dashboard/` - Protected user interface
+  - `application/[...survey]/` - Dynamic public poll pages
   - `components/` - Reusable UI components
   - `libs/` - External service integrations
 
@@ -136,10 +136,10 @@ This repository contains **two separate applications**:
 - `supabase/config.toml` - Supabase local development
 
 ### SaaS Application
-- `app/config.js` - Application configuration (Stripe, Mailgun, themes)
-- `app/middleware.js` - Session refresh middleware
-- `app/next.config.js` - Next.js configuration
-- `app/tailwind.config.js` - Tailwind with DaisyUI themes
+- `application/config.js` - Application configuration (Stripe, Mailgun, themes)
+- `application/middleware.js` - Session refresh middleware
+- `application/next.config.js` - Next.js configuration
+- `application/tailwind.config.js` - Tailwind with DaisyUI themes
 
 ## Development Patterns
 
@@ -183,6 +183,6 @@ This repository contains **two separate applications**:
 
 ### Local Development
 1. **Landing Page**: `npm install && npm run dev`
-2. **SaaS App**: `cd app && npm install && npm run dev`
+2. **SaaS App**: `cd application && npm install && npm run dev`
 3. **Database**: Supabase local development or cloud instance
 4. **Webhooks**: Use ngrok or similar for local webhook testing
