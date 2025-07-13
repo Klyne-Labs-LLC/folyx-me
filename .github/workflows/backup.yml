@@ -10,34 +10,43 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          
-      - name: Install Supabase CLI
+      - name: Setup PostgreSQL Client
         run: |
-          curl -fsSL https://cli.supabase.com/install.sh | sh
-          echo "/home/runner/.local/bin" >> $GITHUB_PATH
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
         
       - name: Create backup directory
         run: mkdir -p backups
         
-      - name: Link to Supabase project
-        env:
-          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-        run: |
-          supabase link --project-ref vtzsgxpjrrjnmwtqmnah --password "$SUPABASE_DB_PASSWORD"
-          
       - name: Export Database Backup
+        env:
+          PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
         run: |
           TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-          supabase db dump --data-only > "backups/folyx_backup_$TIMESTAMP.sql"
+          pg_dump -h aws-0-us-east-2.pooler.supabase.com \
+                  -U postgres.vtzsgxpjrrjnmwtqmnah \
+                  -d postgres \
+                  -p 6543 \
+                  --data-only \
+                  --schema=public \
+                  --no-owner \
+                  --no-privileges > "backups/folyx_backup_$TIMESTAMP.sql"
+          
+      - name: Create backup info
+        run: |
+          TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+          echo "Folyx Database Backup - $(date)" > "backups/backup_info_$TIMESTAMP.txt"
+          echo "Tables: waitlist, profiles" >> "backups/backup_info_$TIMESTAMP.txt"
+          echo "Size: $(du -h backups/folyx_backup_$TIMESTAMP.sql | cut -f1)" >> "backups/backup_info_$TIMESTAMP.txt"
           
       - name: Commit backups
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add backups/
-          git commit -m "Daily database backup $(date +"%Y-%m-%d")" || exit 0
-          git push
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Daily database backup $(date +"%Y-%m-%d")"
+            git push
+          else
+            echo "No changes to commit"
+          fi
