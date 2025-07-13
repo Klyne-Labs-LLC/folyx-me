@@ -63,7 +63,7 @@ export default function PortfolioManagerClient({ portfolio: initialPortfolio, co
     try {
       await apiClient.delete(`/portfolios/${portfolio.id}`);
       toast.success("Portfolio deleted successfully");
-      router.push("/dashboard");
+      router.push("/");
     } catch (error) {
       console.error("Delete error:", error);
       toast.error("Failed to delete portfolio");
@@ -305,7 +305,7 @@ export default function PortfolioManagerClient({ portfolio: initialPortfolio, co
                 </div>
               ) : (
                 <div className="text-center py-4 text-gray-500">
-                  <p>No platforms connected. <a href="/dashboard/integrations" className="link link-primary">Connect platforms</a> to enable AI content generation.</p>
+                  <p>No platforms connected. <a href="/integrations" className="link link-primary">Connect platforms</a> to enable AI content generation.</p>
                 </div>
               )}
             </div>

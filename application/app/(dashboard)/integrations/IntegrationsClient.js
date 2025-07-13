@@ -332,7 +332,7 @@ export default function IntegrationsClient({ initialConnections }) {
             <h3 className="text-lg font-semibold text-gray-900">🎉 Great Progress!</h3>
             <p className="text-base-content/80">
               You have {connections.length} platform{connections.length !== 1 ? "s" : ""} connected. 
-              Ready to <Link href="/dashboard/portfolios/new" className="link link-primary">create your first portfolio</Link>?
+              Ready to <Link href="/portfolios/new" className="link link-primary">create your first portfolio</Link>?
             </p>
           </div>
         </div>

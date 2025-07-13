@@ -93,10 +93,10 @@ const config = {
     main: "#3b82f6", // Primary blue to match root app
   },
   auth: {
-    // REQUIRED — the path to log in users. It's use to protect private routes (like /dashboard). It's used in apiClient (/libs/api.js) upon 401 errors from our API
+    // REQUIRED — the path to log in users. It's use to protect private routes (like /). It's used in apiClient (/libs/api.js) upon 401 errors from our API
     loginUrl: "/signin",
-    // REQUIRED — the path you want to redirect users after successfull login (i.e. /dashboard, /private). This is normally a private page for users to manage their accounts. It's used in apiClient (/libs/api.js) upon 401 errors from our API & in ButtonSignin.js
-    callbackUrl: "/dashboard",
+    // REQUIRED — the path you want to redirect users after successfull login (i.e. /, /private). This is normally a private page for users to manage their accounts. It's used in apiClient (/libs/api.js) upon 401 errors from our API & in ButtonSignin.js
+    callbackUrl: "/",
   },
   payments: {
     // FEATURE FLAG: Set to false to disable all payment features (grants free access to all users)

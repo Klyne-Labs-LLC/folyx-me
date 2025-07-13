@@ -151,7 +151,7 @@ export default function PortfolioCreateClient({ connections }) {
       }
 
       // Redirect to portfolio editor
-      router.push(`/dashboard/portfolios/${portfolio.id}`);
+      router.push(`/portfolios/${portfolio.id}`);
 
     } catch (error) {
       console.error("Portfolio creation error:", error);
@@ -287,7 +287,7 @@ export default function PortfolioCreateClient({ connections }) {
               <p className="text-base-content/80 mb-4">
                 You haven&apos;t connected any platforms yet. Your portfolio will be created with placeholder content.
               </p>
-              <a href="/dashboard/integrations" className="btn btn-outline btn-sm">
+              <a href="/integrations" className="btn btn-outline btn-sm">
                 Connect Platforms First
               </a>
             </div>

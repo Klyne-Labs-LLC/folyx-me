@@ -59,7 +59,7 @@ export default async function PortfolioManagerPage({ params }) {
                 View Live
               </a>
             )}
-            <Link href="/dashboard/portfolios" className="btn btn-ghost">
+            <Link href="/portfolios" className="btn btn-ghost">
               ← Back to Portfolios
             </Link>
           </div>

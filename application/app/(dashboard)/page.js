@@ -155,7 +155,7 @@ export default async function Dashboard() {
           <div className="card-body">
             <div className="flex justify-between items-center mb-6">
               <h2 className="card-title text-gray-900">Your Portfolios</h2>
-              <Link href="/dashboard/portfolios/new" className="btn btn-primary">
+              <Link href="/portfolios/new" className="btn btn-primary">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
@@ -189,7 +189,7 @@ export default async function Dashboard() {
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
                   <span>Connect your GitHub account</span>
-                  <a href="/dashboard/integrations" className="btn btn-sm btn-outline">Connect</a>
+                  <a href="/integrations" className="btn btn-sm btn-outline">Connect</a>
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-6 bg-gray-300 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
