@@ -35,9 +35,9 @@ export default async function PortfolioManagerPage({ params }) {
     .eq("user_id", session.user.id);
 
   return (
-    <main className="min-h-screen p-8 pb-24 bg-gray-50">
+    <main className="p-6 lg:p-8">
       <div className="max-w-6xl mx-auto space-y-8">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-extrabold">{portfolio.title}</h1>
             <p className="text-base-content/80 mt-2">
@@ -58,8 +58,8 @@ export default async function PortfolioManagerPage({ params }) {
                 View Live
               </a>
             )}
-            <a href="/dashboard" className="btn btn-ghost">
-              ← Back to Dashboard
+            <a href="/dashboard/portfolios" className="btn btn-ghost">
+              ← Back to Portfolios
             </a>
           </div>
         </div>
