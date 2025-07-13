@@ -1,3 +1,0 @@
-Folyx Database Backup - Sun Jul 13 02:34:54 UTC 2025
-Tables: waitlist, profiles
-Size: 

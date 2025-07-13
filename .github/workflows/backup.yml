@@ -18,14 +18,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y postgresql-client
         
-      - name: Create backup directory
-        run: mkdir -p backups
-        
       - name: Export Database Backup
         env:
           PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
         run: |
           TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+          BACKUP_DIR="backups/$TIMESTAMP"
+          mkdir -p "$BACKUP_DIR"
           
           # Backup all data
           pg_dump -h aws-0-us-east-2.pooler.supabase.com \
@@ -35,7 +34,7 @@ jobs:
                   --data-only \
                   --schema=public \
                   --no-owner \
-                  --no-privileges > "backups/folyx_data_$TIMESTAMP.sql"
+                  --no-privileges > "$BACKUP_DIR/folyx_data.sql"
           
           # Backup complete schema (structure + data)
           pg_dump -h aws-0-us-east-2.pooler.supabase.com \
@@ -44,19 +43,27 @@ jobs:
                   -p 6543 \
                   --schema=public \
                   --no-owner \
-                  --no-privileges > "backups/folyx_complete_$TIMESTAMP.sql"
+                  --no-privileges > "$BACKUP_DIR/folyx_complete.sql"
           
       - name: Create backup info
         run: |
           TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-          echo "Folyx Database Backup - $(date)" > "backups/backup_info_$TIMESTAMP.txt"
-          echo "Files created:" >> "backups/backup_info_$TIMESTAMP.txt"
-          echo "- folyx_data_$TIMESTAMP.sql (data only)" >> "backups/backup_info_$TIMESTAMP.txt"
-          echo "- folyx_complete_$TIMESTAMP.sql (schema + data)" >> "backups/backup_info_$TIMESTAMP.txt"
-          echo "" >> "backups/backup_info_$TIMESTAMP.txt"
-          echo "File sizes:" >> "backups/backup_info_$TIMESTAMP.txt"
-          echo "Data: $(du -h backups/folyx_data_$TIMESTAMP.sql | cut -f1)" >> "backups/backup_info_$TIMESTAMP.txt"
-          echo "Complete: $(du -h backups/folyx_complete_$TIMESTAMP.sql | cut -f1)" >> "backups/backup_info_$TIMESTAMP.txt"
+          BACKUP_DIR="backups/$TIMESTAMP"
+          
+          echo "Folyx Database Backup - $(date)" > "$BACKUP_DIR/backup_info.txt"
+          echo "Backup Directory: $BACKUP_DIR" >> "$BACKUP_DIR/backup_info.txt"
+          echo "" >> "$BACKUP_DIR/backup_info.txt"
+          echo "Files created:" >> "$BACKUP_DIR/backup_info.txt"
+          echo "- folyx_data.sql (data only)" >> "$BACKUP_DIR/backup_info.txt"
+          echo "- folyx_complete.sql (schema + data)" >> "$BACKUP_DIR/backup_info.txt"
+          echo "" >> "$BACKUP_DIR/backup_info.txt"
+          echo "File sizes:" >> "$BACKUP_DIR/backup_info.txt"
+          echo "Data: $(du -h $BACKUP_DIR/folyx_data.sql | cut -f1)" >> "$BACKUP_DIR/backup_info.txt"
+          echo "Complete: $(du -h $BACKUP_DIR/folyx_complete.sql | cut -f1)" >> "$BACKUP_DIR/backup_info.txt"
+          echo "" >> "$BACKUP_DIR/backup_info.txt"
+          echo "Restore commands:" >> "$BACKUP_DIR/backup_info.txt"
+          echo "Data only: psql -h host -U user -d db -f folyx_data.sql" >> "$BACKUP_DIR/backup_info.txt"
+          echo "Complete: psql -h host -U user -d db -f folyx_complete.sql" >> "$BACKUP_DIR/backup_info.txt"
           
       - name: Commit backups
         run: |
