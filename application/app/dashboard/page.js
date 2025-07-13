@@ -28,7 +28,7 @@ export default async function Dashboard() {
     email: session?.user?.email,
     full_name: session?.user?.user_metadata?.full_name || session?.user?.user_metadata?.name || null,
     avatar_url: session?.user?.user_metadata?.avatar_url || null,
-    has_access: false,
+    has_access: config.payments.freeAccessMode || false,
     plan_type: 'free',
     created_at: session?.user?.created_at || new Date().toISOString(),
     updated_at: session?.user?.updated_at || new Date().toISOString()
@@ -93,8 +93,8 @@ export default async function Dashboard() {
           </div>
         </div>
 
-        {/* Subscription Status */}
-        {!displayProfile?.has_access && (
+        {/* Subscription Status - Only show if payments are enabled */}
+        {config.payments.enabled && !displayProfile?.has_access && (
           <div className="card bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200">
             <div className="card-body">
               <h2 className="card-title text-gray-900">Unlock Folyx Pro Features</h2>
@@ -128,6 +128,23 @@ export default async function Dashboard() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Free Access Notice - Show when payments are disabled */}
+        {!config.payments.enabled && (
+          <div className="card bg-gradient-to-r from-green-50 to-blue-50 border border-green-200">
+            <div className="card-body">
+              <h2 className="card-title text-gray-900">🎉 Free Access Period</h2>
+              <p className="text-base-content/80">
+                You currently have full access to all Folyx features at no cost! 
+                This includes unlimited AI-powered portfolio generation, all templates, 
+                and premium integrations.
+              </p>
+              <div className="mt-4">
+                <div className="badge badge-success badge-lg">All Features Unlocked</div>
               </div>
             </div>
           </div>

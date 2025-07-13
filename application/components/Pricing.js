@@ -10,9 +10,13 @@ const Pricing = () => {
     <section className="bg-base-200 overflow-hidden" id="pricing">
       <div className="py-24 px-8 max-w-5xl mx-auto">
         <div className="flex flex-col text-center w-full mb-20">
-          <p className="font-medium text-primary mb-8">Pricing</p>
+          <p className="font-medium text-primary mb-8">
+            {config.payments.enabled ? "Pricing" : "Free Access"}
+          </p>
           <h2 className="font-bold text-3xl lg:text-5xl tracking-tight">
-            Save hours of repetitive code and ship faster!
+            {config.payments.enabled 
+              ? "Save hours of repetitive code and ship faster!" 
+              : "Get started absolutely free!"}
           </h2>
         </div>
 
@@ -47,24 +51,32 @@ const Pricing = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  {plan.priceAnchor && (
-                    <div className="flex flex-col justify-end mb-[4px] text-lg ">
-                      <p className="relative">
-                        <span className="absolute bg-base-content h-[1.5px] inset-x-0 top-[53%]"></span>
-                        <span className="text-base-content/80">
-                          ${plan.priceAnchor}
-                        </span>
-                      </p>
-                    </div>
-                  )}
-                  <p className={`text-5xl tracking-tight font-extrabold`}>
-                    ${plan.price}
-                  </p>
-                  <div className="flex flex-col justify-end mb-[4px]">
-                    <p className="text-xs text-base-content/60 uppercase font-semibold">
-                      USD
+                  {!config.payments.enabled ? (
+                    <p className={`text-5xl tracking-tight font-extrabold text-green-600`}>
+                      FREE
                     </p>
-                  </div>
+                  ) : (
+                    <>
+                      {plan.priceAnchor && (
+                        <div className="flex flex-col justify-end mb-[4px] text-lg ">
+                          <p className="relative">
+                            <span className="absolute bg-base-content h-[1.5px] inset-x-0 top-[53%]"></span>
+                            <span className="text-base-content/80">
+                              ${plan.priceAnchor}
+                            </span>
+                          </p>
+                        </div>
+                      )}
+                      <p className={`text-5xl tracking-tight font-extrabold`}>
+                        ${plan.price}
+                      </p>
+                      <div className="flex flex-col justify-end mb-[4px]">
+                        <p className="text-xs text-base-content/60 uppercase font-semibold">
+                          USD
+                        </p>
+                      </div>
+                    </>
+                  )}
                 </div>
                 {plan.features && (
                   <ul className="space-y-2.5 leading-relaxed text-base flex-1">
@@ -92,7 +104,7 @@ const Pricing = () => {
                   <ButtonCheckout priceId={plan.priceId} />
 
                   <p className="flex items-center justify-center gap-2 text-sm text-center text-base-content/80 font-medium relative">
-                    Pay once. Access forever.
+                    {config.payments.enabled ? "Pay once. Access forever." : "No payment required. Start now!"}
                   </p>
                 </div>
               </div>

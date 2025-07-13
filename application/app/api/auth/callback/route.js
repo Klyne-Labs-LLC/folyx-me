@@ -41,7 +41,7 @@ async function ensureUserProfile(supabase, user) {
         email: user.email,
         full_name: user.user_metadata?.full_name || user.user_metadata?.name || user.user_metadata?.display_name || null,
         avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
-        has_access: false, // Default to no access until they subscribe
+        has_access: config.payments.freeAccessMode || false, // Grant free access when payments disabled
         plan_type: 'free',
         onboarding_completed: false
       };
