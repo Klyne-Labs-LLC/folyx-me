@@ -150,17 +150,60 @@ export default async function Dashboard() {
           </div>
         )}
 
-        {/* Portfolio Section - Coming Soon */}
+        {/* Portfolio Section */}
         <div className="card bg-white shadow-lg border border-gray-200">
           <div className="card-body">
-            <h2 className="card-title text-gray-900">Your Portfolios</h2>
-            <div className="text-center py-12">
-              <div className="text-6xl opacity-30 mb-4">🚀</div>
-              <h3 className="text-xl font-semibold mb-2">Portfolio Builder Coming Soon</h3>
-              <p className="text-base-content/70">
-                We&apos;re building the most advanced AI-powered portfolio generator. 
-                Stay tuned for the launch!
-              </p>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="card-title text-gray-900">Your Portfolios</h2>
+              <a href="/dashboard/portfolios/new" className="btn btn-primary">
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                Create Portfolio
+              </a>
+            </div>
+            
+            {/* Portfolio Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div className="stat bg-base-100 rounded-lg p-4">
+                <div className="stat-title text-sm opacity-70">Total Portfolios</div>
+                <div className="stat-value text-2xl">0</div>
+                <div className="stat-desc text-success">Ready to create your first!</div>
+              </div>
+              <div className="stat bg-base-100 rounded-lg p-4">
+                <div className="stat-title text-sm opacity-70">Published</div>
+                <div className="stat-value text-2xl">0</div>
+                <div className="stat-desc">Live portfolios</div>
+              </div>
+              <div className="stat bg-base-100 rounded-lg p-4">
+                <div className="stat-title text-sm opacity-70">Total Views</div>
+                <div className="stat-value text-2xl">0</div>
+                <div className="stat-desc">Visitor count</div>
+              </div>
+            </div>
+
+            {/* Quick Start Guide */}
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
+              <h3 className="text-lg font-semibold mb-3 text-gray-900">🚀 Quick Start Guide</h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                  <span>Connect your GitHub account</span>
+                  <a href="/dashboard/integrations" className="btn btn-sm btn-outline">Connect</a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-6 bg-gray-300 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                  <span>Create your first portfolio</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-6 bg-gray-300 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                  <span>AI generates content from your projects</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-6 bg-gray-300 text-white rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                  <span>Publish and share your portfolio</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

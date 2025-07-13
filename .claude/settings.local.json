@@ -7,7 +7,12 @@
       "Bash(export DB_PASSWORD=takitajwar17)",
       "Bash(mkdir:*)",
       "Bash(chmod:*)",
-      "Bash(npm audit:*)"
+      "Bash(npm audit:*)",
+      "Bash(curl:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(npm run dev:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }
