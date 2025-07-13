@@ -1,0 +1,14 @@
+Folyx Database Backup - Sun Jul 13 05:17:25 UTC 2025
+Backup Directory: backups/20250713_051721
+
+Files created:
+- folyx_data.sql (data only)
+- folyx_complete.sql (schema + data)
+
+File sizes:
+Data: 4.0K
+Complete: 8.0K
+
+Restore commands:
+Data only: psql -h host -U user -d db -f folyx_data.sql
+Complete: psql -h host -U user -d db -f folyx_complete.sql
