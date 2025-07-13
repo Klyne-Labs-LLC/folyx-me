@@ -1,14 +1,10 @@
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
-import ButtonCheckout from "@/components/ButtonCheckout";
 import config from "@/config";
 import ProfileEnsurer from "@/components/ProfileEnsurer";
 export const dynamic = "force-dynamic";
 
-// This is a private page: It's protected by the layout.js component which ensures the user is authenticated.
-// It's a server compoment which means you can fetch data (like the user profile) before the page is rendered.
-// See https://shipfa.st/docs/tutorials/private-page
 export default async function Dashboard() {
   const supabase = createServerComponentClient({ cookies });
   
@@ -22,6 +18,19 @@ export default async function Dashboard() {
     .eq("id", session?.user?.id)
     .single();
 
+  // Get portfolio count
+  const { count: portfolioCount } = await supabase
+    .from("portfolios")
+    .select("*", { count: 'exact', head: true })
+    .eq("user_id", session?.user?.id);
+
+  // Get published portfolio count
+  const { count: publishedCount } = await supabase
+    .from("portfolios")
+    .select("*", { count: 'exact', head: true })
+    .eq("user_id", session?.user?.id)
+    .eq("is_published", true);
+
   // If no profile exists, create a default one for display
   const displayProfile = profile || {
     id: session?.user?.id,
@@ -29,185 +38,150 @@ export default async function Dashboard() {
     full_name: session?.user?.user_metadata?.full_name || session?.user?.user_metadata?.name || null,
     avatar_url: session?.user?.user_metadata?.avatar_url || null,
     has_access: config.payments.freeAccessMode || false,
-    plan_type: 'free',
-    created_at: session?.user?.created_at || new Date().toISOString(),
-    updated_at: session?.user?.updated_at || new Date().toISOString()
+    plan_type: 'free'
   };
 
-  // const currentPlan = config.stripe.plans.find(plan => plan.priceId === displayProfile?.price_id);
+  const userName = displayProfile?.full_name || session?.user?.email?.split('@')[0] || 'User';
   
   return (
-    <main>
-      {/* Ensure profile exists if missing */}
+    <main className="max-h-screen overflow-hidden">
       <ProfileEnsurer hasProfile={!!profile} />
       
-      <section className="space-y-8">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-extrabold">Dashboard</h1>
-            <p className="text-base-content/80 mt-2">Welcome back, {displayProfile?.full_name || session?.user?.email?.split('@')[0]}!</p>
-          </div>
-          {/* Account button is now in sidebar */}
+      {/* Compact Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-gray-900">Welcome back, {userName}!</h1>
+        <div className="flex items-center gap-4 mt-2">
+          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+            displayProfile?.has_access ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+          }`}>
+            {displayProfile?.plan_type || 'Free'} Plan
+          </span>
+          {!config.payments.enabled && (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+              🎉 Free Access Period
+            </span>
+          )}
         </div>
+      </div>
 
-        {/* User Profile Card */}
-        <div className="card bg-white shadow-lg border border-gray-200">
-          <div className="card-body">
-            <h2 className="card-title text-gray-900">Profile Information</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p className="text-sm opacity-70">Email</p>
-                <p className="font-medium">{displayProfile?.email}</p>
-              </div>
-              <div>
-                <p className="text-sm opacity-70">Plan</p>
-                <div className="flex items-center gap-2">
-                  <p className="font-medium capitalize">{displayProfile?.plan_type || 'Free'}</p>
-                  {displayProfile?.has_access && (
-                    <div className="badge badge-success badge-sm">Active</div>
-                  )}
-                </div>
-              </div>
-              <div>
-                <p className="text-sm opacity-70">Member Since</p>
-                <p className="font-medium">
-                  {displayProfile?.created_at ? 
-                    new Date(displayProfile.created_at).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    }) : 
-                    'Just now'
-                  }
-                </p>
-              </div>
-              <div>
-                <p className="text-sm opacity-70">Status</p>
-                <div className="flex items-center gap-2">
-                  <div className={`badge badge-sm ${displayProfile?.has_access ? 'badge-success' : 'badge-warning'}`}>
-                    {displayProfile?.has_access ? 'Premium' : 'Free User'}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Subscription Status - Only show if payments are enabled */}
-        {config.payments.enabled && !displayProfile?.has_access && (
-          <div className="card bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200">
-            <div className="card-body">
-              <h2 className="card-title text-gray-900">Unlock Folyx Pro Features</h2>
-              <p className="text-base-content/80 mb-4">
-                Create unlimited AI-powered portfolios with advanced integrations and analytics.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {config.stripe.plans.map((plan) => (
-                  <div key={plan.priceId} className="card bg-base-100 shadow">
-                    <div className="card-body">
-                      <h3 className="card-title text-lg">{plan.name}</h3>
-                      <p className="text-sm opacity-70 mb-2">{plan.description}</p>
-                      <div className="text-2xl font-bold mb-2">
-                        ${plan.price}
-                        <span className="text-sm font-normal opacity-70">/month</span>
-                      </div>
-                      <ul className="text-sm space-y-1 mb-4">
-                        {plan.features.map((feature, index) => (
-                          <li key={index} className="flex items-center gap-2">
-                            <svg className="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                            {feature.name}
-                          </li>
-                        ))}
-                      </ul>
-                      <ButtonCheckout 
-                        priceId={plan.priceId} 
-                        mode="subscription"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Free Access Notice - Show when payments are disabled */}
-        {!config.payments.enabled && (
-          <div className="card bg-gradient-to-r from-green-50 to-blue-50 border border-green-200">
-            <div className="card-body">
-              <h2 className="card-title text-gray-900">🎉 Free Access Period</h2>
-              <p className="text-base-content/80">
-                You currently have full access to all Folyx features at no cost! 
-                This includes unlimited AI-powered portfolio generation, all templates, 
-                and premium integrations.
-              </p>
-              <div className="mt-4">
-                <div className="badge badge-success badge-lg">All Features Unlocked</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Portfolio Section */}
-        <div className="card bg-white shadow-lg border border-gray-200">
-          <div className="card-body">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="card-title text-gray-900">Your Portfolios</h2>
-              <Link href="/portfolios/new" className="btn btn-primary">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      {/* Main Dashboard Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+        
+        {/* Left Column - Stats & Quick Actions */}
+        <div className="lg:col-span-2 space-y-6">
+          
+          {/* Portfolio Stats */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-gray-900">Portfolio Overview</h2>
+              <Link 
+                href="/portfolios/new" 
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
                 Create Portfolio
               </Link>
             </div>
             
-            {/* Portfolio Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="stat bg-base-100 rounded-lg p-4">
-                <div className="stat-title text-sm opacity-70">Total Portfolios</div>
-                <div className="stat-value text-2xl">0</div>
-                <div className="stat-desc text-success">Ready to create your first!</div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="text-2xl font-bold text-gray-900">{portfolioCount || 0}</div>
+                <div className="text-sm text-gray-600">Total</div>
               </div>
-              <div className="stat bg-base-100 rounded-lg p-4">
-                <div className="stat-title text-sm opacity-70">Published</div>
-                <div className="stat-value text-2xl">0</div>
-                <div className="stat-desc">Live portfolios</div>
+              <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="text-2xl font-bold text-green-600">{publishedCount || 0}</div>
+                <div className="text-sm text-gray-600">Published</div>
               </div>
-              <div className="stat bg-base-100 rounded-lg p-4">
-                <div className="stat-title text-sm opacity-70">Total Views</div>
-                <div className="stat-value text-2xl">0</div>
-                <div className="stat-desc">Visitor count</div>
-              </div>
-            </div>
-
-            {/* Quick Start Guide */}
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 border border-blue-200">
-              <h3 className="text-lg font-semibold mb-3 text-gray-900">🚀 Quick Start Guide</h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                  <span>Connect your GitHub account</span>
-                  <a href="/integrations" className="btn btn-sm btn-outline">Connect</a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-gray-300 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                  <span>Create your first portfolio</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-gray-300 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                  <span>AI generates content from your projects</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-gray-300 text-white rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                  <span>Publish and share your portfolio</span>
-                </div>
+              <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">0</div>
+                <div className="text-sm text-gray-600">Total Views</div>
               </div>
             </div>
           </div>
+
+          {/* Quick Actions */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Link 
+                href="/portfolios" 
+                className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <div className="flex-shrink-0">
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-gray-900">Manage Portfolios</p>
+                  <p className="text-xs text-gray-500">View and edit your portfolios</p>
+                </div>
+              </Link>
+              
+              <Link 
+                href="/integrations" 
+                className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <div className="flex-shrink-0">
+                  <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-gray-900">Connect Platforms</p>
+                  <p className="text-xs text-gray-500">Link GitHub, LinkedIn & more</p>
+                </div>
+              </Link>
+            </div>
+          </div>
         </div>
-      </section>
+
+        {/* Right Column - Getting Started */}
+        <div className="space-y-6">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg border border-blue-200 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Getting Started</h2>
+            <div className="space-y-3">
+              <div className="flex items-center">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white text-xs font-bold rounded-full flex items-center justify-center">1</div>
+                <span className="ml-3 text-sm text-gray-700">Connect your accounts</span>
+              </div>
+              <div className="flex items-center">
+                <div className="flex-shrink-0 w-6 h-6 bg-gray-300 text-white text-xs font-bold rounded-full flex items-center justify-center">2</div>
+                <span className="ml-3 text-sm text-gray-500">Create your first portfolio</span>
+              </div>
+              <div className="flex items-center">
+                <div className="flex-shrink-0 w-6 h-6 bg-gray-300 text-white text-xs font-bold rounded-full flex items-center justify-center">3</div>
+                <span className="ml-3 text-sm text-gray-500">Publish and share</span>
+              </div>
+            </div>
+            
+            <div className="mt-4 pt-4 border-t border-blue-200">
+              <Link 
+                href="/integrations" 
+                className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-500"
+              >
+                Start connecting accounts
+                <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+
+          {/* Recent Activity - Placeholder for future feature */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h2>
+            <div className="text-center py-8">
+              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              <p className="mt-2 text-sm text-gray-500">No recent activity</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }
