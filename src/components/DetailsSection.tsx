@@ -315,7 +315,7 @@ const DetailsSection = () => {
                   {/* Waitlist count for FOMO */}
                   {!loading && (
                     <p className="text-center text-xs text-gray-500 mt-2">
-                      {(count + 50 + localIncrement).toLocaleString()} people waiting • Launching in 2 weeks
+                      {(count + 174 + localIncrement).toLocaleString()} people waiting • Launching in 2 weeks
                     </p>
                   )}
                 </div>
