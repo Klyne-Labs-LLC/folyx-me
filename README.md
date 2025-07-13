@@ -5,7 +5,9 @@
 Folyx is an AI-powered portfolio generation SaaS platform that automatically creates and maintains professional portfolios from your social profiles and resume data. Never rebuild your portfolio again!
 
 ## Systems
-[![Database Backup](https://github.com/Klyne-Labs-LLC/folyx-me/actions/workflows/backup.yml/badge.svg)](https://github.com/Klyne-Labs-LLC/folyx-me/actions/workflows/backup.yml)
+[![Database Backup](https://github.com/Klyne-Labs-LLC/folyx-me/actions/workflows/backup.yml/badge.svg?branch=main)](https://github.com/Klyne-Labs-LLC/folyx-me/actions/workflows/backup.yml)
+
+
 ## 🌟 What is Folyx?
 
 Folyx transforms the tedious process of portfolio creation into an automated, intelligent system that:
