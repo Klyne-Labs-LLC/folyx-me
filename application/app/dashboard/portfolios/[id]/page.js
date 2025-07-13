@@ -47,7 +47,7 @@ export default async function PortfolioManagerPage({ params }) {
           <div className="flex gap-2">
             {portfolio.is_published && (
               <a
-                href={`/portfolio/${portfolio.slug}`}
+                href={`https://${portfolio.subdomain}.folyx.me`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline"

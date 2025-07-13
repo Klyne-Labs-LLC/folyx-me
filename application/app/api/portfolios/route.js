@@ -45,13 +45,28 @@ export async function POST(req) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { title, description, template_id = "modern" } = await req.json();
+    const { title, description, template_id = "modern", subdomain } = await req.json();
 
     if (!title) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 });
     }
 
-    // Generate unique slug
+    if (!subdomain) {
+      return NextResponse.json({ error: "Subdomain is required" }, { status: 400 });
+    }
+
+    // Verify subdomain is available
+    const { data: existingPortfolio } = await supabase
+      .from("portfolios")
+      .select("id")
+      .eq("subdomain", subdomain)
+      .single();
+
+    if (existingPortfolio) {
+      return NextResponse.json({ error: "Subdomain already taken" }, { status: 409 });
+    }
+
+    // Generate unique slug for backward compatibility
     const { data: slugData } = await supabase
       .rpc('generate_unique_slug', { 
         input_title: title, 
@@ -63,6 +78,7 @@ export async function POST(req) {
       title,
       description: description || "",
       slug: slugData,
+      subdomain: subdomain.toLowerCase().trim(),
       template_id,
       template_config: {},
       content_data: {},
