@@ -16,8 +16,8 @@ export default async function IntegrationsPage() {
     .order("created_at", { ascending: false });
 
   return (
-    <main className="p-6 lg:p-8">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <main>
+      <div className="space-y-8">
         <div>
           <h1 className="text-3xl md:text-4xl font-extrabold">Platform Integrations</h1>
           <p className="text-base-content/80 mt-2">

@@ -31,8 +31,8 @@ export default async function PortfoliosPage() {
   const portfolioList = portfolios || [];
 
   return (
-    <main className="p-6 lg:p-8">
-      <section className="max-w-6xl mx-auto space-y-8">
+    <main>
+      <section className="space-y-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
