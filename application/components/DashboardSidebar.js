@@ -246,9 +246,11 @@ export default function DashboardSidebar({ user, profile }) {
               <MenuIcon />
             </button>
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">F</span>
-              </div>
+              <img 
+                src="/folyx-icon.svg" 
+                alt="Folyx Logo" 
+                className="w-8 h-8"
+              />
               <span className="font-bold text-xl text-gray-900">Folyx</span>
             </Link>
           </div>
@@ -271,9 +273,11 @@ export default function DashboardSidebar({ user, profile }) {
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">F</span>
-              </div>
+              <img 
+                src="/folyx-icon.svg" 
+                alt="Folyx Logo" 
+                className="w-8 h-8"
+              />
               <span className="font-bold text-xl text-gray-900">Folyx</span>
             </Link>
             
