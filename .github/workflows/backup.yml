@@ -16,24 +16,23 @@ jobs:
           node-version: '18'
           
       - name: Install Supabase CLI
-        run: npm install -g supabase
+        run: |
+          curl -fsSL https://cli.supabase.com/install.sh | sh
+          echo "/home/runner/.local/bin" >> $GITHUB_PATH
         
       - name: Create backup directory
         run: mkdir -p backups
         
-      - name: Export Waitlist Data
+      - name: Link to Supabase project
         env:
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
         run: |
-          TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-          echo $SUPABASE_DB_PASSWORD | supabase db dump --data-only --schema public --table waitlist > "backups/waitlist_$TIMESTAMP.sql"
+          supabase link --project-ref vtzsgxpjrrjnmwtqmnah --password "$SUPABASE_DB_PASSWORD"
           
-      - name: Export Profiles Data
-        env:
-          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      - name: Export Database Backup
         run: |
           TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-          echo $SUPABASE_DB_PASSWORD | supabase db dump --data-only --schema public --table profiles > "backups/profiles_$TIMESTAMP.sql"
+          supabase db dump --data-only > "backups/folyx_backup_$TIMESTAMP.sql"
           
       - name: Commit backups
         run: |
