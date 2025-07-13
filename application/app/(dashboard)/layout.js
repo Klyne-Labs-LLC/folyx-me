@@ -6,8 +6,8 @@ import DashboardSidebar from "@/components/DashboardSidebar";
 
 // This is a server-side component to ensure the user is logged in.
 // If not, it will redirect to the login page.
-// It's applied to all subpages of /dashboard in /app/dashboard/*** pages
-export default async function LayoutPrivate({ children }) {
+// It's applied to all subpages of the dashboard
+export default async function DashboardLayout({ children }) {
   const supabase = createServerComponentClient({ cookies });
 
   const {

@@ -42,7 +42,7 @@ export default async function PortfoliosPage() {
             </p>
           </div>
           <Link 
-            href="/dashboard/portfolios/new" 
+            href="/portfolios/new" 
             className="btn btn-primary"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -173,7 +173,7 @@ export default async function PortfoliosPage() {
                   {/* Actions */}
                   <div className="flex gap-2">
                     <Link 
-                      href={`/dashboard/portfolios/${portfolio.id}`}
+                      href={`/portfolios/${portfolio.id}`}
                       className="btn btn-outline btn-sm flex-1"
                     >
                       Manage
@@ -210,7 +210,7 @@ export default async function PortfoliosPage() {
               
               <div className="space-y-4">
                 <Link 
-                  href="/dashboard/portfolios/new" 
+                  href="/portfolios/new" 
                   className="btn btn-primary"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -220,7 +220,7 @@ export default async function PortfoliosPage() {
                 </Link>
                 
                 <div className="text-sm text-gray-500">
-                  or <Link href="/dashboard/integrations" className="link link-primary">connect your platforms first</Link>
+                  or <Link href="/integrations" className="link link-primary">connect your platforms first</Link>
                 </div>
               </div>
             </div>
@@ -234,7 +234,7 @@ export default async function PortfoliosPage() {
               <h3 className="text-lg font-semibold mb-3 text-gray-900">Quick Actions</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Link 
-                  href="/dashboard/portfolios/new" 
+                  href="/portfolios/new" 
                   className="flex items-center gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow"
                 >
                   <div className="p-2 bg-blue-100 rounded-lg">
@@ -249,7 +249,7 @@ export default async function PortfoliosPage() {
                 </Link>
 
                 <Link 
-                  href="/dashboard/integrations" 
+                  href="/integrations" 
                   className="flex items-center gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-shadow"
                 >
                   <div className="p-2 bg-green-100 rounded-lg">

@@ -91,7 +91,7 @@ const CloseIcon = () => (
 const navigationItems = [
   {
     name: "Dashboard",
-    href: "/dashboard",
+    href: "/",
     icon: DashboardIcon,
     exact: true
   },
@@ -99,24 +99,24 @@ const navigationItems = [
     name: "Portfolios",
     icon: PortfoliosIcon,
     submenu: [
-      { name: "View All", href: "/dashboard/portfolios" },
-      { name: "Create New", href: "/dashboard/portfolios/new", icon: PlusIcon }
+      { name: "View All", href: "/portfolios" },
+      { name: "Create New", href: "/portfolios/new", icon: PlusIcon }
     ]
   },
   {
     name: "Integrations",
-    href: "/dashboard/integrations",
+    href: "/integrations",
     icon: IntegrationsIcon
   },
   {
     name: "Analytics",
-    href: "/dashboard/analytics",
+    href: "/analytics",
     icon: AnalyticsIcon,
     comingSoon: true
   },
   {
     name: "Settings",
-    href: "/dashboard/settings",
+    href: "/settings",
     icon: SettingsIcon,
     comingSoon: true
   }
@@ -125,7 +125,7 @@ const navigationItems = [
 const bottomItems = [
   {
     name: "Help & Support",
-    href: "/dashboard/help",
+    href: "/help",
     icon: HelpIcon,
     comingSoon: true
   }
@@ -245,7 +245,7 @@ export default function DashboardSidebar({ user, profile }) {
             >
               <MenuIcon />
             </button>
-            <Link href="/dashboard" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">F</span>
               </div>
@@ -270,7 +270,7 @@ export default function DashboardSidebar({ user, profile }) {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            <Link href="/dashboard" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">F</span>
               </div>
