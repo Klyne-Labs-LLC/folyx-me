@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(npx supabase migration repair:*)",
+      "Bash(npx supabase migration:*)",
+      "Bash(export DB_PASSWORD=takitajwar17)",
+      "Bash(mkdir:*)",
+      "Bash(chmod:*)"
     ],
     "deny": []
   }
