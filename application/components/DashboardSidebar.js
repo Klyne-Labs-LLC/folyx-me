@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ButtonAccount from "@/components/ButtonAccount";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // Icon Components
 const DashboardIcon = () => (
@@ -59,6 +59,18 @@ const LogoutIcon = () => (
 const ChevronDownIcon = () => (
   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+  </svg>
+);
+
+const ChevronUpIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+  </svg>
+);
+
+const UserIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
   </svg>
 );
 
@@ -121,7 +133,9 @@ const bottomItems = [
 export default function DashboardSidebar({ user, profile }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [expandedItems, setExpandedItems] = useState({});
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const pathname = usePathname();
+  const supabase = createClientComponentClient();
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   
@@ -237,8 +251,6 @@ export default function DashboardSidebar({ user, profile }) {
               <span className="font-bold text-xl text-gray-900">Folyx</span>
             </Link>
           </div>
-          
-          <ButtonAccount />
         </div>
       </div>
 
@@ -272,43 +284,6 @@ export default function DashboardSidebar({ user, profile }) {
             </button>
           </div>
 
-          {/* User Profile Section */}
-          <div className="p-4 border-b border-gray-200">
-            <div className="flex items-center gap-3">
-              {profile?.avatar_url ? (
-                <img
-                  src={profile.avatar_url}
-                  alt="Profile"
-                  className="w-10 h-10 rounded-full"
-                />
-              ) : (
-                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-                  <span className="text-gray-600 font-medium text-sm">
-                    {(profile?.full_name || user?.email)?.charAt(0)?.toUpperCase()}
-                  </span>
-                </div>
-              )}
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
-                  {profile?.full_name || user?.email?.split('@')[0] || 'User'}
-                </p>
-                <p className="text-xs text-gray-500 truncate">
-                  {user?.email}
-                </p>
-              </div>
-            </div>
-            
-            {/* Plan Badge */}
-            <div className="mt-3">
-              <div className={`inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full ${
-                profile?.has_access 
-                  ? "bg-green-100 text-green-800" 
-                  : "bg-yellow-100 text-yellow-800"
-              }`}>
-                {profile?.has_access ? "Premium" : "Free"}
-              </div>
-            </div>
-          </div>
 
           {/* Navigation */}
           <div className="flex-1 overflow-y-auto py-4">
@@ -318,14 +293,58 @@ export default function DashboardSidebar({ user, profile }) {
           </div>
 
           {/* Bottom Section */}
-          <div className="border-t border-gray-200 p-3">
+          <div className="border-t border-gray-200 p-3 space-y-3">
             <nav className="space-y-1">
               {bottomItems.map(item => renderNavItem(item, true))}
             </nav>
             
-            {/* Desktop Account Button */}
-            <div className="hidden lg:block mt-3">
-              <ButtonAccount />
+            {/* Profile Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="flex items-center gap-3 w-full px-3 py-2 text-sm font-medium rounded-lg transition-colors text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              >
+                {profile?.avatar_url ? (
+                  <img
+                    src={profile.avatar_url}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full"
+                  />
+                ) : (
+                  <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                    <UserIcon />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0 text-left">
+                  <p className="text-sm font-medium text-gray-900 truncate">
+                    {profile?.full_name || user?.email?.split('@')[0] || 'User'}
+                  </p>
+                  <div className={`inline-flex items-center px-1.5 py-0.5 text-xs font-medium rounded-full ${
+                    profile?.has_access 
+                      ? "bg-green-100 text-green-800" 
+                      : "bg-yellow-100 text-yellow-800"
+                  }`}>
+                    {profile?.has_access ? "Premium" : "Free"}
+                  </div>
+                </div>
+                {isProfileOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+              </button>
+              
+              {/* Dropdown Menu */}
+              {isProfileOpen && (
+                <div className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-gray-200 rounded-lg shadow-lg py-1">
+                  <button
+                    onClick={async () => {
+                      await supabase.auth.signOut();
+                      window.location.href = '/';
+                    }}
+                    className="flex items-center gap-3 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    <LogoutIcon />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
