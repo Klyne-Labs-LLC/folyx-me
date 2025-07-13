@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { notFound, redirect } from "next/navigation";
+import Link from "next/link";
 import PortfolioManagerClient from "./PortfolioManagerClient";
 
 export const dynamic = "force-dynamic";
@@ -58,9 +59,9 @@ export default async function PortfolioManagerPage({ params }) {
                 View Live
               </a>
             )}
-            <a href="/dashboard/portfolios" className="btn btn-ghost">
+            <Link href="/dashboard/portfolios" className="btn btn-ghost">
               ← Back to Portfolios
-            </a>
+            </Link>
           </div>
         </div>
 

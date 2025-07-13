@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import ButtonAccount from "@/components/ButtonAccount";
+import Link from "next/link";
 import ButtonCheckout from "@/components/ButtonCheckout";
 import config from "@/config";
 import ProfileEnsurer from "@/components/ProfileEnsurer";
@@ -155,12 +155,12 @@ export default async function Dashboard() {
           <div className="card-body">
             <div className="flex justify-between items-center mb-6">
               <h2 className="card-title text-gray-900">Your Portfolios</h2>
-              <a href="/dashboard/portfolios/new" className="btn btn-primary">
+              <Link href="/dashboard/portfolios/new" className="btn btn-primary">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
                 Create Portfolio
-              </a>
+              </Link>
             </div>
             
             {/* Portfolio Stats */}
