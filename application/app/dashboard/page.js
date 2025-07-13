@@ -37,17 +37,17 @@ export default async function Dashboard() {
   // const currentPlan = config.stripe.plans.find(plan => plan.priceId === displayProfile?.price_id);
   
   return (
-    <main className="min-h-screen p-8 pb-24 bg-gray-50">
+    <main className="p-6 lg:p-8">
       {/* Ensure profile exists if missing */}
       <ProfileEnsurer hasProfile={!!profile} />
       
-      <section className="max-w-4xl mx-auto space-y-8">
+      <section className="max-w-6xl mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl md:text-4xl font-extrabold">Dashboard</h1>
             <p className="text-base-content/80 mt-2">Welcome back, {displayProfile?.full_name || session?.user?.email?.split('@')[0]}!</p>
           </div>
-          <ButtonAccount />
+          {/* Account button is now in sidebar */}
         </div>
 
         {/* User Profile Card */}
