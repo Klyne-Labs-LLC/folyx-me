@@ -7,9 +7,41 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: {
+          DEFAULT: "#3b82f6", // Blue to match root app
+          50: "#eff6ff",
+          100: "#dbeafe", 
+          200: "#bfdbfe",
+          300: "#93c5fd",
+          400: "#60a5fa",
+          500: "#3b82f6", // Primary blue
+          600: "#2563eb",
+          700: "#1d4ed8",
+          800: "#1e40af",
+          900: "#1e3a8a",
+          950: "#172554",
+        },
+        secondary: {
+          DEFAULT: "#9333ea", // Purple to match root app
+          50: "#faf5ff",
+          100: "#f3e8ff",
+          200: "#e9d5ff", 
+          300: "#d8b4fe",
+          400: "#c084fc",
+          500: "#a855f7",
+          600: "#9333ea", // Secondary purple
+          700: "#7c3aed",
+          800: "#6b21a8",
+          900: "#581c87",
+          950: "#3b0764",
+        },
+      },
       backgroundImage: {
         gradient:
           "linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
+        "hero-gradient": "linear-gradient(90deg, hsla(217, 89%, 61%, 1) 0%, hsla(271, 91%, 68%, 1) 100%)",
+        "hero-gradient-2": "linear-gradient(90deg, hsla(217, 89%, 61%, 1) 0%, hsla(271, 78%, 57%, 1) 100%)",
       },
       animation: {
         opacity: "opacity 0.25s ease-in-out",
@@ -17,6 +49,9 @@ module.exports = {
         wiggle: "wiggle 1.5s ease-in-out infinite",
         popup: "popup 0.25s ease-in-out",
         shimmer: "shimmer 3s ease-out infinite alternate",
+        "fade-in": "fade-in 0.7s ease-out forwards",
+        "fade-in-right": "fade-in-right 0.7s ease-out forwards",
+        "fade-in-left": "fade-in-left 0.7s ease-out forwards",
       },
       keyframes: {
         opacity: {
@@ -53,6 +88,18 @@ module.exports = {
           "0%": { backgroundPosition: "0 50%" },
           "50%": { backgroundPosition: "100% 50%" },
           "100%": { backgroundPosition: "0% 50%" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" }
+        },
+        "fade-in-right": {
+          "0%": { opacity: "0", transform: "translateX(-20px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" }
+        },
+        "fade-in-left": {
+          "0%": { opacity: "0", transform: "translateX(20px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" }
         },
       },
     },
