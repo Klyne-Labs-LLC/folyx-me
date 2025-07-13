@@ -93,6 +93,7 @@ This repository contains **two separate applications**:
 - **Authentication**: Supabase Auth with OAuth providers
 - **Access Control**: Subscription-based via `has_access` flag (currently free access mode enabled)
 
+
 ## API Endpoints (Portfolio Platform)
 
 ### Authentication & User Management
