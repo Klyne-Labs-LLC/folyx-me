@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
@@ -153,7 +154,7 @@ export default function DashboardSidebar({ user, profile }) {
     return pathname.startsWith(href);
   };
 
-  const renderNavItem = (item, isBottom = false) => {
+  const renderNavItem = (item) => {
     const hasSubmenu = item.submenu && item.submenu.length > 0;
     const isExpanded = expandedItems[item.name];
     const isActive = item.href ? isActiveLink(item.href, item.exact) : false;
@@ -305,9 +306,11 @@ export default function DashboardSidebar({ user, profile }) {
                 className="flex items-center gap-3 w-full px-3 py-2 text-sm font-medium rounded-lg transition-colors text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               >
                 {profile?.avatar_url ? (
-                  <img
+                  <Image
                     src={profile.avatar_url}
                     alt="Profile"
+                    width={32}
+                    height={32}
                     className="w-8 h-8 rounded-full"
                   />
                 ) : (
