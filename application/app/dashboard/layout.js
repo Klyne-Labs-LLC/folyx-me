@@ -37,12 +37,18 @@ export default async function LayoutPrivate({ children }) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="flex">
-        <DashboardSidebar user={session.user} profile={displayProfile} />
-        <div className="flex-1 lg:pl-0">
-          {/* Mobile top spacing */}
-          <div className="lg:hidden h-16"></div>
-          {children}
+      <DashboardSidebar user={session.user} profile={displayProfile} />
+      
+      {/* Content area with proper centering */}
+      <div className="lg:ml-64 min-h-screen">
+        {/* Mobile top spacing */}
+        <div className="lg:hidden h-16"></div>
+        
+        {/* Center content in the remaining viewport space */}
+        <div className="flex justify-center min-h-full">
+          <div className="w-full max-w-6xl px-6 lg:px-8 py-6 lg:py-8">
+            {children}
+          </div>
         </div>
       </div>
     </div>
