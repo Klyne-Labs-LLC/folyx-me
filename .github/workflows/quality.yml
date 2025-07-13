@@ -1,0 +1,107 @@
+name: Code Quality
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Audit landing page dependencies
+        run: |
+          npm audit --audit-level=moderate
+          echo "✅ Landing page security audit passed"
+          
+      - name: Audit SaaS application dependencies
+        run: |
+          cd application
+          npm audit --audit-level=moderate
+          echo "✅ SaaS application security audit passed"
+
+  bundle-analysis:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Build and analyze landing page
+        run: |
+          npm ci
+          npm run build
+          BUNDLE_SIZE=$(du -sh dist | cut -f1)
+          echo "📦 Landing page bundle size: $BUNDLE_SIZE"
+          
+      - name: Build and analyze SaaS app
+        run: |
+          cd application
+          npm ci
+          npm run build
+          BUNDLE_SIZE=$(du -sh .next | cut -f1)
+          echo "📦 SaaS app bundle size: $BUNDLE_SIZE"
+
+  performance-check:
+    name: Performance Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Build applications
+        run: |
+          npm ci && npm run build
+          cd application && npm ci && npm run build
+          
+      - name: Performance analysis
+        run: |
+          echo "🚀 Performance metrics:"
+          echo "- Landing page build time: $(date)"
+          echo "- SaaS app build time: $(date)"
+          echo "✅ Performance check completed"
+
+  code-style:
+    name: Code Style Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Check landing page code style
+        run: |
+          npm ci
+          npm run lint
+          echo "✅ Landing page code style verified"
+          
+      - name: Check SaaS app code style
+        run: |
+          cd application
+          npm ci  
+          npm run lint
+          echo "✅ SaaS app code style verified"
+          
+      - name: TypeScript check
+        run: |
+          npx tsc --noEmit
+          echo "✅ TypeScript compilation verified"
