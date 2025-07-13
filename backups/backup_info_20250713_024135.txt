@@ -1,0 +1,8 @@
+Folyx Database Backup - Sun Jul 13 02:41:35 UTC 2025
+Files created:
+- folyx_data_20250713_024135.sql (data only)
+- folyx_complete_20250713_024135.sql (schema + data)
+
+File sizes:
+Data: 
+Complete: 
