@@ -28,24 +28,22 @@ export async function GET(req) {
 async function ensureUserProfile(supabase, user) {
   try {
     // Check if profile already exists
-    const { data: existingProfile } = await supabase
+    const { data: existingProfile, error: selectError } = await supabase
       .from("profiles")
       .select("id")
       .eq("id", user.id)
       .single();
 
-    // If no profile exists, create one
-    if (!existingProfile) {
+    // If profile doesn't exist, create one
+    if (!existingProfile && selectError?.code === 'PGRST116') {
       const profileData = {
         id: user.id,
         email: user.email,
-        full_name: user.user_metadata?.full_name || user.user_metadata?.name || null,
-        avatar_url: user.user_metadata?.avatar_url || null,
+        full_name: user.user_metadata?.full_name || user.user_metadata?.name || user.user_metadata?.display_name || null,
+        avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
         has_access: false, // Default to no access until they subscribe
         plan_type: 'free',
-        onboarding_completed: false,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        onboarding_completed: false
       };
 
       const { error: insertError } = await supabase
@@ -54,7 +52,12 @@ async function ensureUserProfile(supabase, user) {
 
       if (insertError) {
         console.error("Error creating user profile:", insertError);
+        console.error("Profile data attempted:", profileData);
+      } else {
+        console.log("Profile created successfully for user:", user.id);
       }
+    } else if (selectError && selectError.code !== 'PGRST116') {
+      console.error("Error checking for existing profile:", selectError);
     }
   } catch (error) {
     console.error("Error in ensureUserProfile:", error);

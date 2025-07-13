@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 export const dynamic = "force-dynamic";
 
 // GET user profile
-export async function GET(req) {
+export async function GET() {
   const supabase = createRouteHandlerClient({ cookies });
   const { data: { session } } = await supabase.auth.getSession();
   

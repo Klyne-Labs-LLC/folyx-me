@@ -3,6 +3,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import ButtonAccount from "@/components/ButtonAccount";
 import ButtonCheckout from "@/components/ButtonCheckout";
 import config from "@/config";
+import ProfileEnsurer from "@/components/ProfileEnsurer";
 export const dynamic = "force-dynamic";
 
 // This is a private page: It's protected by the layout.js component which ensures the user is authenticated.
@@ -21,33 +22,48 @@ export default async function Dashboard() {
     .eq("id", session?.user?.id)
     .single();
 
-  const currentPlan = config.stripe.plans.find(plan => plan.priceId === profile?.price_id);
+  // If no profile exists, create a default one for display
+  const displayProfile = profile || {
+    id: session?.user?.id,
+    email: session?.user?.email,
+    full_name: session?.user?.user_metadata?.full_name || session?.user?.user_metadata?.name || null,
+    avatar_url: session?.user?.user_metadata?.avatar_url || null,
+    has_access: false,
+    plan_type: 'free',
+    created_at: session?.user?.created_at || new Date().toISOString(),
+    updated_at: session?.user?.updated_at || new Date().toISOString()
+  };
+
+  // const currentPlan = config.stripe.plans.find(plan => plan.priceId === displayProfile?.price_id);
   
   return (
-    <main className="min-h-screen p-8 pb-24">
+    <main className="min-h-screen p-8 pb-24 bg-gray-50">
+      {/* Ensure profile exists if missing */}
+      <ProfileEnsurer hasProfile={!!profile} />
+      
       <section className="max-w-4xl mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl md:text-4xl font-extrabold">Dashboard</h1>
-            <p className="text-base-content/80 mt-2">Welcome back, {profile?.full_name || session?.user?.email?.split('@')[0]}!</p>
+            <p className="text-base-content/80 mt-2">Welcome back, {displayProfile?.full_name || session?.user?.email?.split('@')[0]}!</p>
           </div>
           <ButtonAccount />
         </div>
 
         {/* User Profile Card */}
-        <div className="card bg-base-200 shadow-lg">
+        <div className="card bg-white shadow-lg border border-gray-200">
           <div className="card-body">
-            <h2 className="card-title">Profile Information</h2>
+            <h2 className="card-title text-gray-900">Profile Information</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <p className="text-sm opacity-70">Email</p>
-                <p className="font-medium">{profile?.email}</p>
+                <p className="font-medium">{displayProfile?.email}</p>
               </div>
               <div>
                 <p className="text-sm opacity-70">Plan</p>
                 <div className="flex items-center gap-2">
-                  <p className="font-medium capitalize">{profile?.plan_type || 'Free'}</p>
-                  {profile?.has_access && (
+                  <p className="font-medium capitalize">{displayProfile?.plan_type || 'Free'}</p>
+                  {displayProfile?.has_access && (
                     <div className="badge badge-success badge-sm">Active</div>
                   )}
                 </div>
@@ -55,14 +71,21 @@ export default async function Dashboard() {
               <div>
                 <p className="text-sm opacity-70">Member Since</p>
                 <p className="font-medium">
-                  {new Date(profile?.created_at).toLocaleDateString()}
+                  {displayProfile?.created_at ? 
+                    new Date(displayProfile.created_at).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    }) : 
+                    'Just now'
+                  }
                 </p>
               </div>
               <div>
                 <p className="text-sm opacity-70">Status</p>
                 <div className="flex items-center gap-2">
-                  <div className={`badge badge-sm ${profile?.has_access ? 'badge-success' : 'badge-warning'}`}>
-                    {profile?.has_access ? 'Premium' : 'Free User'}
+                  <div className={`badge badge-sm ${displayProfile?.has_access ? 'badge-success' : 'badge-warning'}`}>
+                    {displayProfile?.has_access ? 'Premium' : 'Free User'}
                   </div>
                 </div>
               </div>
@@ -71,10 +94,10 @@ export default async function Dashboard() {
         </div>
 
         {/* Subscription Status */}
-        {!profile?.has_access && (
-          <div className="card bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20">
+        {!displayProfile?.has_access && (
+          <div className="card bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200">
             <div className="card-body">
-              <h2 className="card-title">Unlock Folyx Pro Features</h2>
+              <h2 className="card-title text-gray-900">Unlock Folyx Pro Features</h2>
               <p className="text-base-content/80 mb-4">
                 Create unlimited AI-powered portfolios with advanced integrations and analytics.
               </p>
@@ -111,14 +134,14 @@ export default async function Dashboard() {
         )}
 
         {/* Portfolio Section - Coming Soon */}
-        <div className="card bg-base-200 shadow-lg">
+        <div className="card bg-white shadow-lg border border-gray-200">
           <div className="card-body">
-            <h2 className="card-title">Your Portfolios</h2>
+            <h2 className="card-title text-gray-900">Your Portfolios</h2>
             <div className="text-center py-12">
               <div className="text-6xl opacity-30 mb-4">🚀</div>
               <h3 className="text-xl font-semibold mb-2">Portfolio Builder Coming Soon</h3>
               <p className="text-base-content/70">
-                We're building the most advanced AI-powered portfolio generator. 
+                We&apos;re building the most advanced AI-powered portfolio generator. 
                 Stay tuned for the launch!
               </p>
             </div>
