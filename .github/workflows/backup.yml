@@ -72,7 +72,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add backups/
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m "Hourly database backup $(date +"%Y-%m-%d %H:%M")"
+            git commit -m "Six-Hourly database backup $(date +"%Y-%m-%d %H:%M")"
             git push
           else
             echo "No changes to commit"
