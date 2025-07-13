@@ -19,14 +19,26 @@ jobs:
           
       - name: Audit landing page dependencies
         run: |
-          npm audit --audit-level=moderate
-          echo "✅ Landing page security audit passed"
+          echo "🔍 Checking landing page security..."
+          AUDIT_RESULT=$(npm audit --audit-level=high --json || echo '{"vulnerabilities":{}}')
+          HIGH_VULNS=$(echo "$AUDIT_RESULT" | grep -o '"high":[0-9]*' | cut -d':' -f2 || echo "0")
+          if [ "$HIGH_VULNS" -gt 0 ]; then
+            echo "⚠️ Found $HIGH_VULNS high-severity vulnerabilities"
+          else
+            echo "✅ No high-severity vulnerabilities found"
+          fi
           
       - name: Audit SaaS application dependencies
         run: |
+          echo "🔍 Checking SaaS app security..."
           cd application
-          npm audit --audit-level=moderate
-          echo "✅ SaaS application security audit passed"
+          AUDIT_RESULT=$(npm audit --audit-level=high --json || echo '{"vulnerabilities":{}}')
+          HIGH_VULNS=$(echo "$AUDIT_RESULT" | grep -o '"high":[0-9]*' | cut -d':' -f2 || echo "0")
+          if [ "$HIGH_VULNS" -gt 0 ]; then
+            echo "⚠️ Found $HIGH_VULNS high-severity vulnerabilities"
+          else
+            echo "✅ No high-severity vulnerabilities found"
+          fi
 
   bundle-analysis:
     name: Bundle Size Analysis

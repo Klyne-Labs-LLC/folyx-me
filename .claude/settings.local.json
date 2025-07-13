@@ -6,7 +6,8 @@
       "Bash(npx supabase migration:*)",
       "Bash(export DB_PASSWORD=takitajwar17)",
       "Bash(mkdir:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(npm audit:*)"
     ],
     "deny": []
   }
