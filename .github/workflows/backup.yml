@@ -1,0 +1,44 @@
+name: Database Backup
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
+  workflow_dispatch:     # Manual trigger
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Install Supabase CLI
+        run: npm install -g @supabase/cli
+        
+      - name: Create backup directory
+        run: mkdir -p backups
+        
+      - name: Export Waitlist Data
+        env:
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+          echo $SUPABASE_DB_PASSWORD | supabase db dump --data-only --schema public --table waitlist > "backups/waitlist_$TIMESTAMP.sql"
+          
+      - name: Export Profiles Data
+        env:
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: |
+          TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+          echo $SUPABASE_DB_PASSWORD | supabase db dump --data-only --schema public --table profiles > "backups/profiles_$TIMESTAMP.sql"
+          
+      - name: Commit backups
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add backups/
+          git commit -m "Daily database backup $(date +"%Y-%m-%d")" || exit 0
+          git push
