@@ -93,12 +93,12 @@ export default function PortfolioManagerClient({ portfolio: initialPortfolio, co
                   <span className="font-medium">URL:</span>
                   {portfolio.is_published ? (
                     <a 
-                      href={`/portfolio/${portfolio.slug}`}
+                      href={`https://${portfolio.subdomain}.folyx.me`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="link link-primary"
                     >
-                      /portfolio/{portfolio.slug}
+                      {portfolio.subdomain}.folyx.me
                     </a>
                   ) : (
                     <span className="text-gray-500">Not published</span>
@@ -410,16 +410,16 @@ export default function PortfolioManagerClient({ portfolio: initialPortfolio, co
 
                 <div>
                   <label className="label">
-                    <span className="label-text font-medium">Slug</span>
+                    <span className="label-text font-medium">Subdomain</span>
                   </label>
                   <input
                     type="text"
-                    value={portfolio.slug}
+                    value={portfolio.subdomain}
                     className="input input-bordered w-full"
                     readOnly
                   />
                   <label className="label">
-                    <span className="label-text-alt">Your portfolio URL: /portfolio/{portfolio.slug}</span>
+                    <span className="label-text-alt">Your portfolio URL: {portfolio.subdomain}.folyx.me</span>
                   </label>
                 </div>
               </div>

@@ -179,14 +179,14 @@ export default async function PortfoliosPage() {
                       Manage
                     </Link>
                     {portfolio.is_published && (
-                      <Link 
-                        href={`/portfolio/${portfolio.slug}`}
+                      <a 
+                        href={`https://${portfolio.subdomain}.folyx.me`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn-primary btn-sm flex-1"
                       >
                         View Live
-                      </Link>
+                      </a>
                     )}
                   </div>
 

@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
   const { data: portfolio } = await supabase
     .from("portfolios")
     .select("title, description, seo_title, seo_description")
-    .eq("slug", params.slug)
+    .or(`slug.eq.${params.slug},subdomain.eq.${params.slug}`)
     .eq("is_published", true)
     .single();
 
@@ -36,6 +36,8 @@ export async function generateMetadata({ params }) {
 export default async function PortfolioPage({ params }) {
   const supabase = createServerComponentClient({ cookies });
   
+  console.log('📄 PORTFOLIO PAGE - Looking for:', params.slug);
+  
   // Get portfolio with projects and owner info
   const { data: portfolio, error } = await supabase
     .from("portfolios")
@@ -44,11 +46,14 @@ export default async function PortfolioPage({ params }) {
       portfolio_projects(*),
       profiles(full_name, avatar_url)
     `)
-    .eq("slug", params.slug)
+    .or(`slug.eq.${params.slug},subdomain.eq.${params.slug}`)
     .eq("is_published", true)
     .single();
 
+  console.log('📄 PORTFOLIO QUERY - error:', error, 'found portfolio:', !!portfolio);
+  
   if (error || !portfolio) {
+    console.log('📄 PORTFOLIO NOT FOUND - returning 404');
     notFound();
   }
 

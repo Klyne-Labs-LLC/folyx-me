@@ -34,10 +34,16 @@ export default function PortfolioCreateClient({ connections }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    template_id: "modern"
+    template_id: "modern",
+    subdomain: ""
   });
   const [isCreating, setIsCreating] = useState(false);
   const [step, setStep] = useState(1);
+  const [subdomainCheck, setSubdomainCheck] = useState({
+    checking: false,
+    available: null,
+    message: ""
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,6 +51,68 @@ export default function PortfolioCreateClient({ connections }) {
       ...prev,
       [name]: value
     }));
+    
+    // Auto-generate subdomain from title
+    if (name === "title" && !formData.subdomain) {
+      const autoSubdomain = value
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-")
+        .slice(0, 30);
+      
+      setFormData(prev => ({
+        ...prev,
+        subdomain: autoSubdomain
+      }));
+    }
+  };
+
+  const checkSubdomainAvailability = async (subdomain) => {
+    if (!subdomain || subdomain.length < 3) {
+      setSubdomainCheck({
+        checking: false,
+        available: false,
+        message: "Subdomain must be at least 3 characters long"
+      });
+      return;
+    }
+
+    setSubdomainCheck({ checking: true, available: null, message: "Checking..." });
+
+    try {
+      const response = await apiClient.post("/portfolios/check-subdomain", { subdomain });
+      setSubdomainCheck({
+        checking: false,
+        available: true,
+        message: response.message
+      });
+    } catch (error) {
+      setSubdomainCheck({
+        checking: false,
+        available: false,
+        message: error.message || "Subdomain not available"
+      });
+    }
+  };
+
+  const handleSubdomainChange = (e) => {
+    const subdomain = e.target.value
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, "")
+      .slice(0, 63);
+    
+    setFormData(prev => ({
+      ...prev,
+      subdomain
+    }));
+
+    setSubdomainCheck({ checking: false, available: null, message: "" });
+
+    // Debounce subdomain check
+    if (subdomain) {
+      setTimeout(() => checkSubdomainAvailability(subdomain), 500);
+    }
   };
 
   const handleTemplateSelect = (templateId) => {
@@ -122,6 +190,43 @@ export default function PortfolioCreateClient({ connections }) {
 
               <div>
                 <label className="label">
+                  <span className="label-text font-medium">Subdomain *</span>
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={formData.subdomain}
+                    onChange={handleSubdomainChange}
+                    placeholder="your-name"
+                    className={`input input-bordered flex-1 ${
+                      subdomainCheck.available === true ? "input-success" :
+                      subdomainCheck.available === false ? "input-error" : ""
+                    }`}
+                    required
+                  />
+                  <span className="text-gray-500">.folyx.me</span>
+                </div>
+                <label className="label">
+                  <span className={`label-text-alt ${
+                    subdomainCheck.available === true ? "text-success" :
+                    subdomainCheck.available === false ? "text-error" : ""
+                  }`}>
+                    {subdomainCheck.checking ? (
+                      <span className="flex items-center gap-1">
+                        <span className="loading loading-spinner loading-xs"></span>
+                        Checking availability...
+                      </span>
+                    ) : subdomainCheck.message ? (
+                      subdomainCheck.message
+                    ) : (
+                      "Choose a unique subdomain for your portfolio URL"
+                    )}
+                  </span>
+                </label>
+              </div>
+
+              <div>
+                <label className="label">
                   <span className="label-text font-medium">Description</span>
                 </label>
                 <textarea
@@ -140,7 +245,7 @@ export default function PortfolioCreateClient({ connections }) {
             <div className="card-actions justify-end mt-6">
               <button
                 onClick={() => setStep(2)}
-                disabled={!formData.title.trim()}
+                disabled={!formData.title.trim() || !formData.subdomain.trim() || subdomainCheck.available !== true}
                 className="btn btn-primary"
               >
                 Next: Choose Template
@@ -267,6 +372,9 @@ export default function PortfolioCreateClient({ connections }) {
           <h3 className="text-lg font-semibold">Portfolio Summary</h3>
           <div className="space-y-2 text-sm">
             <p><span className="font-medium">Title:</span> {formData.title}</p>
+            <p><span className="font-medium">URL:</span> 
+              <span className="font-mono text-blue-600">{formData.subdomain}.folyx.me</span>
+            </p>
             {formData.description && (
               <p><span className="font-medium">Description:</span> {formData.description}</p>
             )}
