@@ -98,6 +98,13 @@ const config = {
     // REQUIRED — the path you want to redirect users after successfull login (i.e. /dashboard, /private). This is normally a private page for users to manage their accounts. It's used in apiClient (/libs/api.js) upon 401 errors from our API & in ButtonSignin.js
     callbackUrl: "/dashboard",
   },
+  payments: {
+    // FEATURE FLAG: Set to false to disable all payment features (grants free access to all users)
+    // Set to true when ready to enable Stripe payments after getting EIN number
+    enabled: false,
+    // When payments are disabled, all users get full access without paying
+    freeAccessMode: true,
+  },
 };
 
 export default config;

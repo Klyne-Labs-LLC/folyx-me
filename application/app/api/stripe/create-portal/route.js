@@ -2,9 +2,18 @@ import { NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { createCustomerPortal } from "@/libs/stripe";
+import config from "@/config";
 
 export async function POST(req) {
   try {
+    // Check if payments are enabled
+    if (!config.payments.enabled) {
+      return NextResponse.json(
+        { error: "Billing portal is not available. All features are currently free!" }, 
+        { status: 400 }
+      );
+    }
+
     const cookieStore = cookies();
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 

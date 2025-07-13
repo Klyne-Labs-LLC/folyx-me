@@ -2,12 +2,21 @@ import { NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { createCheckout } from "@/libs/stripe";
+import config from "@/config";
 
 // This function is used to create a Stripe Checkout Session (one-time payment or subscription)
 // It's called by the <ButtonCheckout /> component
 // Users must be authenticated. It will prefill the Checkout data with their email and/or credit card (if any)
 export async function POST(req) {
   try {
+    // Check if payments are enabled
+    if (!config.payments.enabled) {
+      return NextResponse.json(
+        { error: "Payments are currently disabled. All features are free!" }, 
+        { status: 400 }
+      );
+    }
+
     const cookieStore = cookies();
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 

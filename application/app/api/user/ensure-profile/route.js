@@ -1,6 +1,7 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import config from "@/config";
 
 export const dynamic = "force-dynamic";
 
@@ -36,7 +37,7 @@ export async function POST() {
       avatar_url: session.user.user_metadata?.avatar_url || 
                   session.user.user_metadata?.picture || 
                   null,
-      has_access: false,
+      has_access: config.payments.freeAccessMode || false,
       plan_type: 'free',
       onboarding_completed: false,
       created_at: new Date().toISOString(),
