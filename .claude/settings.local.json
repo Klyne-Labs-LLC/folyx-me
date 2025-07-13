@@ -14,7 +14,9 @@
       "Bash(npm run dev:*)",
       "Bash(find:*)",
       "Bash(mv:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(npm run build:*)",
+      "Bash(timeout 60s npm run build)"
     ],
     "deny": []
   }
