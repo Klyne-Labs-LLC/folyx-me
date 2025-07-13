@@ -187,7 +187,7 @@ const Hero = () => {
                 {/* Waitlist count for FOMO */}
                 {!loading && (
                   <p className="text-sm text-gray-600 font-medium text-center w-full sm:w-auto">
-                      {(count + 50 + localIncrement).toLocaleString()} people already joined
+                      {(count + 174 + localIncrement).toLocaleString()} people already joined
                   </p>
                 )}
               </div>
