@@ -4,7 +4,7 @@
  */
 
 import { GitHubConnector } from '@/libs/content-fetchers/platforms/GitHubConnector.js';
-import { authTokenManager } from '@/libs/content-fetchers/utils/authTokenManager.js';
+// Lazy import authTokenManager to avoid cookies() issues when not needed
 
 export class GitHubModule {
   constructor(config = {}) {
@@ -23,6 +23,7 @@ export class GitHubModule {
    */
   async hasConnection(userId) {
     try {
+      const { authTokenManager } = await import('@/libs/content-fetchers/utils/authTokenManager.js');
       return await authTokenManager.hasConnection('github', userId);
     } catch (error) {
       console.error('Error checking GitHub connection:', error);
@@ -35,6 +36,7 @@ export class GitHubModule {
    */
   async getConnectionInfo(userId) {
     try {
+      const { authTokenManager } = await import('@/libs/content-fetchers/utils/authTokenManager.js');
       const connections = await authTokenManager.getConnectedPlatforms(userId);
       const githubConnection = connections.find(conn => conn.platform === 'github');
       
@@ -114,14 +116,29 @@ export class GitHubModule {
    */
   async fetchPublicUserData(username, options = {}) {
     try {
-      const githubData = await this.connector.fetchUserData(username);
+      console.log('GitHubModule: Fetching PUBLIC data for', username);
+      console.log('GitHubModule: Using environment token:', !!process.env.GITHUB_TOKEN);
+      
+      // For public data fetching, use GitHubConnector directly without authTokenManager
+      // This avoids Supabase cookies issues since we don't need user context
+      const githubData = await this.connector.fetchUserData(username, process.env.GITHUB_TOKEN);
       
       if (!githubData) {
-        throw new Error('Failed to fetch GitHub data');
+        throw new Error('Failed to fetch GitHub data from API');
       }
+      
+      console.log('GitHubModule: Successfully fetched data structure:', Object.keys(githubData));
+      console.log('GitHubModule: Profile exists:', !!githubData.profile);
+      console.log('GitHubModule: Projects count:', githubData.projects?.length || 0);
 
       // Process and format data for portfolio use
       const portfolioData = this.processDataForPortfolio(githubData, options);
+      
+      console.log('GitHubModule: Processed portfolio data:', {
+        hasProfile: !!portfolioData.profile,
+        projectsCount: portfolioData.projects?.length || 0,
+        skillsCount: portfolioData.skills?.length || 0
+      });
 
       return {
         success: true,
@@ -136,6 +153,7 @@ export class GitHubModule {
 
     } catch (error) {
       console.error('GitHub public data fetch error:', error);
+      console.error('Error stack:', error.stack);
       return {
         success: false,
         platform: 'github',

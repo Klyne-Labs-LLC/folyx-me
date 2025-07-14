@@ -142,14 +142,23 @@ export default function IntegrationsClient({ initialConnections }) {
 
       toast.success("GitHub connected successfully!");
       
-      // Update connections state
+      // Update connections state with fresh data
+      const updatedConnection = {
+        ...response.connection,
+        profile_data: {
+          ...response.connection.profile_data,
+          // Add GitHub response data for immediate display
+          ...response.github_data
+        }
+      };
+      
       const existingIndex = connections.findIndex(c => c.platform === "github");
       if (existingIndex >= 0) {
         const newConnections = [...connections];
-        newConnections[existingIndex] = response.connection;
+        newConnections[existingIndex] = updatedConnection;
         setConnections(newConnections);
       } else {
-        setConnections([...connections, response.connection]);
+        setConnections([...connections, updatedConnection]);
       }
 
       setGithubUsername("");
@@ -328,19 +337,35 @@ export default function IntegrationsClient({ initialConnections }) {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
                         <span className="font-medium">Public Repos:</span>
-                        <div>{connection.profile_data.public_repos || connection.profile_data.publicRepos || 0}</div>
+                        <div>{connection.profile_data?.profile?.public_repos || connection.profile_data?.publicRepos || connection.profile_data?.public_repos || 0}</div>
                       </div>
                       <div>
                         <span className="font-medium">Followers:</span>
-                        <div>{connection.profile_data.followers || 0}</div>
+                        <div>{connection.profile_data?.profile?.followers || connection.profile_data?.followers || 0}</div>
                       </div>
                       <div>
                         <span className="font-medium">Following:</span>
-                        <div>{connection.profile_data.following || 0}</div>
+                        <div>{connection.profile_data?.profile?.following || connection.profile_data?.following || 0}</div>
                       </div>
                       <div>
                         <span className="font-medium">Name:</span>
-                        <div>{connection.profile_data.name || 'N/A'}</div>
+                        <div>{connection.profile_data?.profile?.name || connection.profile_data?.name || 'N/A'}</div>
+                      </div>
+                      <div>
+                        <span className="font-medium">Projects:</span>
+                        <div>{connection.profile_data?.projects?.length || 0}</div>
+                      </div>
+                      <div>
+                        <span className="font-medium">Total Stars:</span>
+                        <div>{connection.profile_data?.portfolioMetrics?.totalStars || 0}</div>
+                      </div>
+                      <div>
+                        <span className="font-medium">Top Language:</span>
+                        <div>{connection.profile_data?.portfolioMetrics?.topLanguages?.[0]?.language || 'N/A'}</div>
+                      </div>
+                      <div>
+                        <span className="font-medium">Recent Activity:</span>
+                        <div>{connection.profile_data?.portfolioMetrics?.recentActivity || 0} repos</div>
                       </div>
                     </div>
                   )}

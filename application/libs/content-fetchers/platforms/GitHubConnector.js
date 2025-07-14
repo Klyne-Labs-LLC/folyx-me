@@ -10,6 +10,7 @@ export class GitHubConnector extends PlatformConnector {
       maxRequests: 5000, // GitHub's rate limit
       ...config
     });
+    this.cache = new Map(); // Simple in-memory cache
   }
 
   /**
@@ -52,6 +53,15 @@ export class GitHubConnector extends PlatformConnector {
   async fetchUserData(username, token = null, userId = null) {
     const cacheKey = `user:${username}`;
     
+    // Check cache first (5 minute cache)
+    if (this.cache.has(cacheKey)) {
+      const cached = this.cache.get(cacheKey);
+      if (Date.now() - cached.timestamp < 300000) { // 5 minutes
+        console.log('Using cached GitHub data for', username);
+        return cached.data;
+      }
+    }
+    
     return await this.executeRequest(cacheKey, async () => {
       const headers = {
         'Accept': 'application/vnd.github+json',
@@ -59,13 +69,21 @@ export class GitHubConnector extends PlatformConnector {
         'User-Agent': 'Folyx-Portfolio-Generator'
       };
       
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
+      // Use provided token or environment token
+      const authToken = token || process.env.GITHUB_TOKEN;
+      if (authToken) {
+        headers['Authorization'] = `Bearer ${authToken}`;
       }
 
       // Fetch user profile
       const userResponse = await fetch(`https://api.github.com/users/${username}`, { headers });
       if (!userResponse.ok) {
+        if (userResponse.status === 403) {
+          const rateLimitRemaining = userResponse.headers.get('X-RateLimit-Remaining');
+          const rateLimitReset = userResponse.headers.get('X-RateLimit-Reset');
+          const resetTime = rateLimitReset ? new Date(parseInt(rateLimitReset) * 1000).toLocaleTimeString() : 'unknown';
+          throw new Error(`GitHub API rate limit exceeded. Remaining: ${rateLimitRemaining || 0}. Resets at: ${resetTime}. Please try again later.`);
+        }
         throw new Error(`Failed to fetch GitHub user: ${userResponse.status}`);
       }
       const userProfile = await userResponse.json();
@@ -73,6 +91,12 @@ export class GitHubConnector extends PlatformConnector {
       // Fetch repositories
       const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`, { headers });
       if (!reposResponse.ok) {
+        if (reposResponse.status === 403) {
+          const rateLimitRemaining = reposResponse.headers.get('X-RateLimit-Remaining');
+          const rateLimitReset = reposResponse.headers.get('X-RateLimit-Reset');
+          const resetTime = rateLimitReset ? new Date(parseInt(rateLimitReset) * 1000).toLocaleTimeString() : 'unknown';
+          throw new Error(`GitHub API rate limit exceeded while fetching repositories. Remaining: ${rateLimitRemaining || 0}. Resets at: ${resetTime}. Please try again later.`);
+        }
         throw new Error(`Failed to fetch GitHub repositories: ${reposResponse.status}`);
       }
       const repositories = await reposResponse.json();
@@ -105,6 +129,12 @@ export class GitHubConnector extends PlatformConnector {
       structuredData.skills = this.extractSkills(repositories);
       structuredData.socialMetrics = this.calculateMetrics(userProfile, repositories, events);
       structuredData.achievements = this.identifyAchievements(userProfile, repositories);
+
+      // Cache the result
+      this.cache.set(cacheKey, {
+        data: structuredData,
+        timestamp: Date.now()
+      });
 
       return structuredData;
     });

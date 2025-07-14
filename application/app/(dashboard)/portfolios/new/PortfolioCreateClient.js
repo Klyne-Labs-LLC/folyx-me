@@ -29,7 +29,7 @@ const TEMPLATES = [
   }
 ];
 
-export default function PortfolioCreateClient({ connections }) {
+export default function PortfolioCreateClient({ connections, userContent }) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     title: "",
@@ -39,6 +39,10 @@ export default function PortfolioCreateClient({ connections }) {
   });
   const [isCreating, setIsCreating] = useState(false);
   const [step, setStep] = useState(1);
+  const [selectedSources, setSelectedSources] = useState({
+    platforms: [],
+    content: []
+  });
   const [subdomainCheck, setSubdomainCheck] = useState({
     checking: false,
     available: null,
@@ -122,6 +126,23 @@ export default function PortfolioCreateClient({ connections }) {
     }));
   };
 
+  const handleSourceToggle = (type, sourceId) => {
+    setSelectedSources(prev => ({
+      ...prev,
+      [type]: prev[type].includes(sourceId) 
+        ? prev[type].filter(id => id !== sourceId)
+        : [...prev[type], sourceId]
+    }));
+  };
+
+  const getSelectedConnections = () => {
+    return connections.filter(conn => selectedSources.platforms.includes(conn.id));
+  };
+
+  const getSelectedContent = () => {
+    return userContent.filter(content => selectedSources.content.includes(content.id));
+  };
+
   const handleCreatePortfolio = async () => {
     if (!formData.title.trim()) {
       toast.error("Please enter a portfolio title");
@@ -137,13 +158,26 @@ export default function PortfolioCreateClient({ connections }) {
 
       toast.success("Portfolio created successfully!");
 
-      // If user has connected platforms, trigger content generation
-      if (connections.length > 0) {
-        toast.loading("Generating content from your connected platforms...", { duration: 3000 });
+      // Get selected data sources
+      const selectedConnections = getSelectedConnections();
+      const selectedContentSources = getSelectedContent();
+      
+      // If user has selected data sources, trigger content generation
+      if (selectedConnections.length > 0 || selectedContentSources.length > 0) {
+        const sourcesList = [];
+        if (selectedConnections.length > 0) sourcesList.push(`${selectedConnections.length} platform(s)`);
+        if (selectedContentSources.length > 0) sourcesList.push(`${selectedContentSources.length} document(s)`);
+        
+        toast.loading(`Generating content from your selected ${sourcesList.join(" and ")}...`, { duration: 3000 });
         
         try {
-          await apiClient.post(`/portfolios/${portfolio.id}/generate`);
-          toast.success("Portfolio content generated from your platforms!");
+          await apiClient.post(`/portfolios/${portfolio.id}/generate`, {
+            selectedSources: {
+              connections: selectedConnections.map(c => c.id),
+              content: selectedContentSources.map(c => c.id)
+            }
+          });
+          toast.success(`Portfolio content generated from your selected ${sourcesList.join(" and ")}!`);
         } catch (generateError) {
           console.error("Generation error:", generateError);
           toast.error("Portfolio created, but content generation failed. You can try again later.");
@@ -164,6 +198,81 @@ export default function PortfolioCreateClient({ connections }) {
   if (step === 1) {
     return (
       <div className="space-y-8">
+        {/* Data Sources Overview */}
+        <div className="card bg-white shadow-lg border border-gray-200">
+          <div className="card-body">
+            <h2 className="card-title text-gray-900 mb-4">📊 Available Data Sources</h2>
+            <p className="text-gray-600 mb-4">
+              Your portfolio will be generated using the following connected data sources:
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* GitHub Connection */}
+              {connections.find(c => c.platform === 'github') ? (
+                <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                  <div className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center text-white text-sm">
+                    🐙
+                  </div>
+                  <div>
+                    <p className="font-medium text-green-800">GitHub Connected</p>
+                    <p className="text-sm text-green-600">
+                      @{connections.find(c => c.platform === 'github').platform_username}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                  <div className="w-8 h-8 bg-gray-400 rounded flex items-center justify-center text-white text-sm">
+                    🐙
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-600">GitHub Not Connected</p>
+                    <p className="text-sm text-gray-500">
+                      <a href="/integrations" className="link link-primary">Connect GitHub</a>
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Resume Data */}
+              {userContent.find(c => c.content_type === 'resume') ? (
+                <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                  <div className="w-8 h-8 bg-green-600 rounded flex items-center justify-center text-white text-sm">
+                    📄
+                  </div>
+                  <div>
+                    <p className="font-medium text-green-800">Resume Uploaded</p>
+                    <p className="text-sm text-green-600">
+                      Professional data extracted
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                  <div className="w-8 h-8 bg-gray-400 rounded flex items-center justify-center text-white text-sm">
+                    📄
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-600">Resume Not Uploaded</p>
+                    <p className="text-sm text-gray-500">
+                      <a href="/content/resume" className="link link-primary">Upload Resume</a>
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {(connections.length > 0 || userContent.length > 0) && (
+              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-800">
+                  ✨ <strong>AI will automatically merge and enhance</strong> your data from all connected sources 
+                  to create a comprehensive, professional portfolio.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Portfolio Details */}
         <div className="card bg-white shadow-lg border border-gray-200">
           <div className="card-body">
@@ -248,7 +357,7 @@ export default function PortfolioCreateClient({ connections }) {
                 disabled={!formData.title.trim() || !formData.subdomain.trim() || subdomainCheck.available !== true}
                 className="btn btn-primary"
               >
-                Next: Choose Template
+                Next: Select Data Sources
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -297,6 +406,151 @@ export default function PortfolioCreateClient({ connections }) {
     );
   }
 
+  if (step === 2) {
+    return (
+      <div className="space-y-8">
+        {/* Data Source Selection */}
+        <div className="card bg-white shadow-lg border border-gray-200">
+          <div className="card-body">
+            <h2 className="card-title text-gray-900 mb-4">📊 Select Data Sources</h2>
+            <p className="text-gray-600 mb-6">
+              Choose which platforms and documents to include in your portfolio generation.
+            </p>
+            
+            {/* Platform Selection */}
+            {connections.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Connected Platforms</h3>
+                <div className="space-y-3">
+                  {connections.map((connection) => (
+                    <div key={connection.id} className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg">
+                      <input
+                        type="checkbox"
+                        id={`platform-${connection.id}`}
+                        className="checkbox checkbox-primary"
+                        checked={selectedSources.platforms.includes(connection.id)}
+                        onChange={() => handleSourceToggle('platforms', connection.id)}
+                      />
+                      <div className="flex items-center gap-3 flex-1">
+                        <div className="w-8 h-8 bg-gray-800 rounded flex items-center justify-center text-white text-sm">
+                          {connection.platform === 'github' ? '🐙' : '📱'}
+                        </div>
+                        <div>
+                          <label htmlFor={`platform-${connection.id}`} className="font-medium text-gray-900 cursor-pointer">
+                            {connection.platform === 'github' ? 'GitHub' : connection.platform}
+                          </label>
+                          <p className="text-sm text-gray-600">
+                            @{connection.platform_username}
+                            {connection.profile_data?.public_repos && 
+                              ` • ${connection.profile_data.public_repos} repositories`
+                            }
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Content Selection */}
+            {userContent.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Uploaded Documents</h3>
+                <div className="space-y-3">
+                  {userContent.map((content) => (
+                    <div key={content.id} className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg">
+                      <input
+                        type="checkbox"
+                        id={`content-${content.id}`}
+                        className="checkbox checkbox-primary"
+                        checked={selectedSources.content.includes(content.id)}
+                        onChange={() => handleSourceToggle('content', content.id)}
+                      />
+                      <div className="flex items-center gap-3 flex-1">
+                        <div className="w-8 h-8 bg-green-600 rounded flex items-center justify-center text-white text-sm">
+                          📄
+                        </div>
+                        <div>
+                          <label htmlFor={`content-${content.id}`} className="font-medium text-gray-900 cursor-pointer">
+                            {content.content_type === 'resume' ? 'Resume/CV' : content.content_type}
+                          </label>
+                          <p className="text-sm text-gray-600">
+                            Uploaded {new Date(content.created_at).toLocaleDateString()}
+                            {content.metadata?.fileName && ` • ${content.metadata.fileName}`}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* No sources available */}
+            {connections.length === 0 && userContent.length === 0 && (
+              <div className="text-center py-8">
+                <div className="text-gray-400 text-4xl mb-3">📭</div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">No Data Sources Available</h3>
+                <p className="text-gray-600 mb-4">
+                  You haven't connected any platforms or uploaded any documents yet.
+                </p>
+                <div className="flex gap-3 justify-center">
+                  <a href="/integrations" className="btn btn-primary btn-sm">
+                    Connect Platforms
+                  </a>
+                  <a href="/content/resume" className="btn btn-outline btn-sm">
+                    Upload Resume
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* Selection Summary */}
+            {(connections.length > 0 || userContent.length > 0) && (
+              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <h4 className="font-semibold text-blue-900 mb-2">Selection Summary</h4>
+                <div className="text-sm text-blue-800">
+                  {selectedSources.platforms.length > 0 && (
+                    <p>✓ {selectedSources.platforms.length} platform(s) selected</p>
+                  )}
+                  {selectedSources.content.length > 0 && (
+                    <p>✓ {selectedSources.content.length} document(s) selected</p>
+                  )}
+                  {selectedSources.platforms.length === 0 && selectedSources.content.length === 0 && (
+                    <p className="text-blue-600">⚠️ No sources selected - portfolio will be created with placeholder content</p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            <div className="card-actions justify-between mt-6">
+              <button
+                onClick={() => setStep(1)}
+                className="btn btn-outline"
+              >
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+              </button>
+              
+              <button
+                onClick={() => setStep(3)}
+                className="btn btn-primary"
+              >
+                Next: Choose Template
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       {/* Template Selection */}
@@ -334,7 +588,7 @@ export default function PortfolioCreateClient({ connections }) {
 
           <div className="card-actions justify-between mt-6">
             <button
-              onClick={() => setStep(1)}
+              onClick={() => setStep(2)}
               className="btn btn-outline"
             >
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -379,7 +633,14 @@ export default function PortfolioCreateClient({ connections }) {
               <p><span className="font-medium">Description:</span> {formData.description}</p>
             )}
             <p><span className="font-medium">Template:</span> {TEMPLATES.find(t => t.id === formData.template_id)?.name}</p>
-            <p><span className="font-medium">Data Sources:</span> {connections.length > 0 ? `${connections.length} connected platform(s)` : "Manual content only"}</p>
+            <p><span className="font-medium">Selected Sources:</span> {
+              (() => {
+                const sources = [];
+                if (selectedSources.platforms.length > 0) sources.push(`${selectedSources.platforms.length} platform(s)`);
+                if (selectedSources.content.length > 0) sources.push(`${selectedSources.content.length} document(s)`);
+                return sources.length > 0 ? sources.join(", ") : "Manual content only";
+              })()
+            }</p>
           </div>
         </div>
       </div>

@@ -17,8 +17,13 @@ export default async function NewPortfolioPage() {
   const { data: connections } = await supabase
     .from("connected_platforms")
     .select("*")
-    .eq("user_id", session.user.id)
-    .eq("sync_status", "completed");
+    .eq("user_id", session.user.id);
+
+  // Get user's content (resume, etc.)
+  const { data: userContent } = await supabase
+    .from("user_content")
+    .select("*")
+    .eq("user_id", session.user.id);
 
   return (
     <main>
@@ -30,7 +35,10 @@ export default async function NewPortfolioPage() {
           </p>
         </div>
 
-        <PortfolioCreateClient connections={connections || []} />
+        <PortfolioCreateClient 
+          connections={connections || []} 
+          userContent={userContent || []}
+        />
       </div>
     </main>
   );
