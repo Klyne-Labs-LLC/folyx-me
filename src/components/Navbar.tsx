@@ -171,7 +171,7 @@ const Navbar = () => {
             href="https://app.folyx.me"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 hover:text-purple-600 transition-colors duration-200"
+            className="nav-link text-gray-700 hover:text-purple-600 transition-colors duration-200"
           >
             Get Started
           </a>
@@ -239,7 +239,7 @@ const Navbar = () => {
             href="https://app.folyx.me" 
             target="_blank"
             rel="noopener noreferrer"
-            className="text-lg font-medium py-3 px-4 rounded-lg transition-colors hover:bg-gray-100"
+            className="nav-link text-lg font-medium py-3 px-4 rounded-lg transition-colors hover:bg-gray-100"
           >
             Get Started
           </a>
