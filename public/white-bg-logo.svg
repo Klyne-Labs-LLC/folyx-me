@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1280" height="1024" viewBox="0 0 1280 1024" xml:space="preserve">
+<desc>Created with Fabric.js 5.3.0</desc>
+<defs>
+</defs>
+<g transform="matrix(1 0 0 1 640 512)" id="background-logo"  >
+<rect style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-opacity: 0; fill-rule: nonzero; opacity: 1;"  paint-order="stroke"  x="-640" y="-512" rx="0" ry="0" width="1280" height="1024" />
+</g>
+<g transform="matrix(3.283732646387437 0 0 3.283732646387437 639.6809529892694 511.4895247828309)" id="logo-logo"  >
+<g style=""  paint-order="stroke"   >
+		<g transform="matrix(1.3875927972084257 0 0 1.3875927972084257 0 0)"  >
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(56,40,40); fill-rule: nonzero; opacity: 1;"  paint-order="stroke"  transform=" translate(-249.9999924, -249.9999924)" d="M 286.0884705 239.6364288 L 286.0884705 293.6871643 L 247.72813420000003 293.6871643 L 216.63769540000004 262.6018677 L 216.63769540000004 276.4438477 L 243.66307080000004 303.4692078 L 243.66307080000004 331.3127747 L 189.61747750000004 331.3127747 L 189.61747750000004 179.2565613 L 249.99736030000003 239.6364289 L 286.0884705 239.6364289 z M 192.8900909 168.6872101 L 251.7983703 227.590332 L 310.3825073 227.590332 L 310.3825073 168.6872101 L 192.8900909 168.6872101 z" stroke-linecap="round" />
+</g>
+</g>
+</g>
+</svg>
