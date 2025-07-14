@@ -161,13 +161,10 @@ const Hero = () => {
             >
               <div className="flex flex-col items-center gap-2">
                 <a 
-                  href="#waitlist-form" 
+                  href="https://app.folyx.me" 
                   className="flex items-center justify-center group w-full sm:w-auto text-center" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // Scroll to waitlist form
-                    scrollToSection('waitlist-form');
-                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
                     background: 'linear-gradient(135deg, #EA580C 0%, #DC2626 100%)',
                     borderRadius: '1440px',
@@ -180,14 +177,14 @@ const Hero = () => {
                     border: '1px solid rgba(255, 255, 255, 0.2)',
                   }}
                 >
-                  Join Waitlist - Get Free Portfolio
+                  Get Started - Create Your Portfolio
                   <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </a>
                 
-                {/* Waitlist count for FOMO */}
+                {/* FOMO messaging */}
                 {!loading && (
                   <p className="text-sm text-gray-600 font-medium text-center w-full sm:w-auto">
-                      {(count + 174 + localIncrement).toLocaleString()} people already joined
+                      {(count + 174 + localIncrement).toLocaleString()} professionals already joined
                   </p>
                 )}
               </div>
