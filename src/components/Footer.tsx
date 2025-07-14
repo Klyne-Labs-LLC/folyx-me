@@ -37,19 +37,36 @@ const Footer = () => {
             {/* Left side - Brand info */}
             <div className="flex flex-col items-center md:items-start space-y-1">
               <div className="flex flex-col items-center md:items-start space-y-1">
-                <div 
-                  className="text-lg md:text-xl font-bold bg-gradient-to-r from-white via-purple-100 to-white bg-clip-text text-transparent font-display italic"
-                  style={{ 
-                    fontFamily: 'Brockmann, "Playfair Display", Georgia, serif',
-                    paddingRight: '4px',
-                    paddingLeft: '2px',
-                    width: 'fit-content',
-                    minWidth: '70px',
-                    display: 'block',
-                    overflow: 'visible'
-                  }}
-                >
-                  folyx
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shadow-lg">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 32 32"
+                      className="w-5 h-5"
+                    >
+                      <g transform="translate(16, 16) scale(0.12) translate(-250, -250)">
+                        <path
+                          d="M 286.0884705 239.6364288 L 286.0884705 293.6871643 L 247.72813420000003 293.6871643 L 216.63769540000004 262.6018677 L 216.63769540000004 276.4438477 L 243.66307080000004 303.4692078 L 243.66307080000004 331.3127747 L 189.61747750000004 331.3127747 L 189.61747750000004 179.2565613 L 249.99736030000003 239.6364289 L 286.0884705 239.6364289 z M 192.8900909 168.6872101 L 251.7983703 227.590332 L 310.3825073 227.590332 L 310.3825073 168.6872101 L 192.8900909 168.6872101 z"
+                          fill="#fcf4b4"
+                          stroke="none"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <div 
+                    className="text-lg md:text-xl font-bold bg-gradient-to-r from-white via-purple-100 to-white bg-clip-text text-transparent font-display italic"
+                    style={{ 
+                      fontFamily: 'Brockmann, "Playfair Display", Georgia, serif',
+                      paddingRight: '4px',
+                      paddingLeft: '2px',
+                      width: 'fit-content',
+                      minWidth: '70px',
+                      display: 'block',
+                      overflow: 'visible'
+                    }}
+                  >
+                    folyx
+                  </div>
                 </div>
                 <span className="text-white/80 text-sm font-medium">
                   Portfolio on Autopilot

@@ -140,19 +140,13 @@ const Navbar = () => {
           aria-label="Folyx - Go to home"
           style={{ minWidth: '120px' }}
         >
-          <div 
-            className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 bg-clip-text text-transparent font-display italic"
-            style={{ 
-              fontFamily: 'Brockmann, "Playfair Display", Georgia, serif',
-              paddingRight: '8px',
-              paddingLeft: '4px',
-              width: 'fit-content',
-              minWidth: '100px',
-              display: 'block',
-              overflow: 'visible'
-            }}
-          >
-            folyx
+          <div className="flex items-center gap-2">
+            <img 
+              src="/folyx-icon.svg" 
+              alt="Folyx Logo" 
+              className="w-8 h-8"
+            />
+            <span className="font-bold text-xl text-gray-900">Folyx</span>
           </div>
         </a>
 
