@@ -102,12 +102,18 @@ const navigationItems = [
       { name: "View All", href: "/portfolios" },
       { name: "Create New", href: "/portfolios/new", icon: PlusIcon }
     ]
-  },
+  }
+];
+
+const contentItems = [
   {
     name: "Integrations",
     href: "/integrations",
     icon: IntegrationsIcon
-  },
+  }
+];
+
+const toolsItems = [
   {
     name: "Analytics",
     href: "/analytics",
@@ -292,8 +298,31 @@ export default function DashboardSidebar({ user, profile }) {
 
           {/* Navigation */}
           <div className="flex-1 overflow-y-auto py-4">
-            <nav className="px-3 space-y-1">
-              {navigationItems.map(item => renderNavItem(item))}
+            <nav className="px-3 space-y-6">
+              {/* Main Navigation */}
+              <div className="space-y-1">
+                {navigationItems.map(item => renderNavItem(item))}
+              </div>
+
+              {/* Content Section */}
+              <div className="space-y-1">
+                <div className="px-3 py-2">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Content & Data
+                  </h3>
+                </div>
+                {contentItems.map(item => renderNavItem(item))}
+              </div>
+
+              {/* Tools Section */}
+              <div className="space-y-1">
+                <div className="px-3 py-2">
+                  <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    Tools
+                  </h3>
+                </div>
+                {toolsItems.map(item => renderNavItem(item))}
+              </div>
             </nav>
           </div>
 

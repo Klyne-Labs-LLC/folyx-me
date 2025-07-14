@@ -50,6 +50,17 @@ const BehanceIcon = () => (
   </svg>
 );
 
+const ResumeIcon = () => (
+  <svg 
+    className="w-full h-full" 
+    viewBox="0 0 24 24" 
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+  </svg>
+);
+
 
 
 const PLATFORMS = [
@@ -89,19 +100,31 @@ const PLATFORMS = [
   }
 ];
 
+const CONTENT_SOURCES = [
+  {
+    id: "resume",
+    name: "Resume/CV",
+    icon: <ResumeIcon />,
+    iconColor: "text-[#10B981]",
+    description: "Upload and extract data from your resume or CV",
+    type: "content",
+    href: "/content/resume"
+  }
+];
+
 export default function IntegrationsClient({ initialConnections }) {
   const [connections, setConnections] = useState(initialConnections);
   const [connectingPlatform, setConnectingPlatform] = useState(null);
   const [githubUsername, setGithubUsername] = useState("");
 
   const getConnectionStatus = (platformId) => {
-    const connection = connections.find(c => c.platform_type === platformId);
+    const connection = connections.find(c => c.platform === platformId);
     if (!connection) return "disconnected";
-    return connection.sync_status;
+    return "completed"; // For now, treat all connections as completed
   };
 
   const getConnection = (platformId) => {
-    return connections.find(c => c.platform_type === platformId);
+    return connections.find(c => c.platform === platformId);
   };
 
   const handleConnectGitHub = async () => {
@@ -120,7 +143,7 @@ export default function IntegrationsClient({ initialConnections }) {
       toast.success("GitHub connected successfully!");
       
       // Update connections state
-      const existingIndex = connections.findIndex(c => c.platform_type === "github");
+      const existingIndex = connections.findIndex(c => c.platform === "github");
       if (existingIndex >= 0) {
         const newConnections = [...connections];
         newConnections[existingIndex] = response.connection;
@@ -187,30 +210,38 @@ export default function IntegrationsClient({ initialConnections }) {
   };
 
   return (
-    <div className="space-y-6">
-      {PLATFORMS.map((platform) => {
-        const status = getConnectionStatus(platform.id);
-        const connection = getConnection(platform.id);
-        const isConnecting = connectingPlatform === platform.id;
+    <div className="space-y-8">
+      {/* Platform Integrations Section */}
+      <div className="space-y-4">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Platform Integrations</h2>
+          <p className="text-gray-600 mt-1">Connect your social and professional accounts</p>
+        </div>
+        
+        <div className="space-y-6">
+          {PLATFORMS.map((platform) => {
+            const status = getConnectionStatus(platform.id);
+            const connection = getConnection(platform.id);
+            const isConnecting = connectingPlatform === platform.id;
 
-        return (
-          <div key={platform.id} className="card bg-white shadow-lg border border-gray-200">
-            <div className="card-body">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center p-3 shadow-sm">
-                    <div className={`w-full h-full ${platform.iconColor}`}>
-                      {platform.icon}
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold flex items-center gap-2">
-                      {platform.name}
-                      {platform.comingSoon && (
-                        <span className="badge badge-warning badge-sm">Coming Soon</span>
-                      )}
-                    </h3>
-                    <p className="text-base-content/70 mt-1">{platform.description}</p>
+            return (
+              <div key={platform.id} className="card bg-white shadow-lg border border-gray-200">
+                <div className="card-body">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center p-3 shadow-sm">
+                        <div className={`w-full h-full ${platform.iconColor}`}>
+                          {platform.icon}
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold flex items-center gap-2">
+                          {platform.name}
+                          {platform.comingSoon && (
+                            <span className="badge badge-warning badge-sm">Coming Soon</span>
+                          )}
+                        </h3>
+                        <p className="text-base-content/70 mt-1">{platform.description}</p>
                     
                     {connection && (
                       <div className="mt-2 space-y-1">
@@ -230,13 +261,8 @@ export default function IntegrationsClient({ initialConnections }) {
                           </p>
                         )}
                         <p className="text-sm">
-                          <span className="font-medium">Last Sync:</span> {formatLastSync(connection.last_sync)}
+                          <span className="font-medium">Connected:</span> {formatLastSync(connection.verified_at)}
                         </p>
-                        {connection.sync_error && (
-                          <p className="text-sm text-error">
-                            <span className="font-medium">Error:</span> {connection.sync_error}
-                          </p>
-                        )}
                       </div>
                     )}
                   </div>
@@ -295,26 +321,26 @@ export default function IntegrationsClient({ initialConnections }) {
                 </div>
               </div>
 
-              {connection?.platform_data && (
+              {connection?.profile_data && (
                 <div className="mt-4 p-4 bg-base-100 rounded-lg">
                   <h4 className="font-semibold mb-2">Connected Data:</h4>
                   {platform.id === "github" && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
                         <span className="font-medium">Public Repos:</span>
-                        <div>{connection.platform_data.profile?.public_repos || 0}</div>
-                      </div>
-                      <div>
-                        <span className="font-medium">Portfolio Repos:</span>
-                        <div>{connection.platform_data.repositories?.length || 0}</div>
-                      </div>
-                      <div>
-                        <span className="font-medium">Total Stars:</span>
-                        <div>{connection.platform_data.stats?.total_stars || 0}</div>
+                        <div>{connection.profile_data.public_repos || 0}</div>
                       </div>
                       <div>
                         <span className="font-medium">Followers:</span>
-                        <div>{connection.platform_data.profile?.followers || 0}</div>
+                        <div>{connection.profile_data.followers || 0}</div>
+                      </div>
+                      <div>
+                        <span className="font-medium">Following:</span>
+                        <div>{connection.profile_data.following || 0}</div>
+                      </div>
+                      <div>
+                        <span className="font-medium">Name:</span>
+                        <div>{connection.profile_data.name || 'N/A'}</div>
                       </div>
                     </div>
                   )}
@@ -322,8 +348,49 @@ export default function IntegrationsClient({ initialConnections }) {
               )}
             </div>
           </div>
-        );
-      })}
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Content Sources Section */}
+      <div className="space-y-4">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Content Sources</h2>
+          <p className="text-gray-600 mt-1">Upload and manage your professional documents</p>
+        </div>
+        
+        <div className="space-y-6">
+          {CONTENT_SOURCES.map((source) => (
+            <div key={source.id} className="card bg-white shadow-lg border border-gray-200">
+              <div className="card-body">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-white border border-gray-200 rounded-lg flex items-center justify-center p-3 shadow-sm">
+                      <div className={`w-full h-full ${source.iconColor}`}>
+                        {source.icon}
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold">{source.name}</h3>
+                      <p className="text-base-content/70 mt-1">{source.description}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={source.href}
+                      className="btn btn-primary btn-sm"
+                    >
+                      Upload & Extract
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Connected Platforms Summary */}
       {connections.length > 0 && (
