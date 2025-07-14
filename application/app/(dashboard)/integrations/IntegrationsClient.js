@@ -328,7 +328,7 @@ export default function IntegrationsClient({ initialConnections }) {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
                         <span className="font-medium">Public Repos:</span>
-                        <div>{connection.profile_data.public_repos || 0}</div>
+                        <div>{connection.profile_data.public_repos || connection.profile_data.publicRepos || 0}</div>
                       </div>
                       <div>
                         <span className="font-medium">Followers:</span>
