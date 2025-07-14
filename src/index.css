@@ -296,5 +296,28 @@
 
 /* Parallax effect */
 .parallax {
-  transform: translateY(var(--parallax-y, 0px));
+  transform: translateZ(0);
+}
+
+/* Animation styles for the How It Works Demo section */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.animate-fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure video iframe is responsive and accessible */
+iframe[title*="How Folyx Works"] {
+  border-radius: 0.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Enhanced hover effects for feature highlights */
+.group:hover .group-hover\:scale-105 {
+  transform: scale(1.05);
 }

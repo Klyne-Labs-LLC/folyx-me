@@ -156,9 +156,10 @@ const Hero = () => {
             </p>
             
             <div 
-              className="flex flex-col sm:flex-row gap-4 opacity-0 animate-fade-in" 
+              className="flex flex-col sm:flex-row gap-4 items-center sm:items-start opacity-0 animate-fade-in" 
               style={{ animationDelay: "0.7s" }}
             >
+              {/* Get Started Button with People Count */}
               <div className="flex flex-col items-center gap-2">
                 <a 
                   href="https://app.folyx.me" 
@@ -181,13 +182,31 @@ const Hero = () => {
                   <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </a>
                 
-                {/* FOMO messaging */}
+                {/* FOMO messaging - below Get Started button */}
                 {!loading && (
-                  <p className="text-sm text-gray-600 font-medium text-center w-full sm:w-auto">
-                      {(count + 174 + localIncrement).toLocaleString()} professionals already joined
+                  <p className="text-sm text-gray-600 font-medium text-center">
+                    {(count + 174 + localIncrement).toLocaleString()} professionals already joined
                   </p>
                 )}
               </div>
+              
+              {/* Watch Demo Button */}
+              <button 
+                onClick={() => scrollToSection('how-it-works')}
+                className="flex items-center justify-center group w-full sm:w-auto text-center border-2 border-gray-300 hover:border-purple-400 text-gray-700 hover:text-purple-600 transition-all duration-200 bg-white hover:bg-purple-50"
+                style={{
+                  borderRadius: '1440px',
+                  boxSizing: 'border-box',
+                  fontSize: '14px',
+                  lineHeight: '20px',
+                  padding: '14px 22px',
+                }}
+              >
+                <svg className="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                Watch How It Works
+              </button>
             </div>
           </div>
           

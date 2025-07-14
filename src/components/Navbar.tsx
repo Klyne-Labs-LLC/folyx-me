@@ -15,7 +15,7 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 10);
       
       // Track active section for visual feedback using utility function
-      const sections = ['home', 'why-us', 'integrations', 'newsletter'];
+      const sections = ['home', 'how-it-works', 'why-us', 'integrations', 'newsletter'];
       setActiveSection(getActiveSection(sections));
     };
     
@@ -155,6 +155,9 @@ const Navbar = () => {
           <NavLink href="/#home" sectionId="home">
             Home
           </NavLink>
+          <NavLink href="/#how-it-works" sectionId="how-it-works">
+            How It Works
+          </NavLink>
           <NavLink href="/#why-us" sectionId="why-us">
             Why Us
           </NavLink>
@@ -204,6 +207,18 @@ const Navbar = () => {
             onClick={(e) => scrollToSection('home', e)}
           >
             Home
+          </a>
+          <a 
+            href="/#how-it-works" 
+            className={cn(
+              "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
+              activeSection === 'how-it-works' 
+                ? "bg-purple-50 text-purple-600" 
+                : "hover:bg-gray-100"
+            )}
+            onClick={(e) => scrollToSection('how-it-works', e)}
+          >
+            How It Works
           </a>
           <a 
             href="/#why-us" 
