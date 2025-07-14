@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import HowItWorksDemo from "@/components/HowItWorksDemo";
 import HumanoidSection from "@/components/HumanoidSection";
 import SpecsSection from "@/components/SpecsSection";
 import DetailsSection from "@/components/DetailsSection";
@@ -36,6 +37,9 @@ const Index = () => {
       <main className="space-y-2 sm:space-y-4">
         {/* Hero Section - Main landing area */}
         <Hero />
+        
+        {/* How It Works Demo - Video demonstration */}
+        <HowItWorksDemo />
         
         {/* Why AI Section - Benefits and features */}
         <HumanoidSection />
