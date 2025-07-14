@@ -15,7 +15,7 @@ const Navbar = () => {
       setIsScrolled(window.scrollY > 10);
       
       // Track active section for visual feedback using utility function
-      const sections = ['home', 'why-us', 'integrations', 'waitlist-form'];
+      const sections = ['home', 'why-us', 'integrations', 'newsletter'];
       setActiveSection(getActiveSection(sections));
     };
     
@@ -167,9 +167,14 @@ const Navbar = () => {
           <NavLink href="/#integrations" sectionId="integrations">
             Integrations
           </NavLink>
-          <NavLink href="/#waitlist-form" sectionId="waitlist-form">
+          <a
+            href="https://app.folyx.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-700 hover:text-purple-600 transition-colors duration-200"
+          >
             Get Started
-          </NavLink>
+          </a>
         </nav>
 
         {/* Mobile menu button - increased touch target */}
@@ -231,14 +236,10 @@ const Navbar = () => {
             Integrations
           </a>
           <a 
-            href="/#waitlist-form" 
-            className={cn(
-              "text-lg font-medium py-3 px-4 rounded-lg transition-colors",
-              activeSection === 'waitlist-form' 
-                ? "bg-purple-50 text-purple-600" 
-                : "hover:bg-gray-100"
-            )}
-            onClick={(e) => scrollToSection('waitlist-form', e)}
+            href="https://app.folyx.me" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-lg font-medium py-3 px-4 rounded-lg transition-colors hover:bg-gray-100"
           >
             Get Started
           </a>

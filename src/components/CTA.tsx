@@ -40,7 +40,7 @@ const CTA = () => {
           <div className="absolute bottom-0 left-0 w-24 sm:w-32 h-24 sm:h-32 bg-gray-100/50 rounded-full -translate-x-1/2 translate-y-1/2 blur-2xl"></div>
           
           <div className="tech-chip mx-auto mb-4 sm:mb-6">
-            <span>Join Folyx Today</span>
+            <span>Start Building Today</span>
           </div>
           
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4 md:mb-6">
@@ -54,15 +54,12 @@ const CTA = () => {
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <a 
-              href="#waitlist-form" 
+              href="https://app.folyx.me" 
               className="button-primary group flex items-center justify-center w-full sm:w-auto touch-target text-sm sm:text-base"
-              onClick={(e) => {
-                e.preventDefault();
-                // Scroll to waitlist form
-                scrollToSection('waitlist-form');
-              }}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Join Waitlist - Get Free Portfolio
+              Get Started - Create Your Portfolio
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
